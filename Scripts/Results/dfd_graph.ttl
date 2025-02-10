@@ -1,0 +1,99 @@
+@prefix ex: <http://www.example.org#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+
+ex:ProcLog rdfs:label "DoLogin".
+ex:ProcLog a ex:Process.
+ex:ProcLog ex:hasProjectPath "D:\Andrei\ModellingTools\Threat_Modeling_Tool\Processes_to_be_scanned\DoLogin"^^xsd:string.
+ex:ProcLog ex:hasMitigations [ex:representedBy ex:DontStoreSecrets; ex:comment ""; a ex:Mitigation ].
+ex:ProcLog ex:hasMitigations [ex:representedBy ex:AppAuth; ex:comment ""; a ex:Mitigation ].
+ex:ProcLog ex:hasMitigations [ex:representedBy ex:Hashes; ex:comment ""; a ex:Mitigation ].
+ex:ProcLog ex:hasMitigations [ex:representedBy ex:Pep; ex:comment ""; a ex:Mitigation ].
+ex:ProcLog ex:hasMitigations [ex:representedBy ex:Encryption; ex:comment ""; a ex:Mitigation ].
+ex:ProcLog ex:hasMitigations [ex:representedBy ex:SafeLogging; ex:comment ""; a ex:Mitigation ].
+ex:ProcProd rdfs:label "ChooseProducts".
+ex:ProcProd a ex:Process.
+ex:ProcProd ex:hasMitigations [ex:representedBy ex:Macs; ex:comment ""; a ex:Mitigation ].
+ex:ProcAddProd rdfs:label "AddProducts".
+ex:ProcAddProd a ex:Process.
+ex:ProcOrd rdfs:label "PlaceOrder".
+ex:ProcOrd a ex:Process.
+ex:ProcReadOrd rdfs:label "ReadOrders".
+ex:ProcReadOrd a ex:Process.
+ex:Cust1 rdfs:label "Customer".
+ex:Cust1 a ex:ExternalEntity.
+ex:Employee rdfs:label "Employee".
+ex:Employee a ex:ExternalEntity.
+ex:OrderManager rdfs:label "OrderManager".
+ex:OrderManager a ex:ExternalEntity.
+ex:DS1 rdfs:label "ProductDataStore".
+ex:DS1 a ex:DataStore.
+ex:DS1 ex:hasSusceptibleThreats [ex:representedBy ex:InfoDisclosure; ex:comment "some threat"; a ex:Threat ].
+ex:DS2 rdfs:label "OrderDataStore".
+ex:DS2 a ex:DataStore.
+ex:DF1 rdfs:label "#3 Credentials".
+ex:DF1 a ex:DataFlow.
+ex:DF1 ex:protocol "#3 Credentials".
+ex:DF1 ex:boundaryType "#3 Credentials".
+ex:ProcLog ex:hasInputDataFlow ex:DF1.
+ex:DF1 ex:sourceDataFlow ex:Cust1.
+ex:DF1 ex:destinationDataFlow ex:ProcLog.
+ex:DF2 rdfs:label "#4 Credentials".
+ex:DF2 a ex:DataFlow.
+ex:DF2 ex:protocol "#4 Credentials".
+ex:DF2 ex:boundaryType "#4 Credentials".
+ex:ProcLog ex:hasOutputDataFlow ex:DF2.
+ex:ProcProd ex:hasInputDataFlow ex:DF2.
+ex:DF2 ex:sourceDataFlow ex:ProcLog.
+ex:DF2 ex:destinationDataFlow ex:ProcProd.
+ex:DF3 rdfs:label "#5 ProductInfo".
+ex:DF3 a ex:DataFlow.
+ex:DF3 ex:protocol "#5 ProductInfo".
+ex:DF3 ex:boundaryType "#5 ProductInfo".
+ex:ProcProd ex:hasOutputDataFlow ex:DF3.
+ex:DF3 ex:sourceDataFlow ex:ProcProd.
+ex:DS1 ex:storesDataFlow ex:DF3.
+ex:DF9 rdfs:label "#1 EmployeeIdentity".
+ex:DF9 a ex:DataFlow.
+ex:DF9 ex:protocol "#1 EmployeeIdentity".
+ex:DF9 ex:boundaryType "#1 EmployeeIdentity".
+ex:ProcAddProd ex:hasInputDataFlow ex:DF9.
+ex:DF9 ex:sourceDataFlow ex:Employee.
+ex:DF9 ex:destinationDataFlow ex:ProcAddProd.
+ex:DF8 rdfs:label "#2 ProductInfo".
+ex:DF8 a ex:DataFlow.
+ex:DF8 ex:protocol "#2 ProductInfo".
+ex:DF8 ex:boundaryType "#2 ProductInfo".
+ex:ProcAddProd ex:hasOutputDataFlow ex:DF8.
+ex:DF8 ex:sourceDataFlow ex:ProcAddProd.
+ex:DS1 ex:storesDataFlow ex:DF8.
+ex:DF4 rdfs:label "#6 ProductList".
+ex:DF4 a ex:DataFlow.
+ex:DF4 ex:protocol "#6 ProductList".
+ex:DF4 ex:boundaryType "#6 ProductList".
+ex:ProcProd ex:hasOutputDataFlow ex:DF4.
+ex:ProcOrd ex:hasInputDataFlow ex:DF4.
+ex:DF4 ex:sourceDataFlow ex:ProcProd.
+ex:DF4 ex:destinationDataFlow ex:ProcOrd.
+ex:DF5 rdfs:label "#7 Customer & Order Info".
+ex:DF5 a ex:DataFlow.
+ex:DF5 ex:protocol "#7 Customer & Order Info".
+ex:DF5 ex:boundaryType "#7 Customer & Order Info".
+ex:ProcOrd ex:hasOutputDataFlow ex:DF5.
+ex:DF5 ex:sourceDataFlow ex:ProcOrd.
+ex:DS2 ex:storesDataFlow ex:DF5.
+ex:DF6 rdfs:label "#8 Customer & Order Info".
+ex:DF6 a ex:DataFlow.
+ex:DF6 ex:protocol "#8 Customer & Order Info".
+ex:DF6 ex:boundaryType "#8 Customer & Order Info".
+ex:ProcReadOrd ex:hasInputDataFlow ex:DF6.
+ex:DF6 ex:destinationDataFlow ex:ProcReadOrd.
+ex:DS2 ex:providesDataFlow ex:DF6.
+ex:DF7 rdfs:label "#9 Customer & Order Info".
+ex:DF7 a ex:DataFlow.
+ex:DF7 ex:protocol "#9 Customer & Order Info".
+ex:DF7 ex:boundaryType "#9 Customer & Order Info".
+ex:ProcReadOrd ex:hasOutputDataFlow ex:DF7.
+ex:DF7 ex:sourceDataFlow ex:ProcReadOrd.
+ex:DF7 ex:destinationDataFlow ex:OrderManager.

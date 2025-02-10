@@ -1,0 +1,128 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:<http://www.w3.org/2001/XMLSchema#> .
+@prefix ex: <http://example.org#> . 
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:DataFlow rdf:type rdf:Class ;
+            rdfs:label "Data Flow" .
+
+ex:DFDProcess rdf:type rdf:Class ;
+            rdfs:label "Process" .
+
+ex:DFDExternalEntity rdf:type rdf:Class ;
+                  rdfs:label "External Entity" .
+
+ex:DFDDataStore rdf:type rdf:Class ;
+            rdfs:label "Data Store" .
+
+ex:hasInputDataFlow rdf:type rdf:Property ;
+                    rdfs:label "has input data flow" ;
+                    rdfs:domain ex:DFDProcess ;
+                    rdfs:range ex:DataFlow .
+
+ex:hasOutputDataFlow rdf:type rdf:Property ;
+                     rdfs:label "has output data flow" ;
+                     rdfs:domain ex:DFDProcess ;
+                     rdfs:range ex:DataFlow .
+
+ex:sourceDataFlow rdf:type rdf:Property ;
+                  rdfs:label "source data flow" ;
+                  rdfs:domain ex:DataFlow ;
+                  rdfs:range [ rdf:type owl:Class ;
+                               owl:unionOf ( ex:DFDProcess ex:DFDExternalEntity )
+                             ] .
+
+ex:destinationDataFlow rdf:type rdf:Property ;
+                       rdfs:label "destination data flow" ;
+                       rdfs:domain ex:DataFlow ;
+                       rdfs:range [ rdf:type owl:Class ;
+                                    owl:unionOf ( ex:DFDProcess ex:DFDExternalEntity )
+                                  ] .
+
+ex:storesDataFlow rdf:type rdf:Property ;
+                  rdfs:label "stores data flow" ;
+                  rdfs:domain ex:DFDDataStore ;
+                  rdfs:range ex:DataFlow .
+
+ex:providesDataFlow rdf:type rdf:Property ;
+                  rdfs:label "provides data flow" ;
+                  rdfs:domain ex:DFDDataStore ;
+                  rdfs:range ex:DataFlow .
+
+ex:describesProcess rdf:type rdf:Property ;
+                    rdfs:label "describes process" ;
+                    rdfs:domain ex:DFDProcess ;
+                    rdfs:range xsd:string .
+
+ex:hasProjectPath rdf:type rdf:Property ;
+                    rdfs:label "has project path" ;
+                    rdfs:domain ex:DFDProcess ;
+                    rdfs:range xsd:string .
+
+ex:describesExternalEntity rdf:type rdf:Property ;
+                          rdfs:label "describes external entity" ;
+                          rdfs:domain ex:DFDExternalEntity ;
+                          rdfs:range xsd:string .
+
+ex:describesDataStore rdf:type rdf:Property ;
+                     rdfs:label "describes data store" ;
+                     rdfs:domain ex:DFDDataStore ;
+                     rdfs:range xsd:string .
+
+ex:hasSusceptibleThreats rdf:type rdf:Property ;
+                     rdfs:label "has susceptible threats" ;
+                     rdfs:domain [ rdf:type owl:Class ;
+                                    owl:unionOf ( ex:DFDProcess ex:DFDExternalEntity ex:DFDDataStore )
+                                  ] ;
+                     rdfs:range ex:Threat .
+
+ex:hasMitigations rdf:type rdf:Property ;
+                     rdfs:label "has mitigations" ;
+                     rdfs:domain [ rdf:type owl:Class ;
+                                    owl:unionOf ( ex:DFDProcess ex:DFDExternalEntity ex:DFDDataStore )
+                                  ] ;
+                     rdfs:range ex:Mitigation .
+
+ex:representedBy rdf:type rdf:Property ;
+                     rdfs:label "represented by" ;
+                     rdfs:domain [ rdf:type owl:Class ;
+                                    owl:unionOf ( ex:Threat ex:Mitigation )
+                                  ] ;
+                     rdfs:range [ rdf:type owl:Class ;
+                                    owl:unionOf ( ex:Threat ex:Mitigation )
+                                  ] .
+
+ex:comment rdf:type rdf:Property ;
+                     rdfs:label "comment" ;
+                     rdfs:domain [ rdf:type owl:Class ;
+                                    owl:unionOf ( ex:Threat ex:Mitigation )
+                                  ] ;
+                     rdfs:range xsd:string .
+
+ex:protocol rdf:type rdf:Property ;
+                     rdfs:label "protocol" ;
+                     rdfs:domain ex:DataFlow ;
+                     rdfs:range xsd:string .
+
+ex:boundaryType rdf:type rdf:Property ;
+                     rdfs:label "boundary type" ;
+                     rdfs:domain ex:DataFlow ;
+                     rdfs:range xsd:string .
+
+ex:Threat rdf:type rdf:Class ;
+          rdfs:label "Threat" .
+
+ex:Mitigation rdf:type rdf:Class ;
+          rdfs:label "Mitigation" .
+
+
+ex:hasDescription rdf:type rdf:Property ;
+                  rdfs:label "has description" ;
+                  rdfs:domain [ rdf:type owl:Class ;
+                                    owl:unionOf ( ex:Threat ex:Mitigation )
+                                  ] ;
+                  rdfs:range xsd:string .
+
+

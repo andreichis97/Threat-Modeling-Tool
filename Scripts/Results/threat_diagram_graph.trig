@@ -1,0 +1,82 @@
+@prefix ex: <http://www.example.org#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix ex: <http://www.example.org#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+
+ex:ThreatGraph
+{
+ex:Spoofing rdfs:label "Spoofing Identity".
+ex:Spoofing a ex:Threat.
+ex:Tampering rdfs:label "Tampering with Data".
+ex:Tampering a ex:Threat.
+ex:Repudiation rdfs:label "Repudiation".
+ex:Repudiation a ex:Threat.
+ex:InfoDisclosure rdfs:label "Information Disclosure".
+ex:InfoDisclosure a ex:Threat.
+ex:ElevPriv rdfs:label "Elevation of Privilege".
+ex:ElevPriv a ex:Threat.
+ex:DoS rdfs:label "Denial of Service".
+ex:DoS a ex:Threat.
+ex:SData rdfs:label "Protect secret data".
+ex:SData a ex:Mitigation.
+ex:Hashes rdfs:label "Hashes".
+ex:Hashes a ex:Mitigation.
+ex:Macs rdfs:label "MACs".
+ex:Macs a ex:Mitigation.
+ex:AppAuth rdfs:label "Appropriate authentication".
+ex:AppAuth a ex:Mitigation.
+ex:DigitalSig rdfs:label "Digital signatures".
+ex:DigitalSig a ex:Mitigation.
+ex:SafeLogging rdfs:label "Safe logging".
+ex:SafeLogging a ex:Mitigation.
+ex:DontStoreSecrets rdfs:label "Don't store secrets".
+ex:DontStoreSecrets a ex:Mitigation.
+ex:AuditTrails rdfs:label "Audit trails".
+ex:AuditTrails a ex:Mitigation.
+ex:Throttling rdfs:label "Throttling".
+ex:Throttling a ex:Mitigation.
+ex:Filtering rdfs:label "Filtering".
+ex:Filtering a ex:Mitigation.
+ex:QoS rdfs:label "Quality of service".
+ex:QoS a ex:Mitigation.
+ex:Timestamps rdfs:label "Timestamps".
+ex:Timestamps a ex:Mitigation.
+ex:TamperResistant rdfs:label "Tamper resistant protocols".
+ex:TamperResistant a ex:Mitigation.
+ex:Encryption rdfs:label "Encryption".
+ex:Encryption a ex:Mitigation.
+ex:Pep rdfs:label "Privacy-enhanced protocols".
+ex:Pep a ex:Mitigation.
+ex:ProtectSec rdfs:label "Protect secrets".
+ex:ProtectSec a ex:Mitigation.
+ex:AppropAuthor rdfs:label "Appropriate authorisation".
+ex:AppropAuthor a ex:Mitigation.
+ex:RunLeastPriv rdfs:label "Run with least privillege".
+ex:RunLeastPriv a ex:Mitigation.
+ex:Spoofing ex:mitigatedBy ex:SData.
+ex:Tampering ex:mitigatedBy ex:Hashes.
+ex:Tampering ex:mitigatedBy ex:Macs.
+ex:Spoofing ex:mitigatedBy ex:AppAuth.
+ex:Tampering ex:mitigatedBy ex:DigitalSig.
+ex:DoS ex:mitigatedBy ex:Throttling.
+ex:DoS ex:mitigatedBy ex:Filtering.
+ex:DoS ex:mitigatedBy ex:QoS.
+ex:Spoofing ex:mitigatedBy ex:DontStoreSecrets.
+ex:Tampering ex:mitigatedBy ex:TamperResistant.
+ex:Tampering ex:mitigatedBy ex:AppropAuthor.
+ex:Repudiation ex:mitigatedBy ex:SafeLogging.
+ex:Repudiation ex:mitigatedBy ex:AuditTrails.
+ex:Repudiation ex:mitigatedBy ex:Timestamps.
+ex:InfoDisclosure ex:mitigatedBy ex:DontStoreSecrets.
+ex:InfoDisclosure ex:mitigatedBy ex:Encryption.
+ex:InfoDisclosure ex:mitigatedBy ex:AppropAuthor.
+ex:InfoDisclosure ex:mitigatedBy ex:ProtectSec.
+ex:InfoDisclosure ex:mitigatedBy ex:Pep.
+ex:ElevPriv ex:mitigatedBy ex:RunLeastPriv.
+ex:DoS ex:mitigatedBy ex:AppropAuthor.
+ex:DoS ex:mitigatedBy ex:AppAuth.
+}

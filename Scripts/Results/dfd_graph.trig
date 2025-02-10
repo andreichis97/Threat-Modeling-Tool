@@ -1,0 +1,131 @@
+@prefix ex: <http://www.example.org#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+
+ex:DFDGraph
+{
+ex:ProcLog rdfs:label "DoLogin".
+ex:ProcLog a ex:Process.
+ex:ProcLog ex:hasSusceptibleThreats [ex:representedBy ex:Spoofing; ex:comment ""; a ex:Threat ].
+ex:ProcLog ex:hasSusceptibleThreats [ex:representedBy ex:Tampering; ex:comment ""; a ex:Threat ].
+ex:ProcLog ex:hasMitigations [ex:representedBy ex:DontStoreSecrets; ex:comment ""; a ex:Mitigation ].
+ex:ProcLog ex:hasMitigations [ex:representedBy ex:AppAuth; ex:comment ""; a ex:Mitigation ].
+ex:ProcLog ex:hasMitigations [ex:representedBy ex:Hashes; ex:comment ""; a ex:Mitigation ].
+ex:ProcLog ex:hasMitigations [ex:representedBy ex:Pep; ex:comment ""; a ex:Mitigation ].
+ex:ProcLog ex:hasMitigations [ex:representedBy ex:Encryption; ex:comment ""; a ex:Mitigation ].
+ex:ProcLog ex:hasMitigations [ex:representedBy ex:SafeLogging; ex:comment ""; a ex:Mitigation ].
+ex:ProcProd rdfs:label "ChooseProducts".
+ex:ProcProd a ex:Process.
+ex:ProcProd ex:hasSusceptibleThreats [ex:representedBy ex:Repudiation; ex:comment ""; a ex:Threat ].
+ex:ProcProd ex:hasMitigations [ex:representedBy ex:AuditTrails; ex:comment ""; a ex:Mitigation ].
+ex:ProcAddProd rdfs:label "AddProducts".
+ex:ProcAddProd a ex:Process.
+ex:ProcAddProd ex:hasSusceptibleThreats [ex:representedBy ex:InfoDisclosure; ex:comment ""; a ex:Threat ].
+ex:ProcAddProd ex:hasMitigations [ex:representedBy ex:Pep; ex:comment ""; a ex:Mitigation ].
+ex:ProcAddProd ex:hasMitigations [ex:representedBy ex:Encryption; ex:comment ""; a ex:Mitigation ].
+ex:ProcOrd rdfs:label "PlaceOrder".
+ex:ProcOrd a ex:Process.
+ex:ProcOrd ex:hasSusceptibleThreats [ex:representedBy ex:ElevPriv; ex:comment ""; a ex:Threat ].
+ex:ProcOrd ex:hasMitigations [ex:representedBy ex:RunLeastPriv; ex:comment ""; a ex:Mitigation ].
+ex:ProcReadOrd rdfs:label "ReadOrders".
+ex:ProcReadOrd a ex:Process.
+ex:ProcReadOrd ex:hasSusceptibleThreats [ex:representedBy ex:Repudiation; ex:comment ""; a ex:Threat ].
+ex:ProcReadOrd ex:hasMitigations [ex:representedBy ex:AuditTrails; ex:comment ""; a ex:Mitigation ].
+ex:ProcReadOrd ex:hasMitigations [ex:representedBy ex:SafeLogging; ex:comment ""; a ex:Mitigation ].
+ex:Cust1 rdfs:label "Customer".
+ex:Cust1 a ex:ExternalEntity.
+ex:Cust1 ex:hasSusceptibleThreats [ex:representedBy ex:DoS; ex:comment ""; a ex:Threat ].
+ex:Cust1 ex:hasMitigations [ex:representedBy ex:Throttling; ex:comment ""; a ex:Mitigation ].
+ex:Employee rdfs:label "Employee".
+ex:Employee a ex:ExternalEntity.
+ex:Employee ex:hasSusceptibleThreats [ex:representedBy ex:Spoofing; ex:comment ""; a ex:Threat ].
+ex:Employee ex:hasMitigations [ex:representedBy ex:AppAuth; ex:comment ""; a ex:Mitigation ].
+ex:OrderManager rdfs:label "OrderManager".
+ex:OrderManager a ex:ExternalEntity.
+ex:OrderManager ex:hasSusceptibleThreats [ex:representedBy ex:Spoofing; ex:comment ""; a ex:Threat ].
+ex:OrderManager ex:hasMitigations [ex:representedBy ex:Macs; ex:comment ""; a ex:Mitigation ].
+ex:OrderManager ex:hasMitigations [ex:representedBy ex:AppAuth; ex:comment ""; a ex:Mitigation ].
+ex:DS1 rdfs:label "ProductDataStore".
+ex:DS1 a ex:DataStore.
+ex:DS1 ex:hasSusceptibleThreats [ex:representedBy ex:InfoDisclosure; ex:comment ""; a ex:Threat ].
+ex:DS1 ex:hasSusceptibleThreats [ex:representedBy ex:DoS; ex:comment ""; a ex:Threat ].
+ex:DS1 ex:hasMitigations [ex:representedBy ex:Throttling; ex:comment ""; a ex:Mitigation ].
+ex:DS1 ex:hasMitigations [ex:representedBy ex:Filtering; ex:comment ""; a ex:Mitigation ].
+ex:DS1 ex:hasMitigations [ex:representedBy ex:DontStoreSecrets; ex:comment ""; a ex:Mitigation ].
+ex:DS2 rdfs:label "OrderDataStore".
+ex:DS2 a ex:DataStore.
+ex:DS2 ex:hasSusceptibleThreats [ex:representedBy ex:Tampering; ex:comment ""; a ex:Threat ].
+ex:DS2 ex:hasSusceptibleThreats [ex:representedBy ex:Repudiation; ex:comment ""; a ex:Threat ].
+ex:DS2 ex:hasMitigations [ex:representedBy ex:TamperResistant; ex:comment ""; a ex:Mitigation ].
+ex:DS2 ex:hasMitigations [ex:representedBy ex:SafeLogging; ex:comment ""; a ex:Mitigation ].
+ex:DS2 ex:hasMitigations [ex:representedBy ex:AuditTrails; ex:comment ""; a ex:Mitigation ].
+ex: rdfs:label "#3 Credentials".
+ex: a ex:DataFlow.
+ex: ex:protocol "#3 Credentials".
+ex: ex:boundaryType "#3 Credentials".
+ex:ProcLog ex:hasInputDataFlow ex:.
+ex: ex:sourceDataFlow ex:Cust1.
+ex: ex:destinationDataFlow ex:ProcLog.
+ex: rdfs:label "#4 Credentials".
+ex: a ex:DataFlow.
+ex: ex:protocol "#4 Credentials".
+ex: ex:boundaryType "#4 Credentials".
+ex:ProcLog ex:hasOutputDataFlow ex:.
+ex:ProcProd ex:hasInputDataFlow ex:.
+ex: ex:sourceDataFlow ex:ProcLog.
+ex: ex:destinationDataFlow ex:ProcProd.
+ex: rdfs:label "#5 ProductInfo".
+ex: a ex:DataFlow.
+ex: ex:protocol "#5 ProductInfo".
+ex: ex:boundaryType "#5 ProductInfo".
+ex:ProcProd ex:hasOutputDataFlow ex:.
+ex: ex:sourceDataFlow ex:ProcProd.
+ex:DS1 ex:storesDataFlow ex:.
+ex: rdfs:label "#1 EmployeeIdentity".
+ex: a ex:DataFlow.
+ex: ex:protocol "#1 EmployeeIdentity".
+ex: ex:boundaryType "#1 EmployeeIdentity".
+ex:ProcAddProd ex:hasInputDataFlow ex:.
+ex: ex:sourceDataFlow ex:Employee.
+ex: ex:destinationDataFlow ex:ProcAddProd.
+ex: rdfs:label "#2 ProductInfo".
+ex: a ex:DataFlow.
+ex: ex:protocol "#2 ProductInfo".
+ex: ex:boundaryType "#2 ProductInfo".
+ex:ProcAddProd ex:hasOutputDataFlow ex:.
+ex: ex:sourceDataFlow ex:ProcAddProd.
+ex:DS1 ex:storesDataFlow ex:.
+ex: rdfs:label "#6 ProductList".
+ex: a ex:DataFlow.
+ex: ex:protocol "#6 ProductList".
+ex: ex:boundaryType "#6 ProductList".
+ex:ProcProd ex:hasOutputDataFlow ex:.
+ex:ProcOrd ex:hasInputDataFlow ex:.
+ex: ex:sourceDataFlow ex:ProcProd.
+ex: ex:destinationDataFlow ex:ProcOrd.
+ex: rdfs:label "#7 Customer & Order Info".
+ex: a ex:DataFlow.
+ex: ex:protocol "#7 Customer & Order Info".
+ex: ex:boundaryType "#7 Customer & Order Info".
+ex:ProcOrd ex:hasOutputDataFlow ex:.
+ex: ex:sourceDataFlow ex:ProcOrd.
+ex:DS2 ex:storesDataFlow ex:.
+ex: rdfs:label "#8 Customer & Order Info".
+ex: a ex:DataFlow.
+ex: ex:protocol "#8 Customer & Order Info".
+ex: ex:boundaryType "#8 Customer & Order Info".
+ex:ProcReadOrd ex:hasInputDataFlow ex:.
+ex: ex:destinationDataFlow ex:ProcReadOrd.
+ex:DS2 ex:providesDataFlow ex:.
+ex: rdfs:label "#9 Customer & Order Info".
+ex: a ex:DataFlow.
+ex: ex:protocol "#9 Customer & Order Info".
+ex: ex:boundaryType "#9 Customer & Order Info".
+ex:ProcReadOrd ex:hasOutputDataFlow ex:.
+ex: ex:sourceDataFlow ex:ProcReadOrd.
+ex: ex:destinationDataFlow ex:OrderManager.
+}
+ex:OrderManager a ex:BPMNSubProcess.
+ex:OrderManager rdfs:label "ex:OrderManager".
+ex:OrderManager :detailedIn ex:DFDGraph.
