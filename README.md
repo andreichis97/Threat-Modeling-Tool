@@ -2,7 +2,11 @@
 
 This repository contains the scripts and the ABL file for the Threat Modeling Tool
 
-In order to use the tool you will firstly need to download ADOxx https://www.adoxx.org/live/download-guided ADOxx comes with 2 parts: ADOxx Development Toolkit and ADOxx Modeling Toolkit. The ThreatModeling_v2.abl file needs to be imported in the ADOxx Development Toolkit as a new library and then a user must be created and assigned to it. The Scripts folder contains all the files that implement the functionalities of the modeling tool such as generating Turtle code from diagrams. After the folder is downloaded, in the ADOxx Development Toolkit the following actions need to be done:
+In order to use the tool you will firstly need to download ADOxx https://adoxx.org/ 
+
+ADOxx comes with 2 parts: ADOxx Development Toolkit and ADOxx Modeling Toolkit. 
+
+The ThreatModeling_v2.abl file needs to be imported in the ADOxx Development Toolkit as a new library and then a user must be created and assigned to it. The Scripts folder contains all the files that implement the functionalities of the modeling tool such as generating Turtle code from diagrams. After the folder is downloaded, in the ADOxx Development Toolkit the following actions need to be done:
 
 1) Select the "Library Management" tab
 2) Click on "Settings"
