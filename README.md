@@ -20,7 +20,9 @@ All the Python scrips where developed using Python 3.10.4.
 
 # Results
 The folder Scripts contains all the AdoScript and Python scripts developed so far for this project.
+
 The folder Ragas_analysis contains the python script for the RAGAS evaluation flow.
 
 The folder Results/Experiment1_aggregated contains the RAGAS, answer correctness and times/costs results for all the runs in experiment 1.
+
 The folder Results/Experiment2_aggregated contains the RAGAS, answer correctness and times/costs results for all the runs in experiment 2.
