@@ -1,0 +1,56 @@
+ID,user_input,faithfulness,answer_relevancy,context_recall,context_precision,F1 retrieval,F1 generation,,,,ID,Category,faithfulness,answer_relevancy,context_recall,context_precision,F1 retrieval,F1 generation
+1,"What is the risk level of ""Carrier Identity Spoofing""?",1,1,1,1,1,1,,,,1,Direct relation queries,1.00,0.80,1.00,1.00,1.00,0.80
+2,"What is the protocol used by ""Receipt Delivery""?",1,0.992464181,1,1,1,0.99621784,,,,2,1 hop relationship traversal queries,0.93,0.96,1.00,1.00,1.00,0.94
+3,"What is the protocol used by ""Customer Profile Lookup""?",1,0.993859377,1,1,1,0.996920233,,,,3,2 hop relationship traversal queries,0.60,0.35,0.70,0.80,0.73,0.37
+4,"What is the cost of ""Immutable Append-Only Log Storage""?",1,1,1,1,1,1,,,,4,3 hop relationship traversal queries,0.60,0.20,0.00,0.20,0.00,0.00
+5,"What is the implementation status of ""Return Eligibility Verification Engine""?",1,0,1,1,1,0,,,,5,4 hop relationship traversal queries,0.00,0.00,0.20,0.40,0.20,0.00
+6,"Which data flows are inputs to ""Screen for Fraud""?",1,0.977439111,1,1,1,0.988590855,,,,6,BPMN to DFD decomposition traceability queries,0.40,0.49,0.40,0.60,0.40,0.00
+7,"Which data store receives ""Refund Execution Audit Entry""?",1,0.868424679,1,1,1,0.929579543,,,,7,Threat-to-Element Mapping,1.00,1.00,1.00,1.00,1.00,1.00
+8,"Which is the following task after ""Ship Order""?",1,0.981698669,1,1,1,0.990764827,,,,8,Mitigation-to-Threat Mapping,1.00,0.99,1.00,1.00,1.00,0.99
+9,"Which is the following task after ""Display Return Policy""?",1,0.977991163,1,1,1,0.988873137,,,,9,Cross-case reuse and same-entity traceability queries,0.50,0.58,0.43,0.40,0.20,0.39
+10,"Which are the possible mitigations for threat ""Payment Data Tampering in Transit""?",0.666666667,0.995671408,1,1,1,0.798611244,,,,10,Multi-hop end-to-end path queries,1.00,0.00,0.20,1.00,0.20,0.00
+11,"What threats are linked to ""Generate Delivery Milestone""?",1,0.992957173,1,1,1,0.996466142,,,,11,Multiple intent questions,1.00,0.99,1.00,1.00,1.00,0.99
+12,"What categories are the mitigations which can counter threat named ""Sensitive Data Leakage in Receipts""?",0,0,0.5,1,0.666666667,0,,,,,,,,,,,
+13,"Which trust boundaries are crossed by the data flows that are input to ""Execute Refund""?",1,0,0,0,0,0,,,,,,,,,,,
+14,"What trust zone does the data store that stores ""Payment Record Storage"" reside in?",0,0,1,1,1,0,,,,,Overall,0.73,0.58,0.63,0.76,0.61,0.50
+15,"What mitigations are implemented to data store ""Fraud Rules Repository""?",1,0.735056627,1,1,1,0.84729987,,,,,,,,,,,
+16,"What threats impact the data flows which are outputted by the process ""Execute Payment Transaction""?",0,0,0,0,0,0,,,,,,,,,,,
+17,"What threats impact the data flows which cross the trust boundary named ""Internal Order Management Zone (1)""?",1,0,0,0,0,0,,,,,,,,,,,
+18,"What mitigations are implemented for the processes residing in trust zone named ""Internal Network Boundary (2)""?",1,0,0,0,0,0,,,,,,,,,,,
+19,"What mitigations secure the data flows stored by the data store ""Customer Database""?",0,0.99200238,0,1,0,0,,,,,,,,,,,
+20,"What threats impact the external entity which sends the data flow named ""Carrier Tracking Update""?",1,0,0,0,0,0,,,,,,,,,,,
+21,"What categories are the threats impacting the data flows which are outputs of the process ""Publish Approved Review""?",0,0,1,1,1,0,,,,,,,,,,,
+22,"What categories are the mitigations which can counter the threats affecting data store ""Audit Log""?",0,0,0,0,0,0,,,,,,,,,,,
+23,"What categories are the mitigations which can counter the threats affecting data store ""Order and Shipment Database""?",0,0,0,1,0,0,,,,,,,,,,,
+24,"What threats impact the process which outputs the data flow which is stored by data store ""Inventory Database""?",0,0,0,0,0,0,,,,,,,,,,,
+25,"What mitigations are used for the process which outputs the data flow that is taken as input by process ""Assess Return Eligibility""?",0,0,0,0,0,0,,,,,,,,,,,
+26,"What are the external entities from the ""Process Payment"" BPMN Sub-Process?",0,0.882356647,1,1,1,0,,,,,,,,,,,
+27,"What are the data stores from the ""Manage Customer Profile"" BPMN Sub-Process?",0,0.75504701,0,1,0,0,,,,,,,,,,,
+28,"What threats affect the processes from the DFD decomposition of ""Process Tracking Update & Notify Customer"" BPMN Sub-Process?",1,0,0,0,0,0,,,,,,,,,,,
+29,"What are the threats and risk levels of threats affecting processes from the DFD decomposition of ""Submit and Moderate Review"" BPMN Sub-Process?",1,0,0,0,0,0,,,,,,,,,,,
+30,"What are the trust zones from the DFD Decomposition of ""Process Return & Issue Refund"" BPMN Sub-Process?",0,0.816140044,1,1,1,0,,,,,,,,,,,
+31,"What threats affect the ""Screen for Fraud"" process?",1,0.991769112,1,1,1,0.995867549,,,,,,,,,,,
+32,"What are the threats affecting the ""Execute Payment Transaction"" process?",1,0.99895809,1,1,1,0.999478773,,,,,,,,,,,
+33,"What are the threats affecting the ""Session Store"" data store?",1,0.998895176,1,1,1,0.999447283,,,,,,,,,,,
+34,"What are the threats affecting the ""Content Moderation Service (ModerateAI)"" external entity?",1,0.993905319,1,1,1,0.996943345,,,,,,,,,,,
+35,"What are the threats affecting the ""Order and Shipment Database"" data store?",1,0.998892474,1,1,1,0.99944593,,,,,,,,,,,
+36,"Which threats can ""Immutable Append-Only Log Storage"" mitigate?",1,0.990894434,1,1,1,0.995426394,,,,,,,,,,,
+37,"Which mitigations are defined for ""Transaction Repudiation""?",1,0.98499004,1,1,1,0.99243827,,,,,,,,,,,
+38,"Which mitigations are defined for ""Refund Amount Escalation""?",1,0.985445283,1,1,1,0.992669294,,,,,,,,,,,
+39,"Which threats does ""Carrier API Key Authentication and IP Allowlisting"" mitigate?",1,0.984678649,1,1,1,0.992280186,,,,,,,,,,,
+40,"Which mitigations are defined for ""Refund Repudiation""?",1,0.983055148,1,1,1,0.991455179,,,,,,,,,,,
+41,"To what processes is the external entity ""Customer"" sending data flows across all cases?",0.5,0,0,1,0,0,,,,,,,,,,,
+42,"What data flows are being sent by external entity ""Payment Gateway Provider (StripeConnect)"" across all cases?",0,0,0,0,0,0,,,,,,,,,,,
+43,"To what threats is the data store ""Customer Database"" exposed across all cases?",1,0.974519126,0.666666667,0,0,0.98709515,,,,,,,,,,,
+44,"What mitigations are defined for the data flows stored by data store ""Audit Log"" across all cases?",0,0.969567338,0.5,0,0,0,,,,,,,,,,,
+45,"What threats are being mitigated by mitigation ""Comprehensive Transaction Logging"" across all cases?",1,0.970437319,1,1,1,0.984996894,,,,,,,,,,,
+46,"Trace the path from process ""Screen for Fraud"" to data store ""Payment Records"".",1,0,0,1,0,0,,,,,,,,,,,
+47,"Trace the path from external entity ""Payment Gateway Provider (StripeConnect)"" to external entity ""Customer"".",1,0,0,1,0,0,,,,,,,,,,,
+48,"Trace the path from external entity ""Customer"" to external entity ""Email Delivery Service (SendGrid)"".",1,0,1,1,1,0,,,,,,,,,,,
+49,"Trace the path from process ""Receive and Validate Review"" to data store ""Product Reviews Database"".",1,0,0,1,0,0,,,,,,,,,,,
+50,"Trace the path from process ""Validate Return Request"" to external entity ""Payment Gateway Provider (StripeConnect)"".",1,0,0,1,0,0,,,,,,,,,,,
+51,"What is the risk level of ""Carrier Identity Spoofing"", and what trust boundary does ""Ingest & Validate Carrier Update"" reside in?",1,0.97030429,1,1,1,0.984928363,,,,,,,,,,,
+52,"Which mitigations are linked to ""Refund Repudiation"", and what protocol is used by ""Refund Authorization Request""?",1,0.992041206,1,1,1,0.996004704,,,,,,,,,,,
+53,"What threats affect ""Screen for Fraud"" and what mitigations are applied to ""Fraud Rules Repository""?",1,0.991061674,1,1,1,0.995510774,,,,,,,,,,,
+54,"What trust boundaries are crossed by ""Approved Payment Request"" and what threats affect ""Generate Payment Receipt""?",1,0.995126478,1,1,1,0.997557287,,,,,,,,,,,
+55,"What is the implementation status of ""Return Eligibility Verification Engine"", and what data store receives ""Return Processing Audit Entry""?",1,0.994610282,1,1,1,0.997297859,,,,,,,,,,,
