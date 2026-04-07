@@ -1,0 +1,167 @@
+graph_query_1hop = """
+PREFIX :     <http://www.example.org#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+CONSTRUCT 
+{
+    ?lookingFor ?relation1 ?ob1 .
+    ?ob2 ?relation2 ?lookingFor .
+}
+WHERE 
+{
+    ?lookingFor rdfs:label """ + "'" + i + "'" + """.
+
+    OPTIONAL 
+    {
+        ?lookingFor ?relation1 ?ob1 .
+    }
+
+    OPTIONAL 
+    {
+        ?ob2 ?relation2 ?lookingFor .
+    }
+}"""
+
+graph_query_2hops = """
+PREFIX :     <http://www.example.org#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+CONSTRUCT 
+{
+    ?lookingFor ?relation1 ?ob1 .
+    ?ob2 ?relation2 ?lookingFor .
+    ?ob1 ?relation3 ?ob3 .
+    ?ob4 ?relation4 ?ob1 .
+    ?ob5 ?relation5 ?ob2 .
+    ?ob2 ?relation6 ?ob6 .
+}
+WHERE 
+{
+    ?lookingFor rdfs:label """ + "'" + i + "'" + """.
+
+    OPTIONAL 
+    {
+        ?lookingFor ?relation1 ?ob1 .
+        OPTIONAL { ?ob1 ?relation3 ?ob3 . }
+        OPTIONAL { ?ob4 ?relation4 ?ob1 . }
+    }
+
+    OPTIONAL 
+    {
+        ?ob2 ?relation2 ?lookingFor .
+        OPTIONAL { ?ob5 ?relation5 ?ob2 . }
+        OPTIONAL { ?ob2 ?relation6 ?ob6 . }
+    }
+}"""
+
+graph_query_3hops = """
+PREFIX :     <http://www.example.org#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+CONSTRUCT 
+{
+    ?lookingFor ?relation1 ?ob1 .
+    ?ob2 ?relation2 ?lookingFor .
+    ?ob1 ?relation3 ?ob3 .
+    ?ob4 ?relation4 ?ob1 .
+    ?ob5 ?relation5 ?ob2 .
+    ?ob2 ?relation6 ?ob6 .
+    ?ob3 ?relation7 ?ob7 . 
+    ?ob8 ?relation8 ?ob3 . 
+    ?ob4 ?relation9 ?ob9 . 
+    ?ob10 ?relation10 ?ob4 . 
+    ?ob5 ?relation11 ?ob11 . 
+    ?ob12 ?relation12 ?ob5 . 
+    ?ob6 ?relation13 ?ob13 . 
+    ?ob14 ?relation14 ?ob6 . 
+}
+WHERE 
+{
+    ?lookingFor rdfs:label """ + "'" + i + "'" + """.
+
+    OPTIONAL 
+    {
+        ?lookingFor ?relation1 ?ob1 .
+        OPTIONAL { ?ob1 ?relation3 ?ob3 . }
+        OPTIONAL { ?ob4 ?relation4 ?ob1 . }
+        OPTIONAL { ?ob3 ?relation7 ?ob7 . }
+        OPTIONAL { ?ob8 ?relation8 ?ob3 . }
+        OPTIONAL { ?ob4 ?relation9 ?ob9 . }
+        OPTIONAL { ?ob10 ?relation10 ?ob4 . }
+    }
+
+    OPTIONAL 
+    {
+        ?ob2 ?relation2 ?lookingFor .
+        OPTIONAL { ?ob5 ?relation5 ?ob2 . }
+        OPTIONAL { ?ob2 ?relation6 ?ob6 . }
+        OPTIONAL { ?ob5 ?relation11 ?ob11 . }
+        OPTIONAL { ?ob12 ?relation12 ?ob5 . }
+        OPTIONAL { ?ob6 ?relation13 ?ob13 . }
+        OPTIONAL { ?ob14 ?relation14 ?ob6 . }
+    }
+}"""
+
+graph_query_4hops = """
+PREFIX :     <http://www.example.org#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+CONSTRUCT 
+{
+    ?lookingFor ?relation1 ?ob1 .
+    ?ob2 ?relation2 ?lookingFor .
+    ?ob1 ?relation3 ?ob3 .
+    ?ob4 ?relation4 ?ob1 .
+    ?ob5 ?relation5 ?ob2 .
+    ?ob2 ?relation6 ?ob6 .
+    ?ob3 ?relation7 ?ob7 . 
+    ?ob8 ?relation8 ?ob3 . 
+    ?ob4 ?relation9 ?ob9 . 
+    ?ob10 ?relation10 ?ob4 . 
+    ?ob5 ?relation11 ?ob11 . 
+    ?ob12 ?relation12 ?ob5 . 
+    ?ob6 ?relation13 ?ob13 . 
+    ?ob14 ?relation14 ?ob6 . 
+}
+WHERE 
+{
+    ?lookingFor rdfs:label """ + "'" + i + "'" + """.
+
+    OPTIONAL 
+    {
+        ?lookingFor ?relation1 ?ob1 .
+        OPTIONAL { ?ob1 ?relation3 ?ob3 . }
+        OPTIONAL { ?ob4 ?relation4 ?ob1 . }
+        OPTIONAL { ?ob3 ?relation7 ?ob7 . }
+        OPTIONAL { ?ob8 ?relation8 ?ob3 . }
+        OPTIONAL { ?ob4 ?relation9 ?ob9 . }
+        OPTIONAL { ?ob10 ?relation10 ?ob4 . }
+    }
+
+    OPTIONAL 
+    {
+        ?ob2 ?relation2 ?lookingFor .
+        OPTIONAL { ?ob5 ?relation5 ?ob2 . }
+        OPTIONAL { ?ob2 ?relation6 ?ob6 . }
+        OPTIONAL { ?ob5 ?relation11 ?ob11 . }
+        OPTIONAL { ?ob12 ?relation12 ?ob5 . }
+        OPTIONAL { ?ob6 ?relation13 ?ob13 . }
+        OPTIONAL { ?ob14 ?relation14 ?ob6 . }
+    }
+}"""
+
+
+
+
+
+graph_query_khops = """
+PREFIX :     <http://www.example.org#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+CONSTRUCT { ?s ?p ?o }
+WHERE {
+    ?lookingFor rdfs:label """ + "'" + i + "'" + """.
+    ?lookingFor ((<>|!<>)|^(<>|!<>)){0,""" + str(k) + """} ?s .
+    ?lookingFor ((<>|!<>)|^(<>|!<>)){0,""" + str(k) + """} ?o .
+    ?s ?p ?o .
+}"""

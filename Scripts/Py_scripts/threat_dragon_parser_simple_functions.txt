@@ -1,0 +1,30 @@
+parse_threat_dragon_file(filepath) — standalone function. Takes a single Threat Dragon JSON file and returns a normalized dict with meta, entities (keyed by normalized name), id_to_name (cell UUID → name mapping), and flows (with source/target resolved to entity names). This is the low-level parser — you'd typically use ThreatDragonIndex instead.
+ThreatDragonIndex — the main class. Holds 1..N parsed files and does all lookup/extraction.
+
+Loading:
+load(filepath) — parse and add a Threat Dragon JSON file to the index. Call multiple times for multi-file support; lookup order follows load order.
+
+Entity lookup:
+get_entity_info(entity_name) — primary lookup. Finds an entity by exact normalized name across all loaded files (first file wins), then enriches it with connected flows and trust boundary info. Returns the full record or None.
+get_threats_for(entity_name) — returns just the list of threat dicts (title, type, severity, score, status, description, mitigation) for a named entity.
+get_mitigations_for(entity_name) — returns a flattened list of {threat_title, severity, mitigation} pairs for a named entity. Skips threats with no mitigation text.
+
+Relationship queries:
+get_connected_flows(entity_name) — returns all flow records where the entity is either source or target. Each flow includes its name, description, source/target entity names, and flow-specific attributes (encrypted, bidirectional, protocol, etc.).
+get_trust_boundary_for(entity_name) — heuristic lookup: scans trust boundary descriptions for mentions of the entity name. Returns the boundary record or None.
+
+Search:
+search(entity_name) — finds the entity by exact name, then also returns any other entities whose threat titles contain the given name as a substring. Returns a list of matching entity records.
+
+Context extraction:
+extract_context(entity_name) — the main method for RAGAS. Takes an entity name, does a direct lookup via get_entity_info, falls back to search (which also catches threat-title matches). Returns a formatted text block with the entity's full details (description, properties, threats, mitigations, connected flows, trust boundary). Returns empty string if nothing found.
+
+RAGAS integration:
+build_ragas_row(entity_name, question, ground_truth) — produces a single dict {question, contexts: [str], ground_truth} using extract_context on the entity name internally.
+build_ragas_dataset(qa_entries) — takes a list of {entity_name, question, ground_truth} dicts, returns a list of RAGAS-compatible rows with contexts filled.
+
+Introspection:
+list_all_entities() — returns a summary list of all entities across loaded files: name, category, threat count, has_open_threats, source file. Useful for debugging or generating an overview.
+
+Internal:
+_find_entity(entity_name) — exact normalized name lookup across all loaded files. First file that contains the name wins. Used by all the public methods above.

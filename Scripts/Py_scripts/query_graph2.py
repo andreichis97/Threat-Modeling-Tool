@@ -157,6 +157,7 @@ def query_GraphDB(repository, subject):
     #return results["results"]["bindings"][0]["rdfSer"]["value"]
 
 def query_gpt_assistant(query, context):
+    print(context)
     stream = client.beta.threads.create_and_run(
     assistant_id="asst_BDUsPghZi3KbdfRDOGrvgTD4",
     thread={

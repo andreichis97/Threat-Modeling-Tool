@@ -5,30 +5,18 @@ lines = read_file.readlines()
 repository_id = lines[0].strip()
 read_file.close()
 
-read_file = open("D:\\Andrei\\ModellingTools\\Threat_Modeling_Tool\\Scripts\\Results\\serialization_type.txt", "r")
-lines = read_file.readlines()
-serialization_type = lines[0].strip()
-read_file.close()
-
-
 url = f"http://localhost:7200/repositories/{repository_id}/statements"
 
-if (serialization_type == "turtle"):
-    file_path = "D:\\Andrei\\ModellingTools\\Threat_Modeling_Tool\\Scripts\\Results\\diagram_graph.ttl"
-    defined_headers = {
-    'Content-Type': 'application/x-turtle'
-    }
-else:
-    file_path = "D:\\Andrei\\ModellingTools\\Threat_Modeling_Tool\\Scripts\\Results\\diagram_graph.trig"
-    defined_headers = {
+ontology_file_path = "D:\\Andrei\\ModellingTools\\Threat_Modeling_Tool\\Scripts\\Docs\\ontology.trig"
+ontology_headers = {
     'Content-Type': 'application/x-trig'
-    }
+}
 
-with open(file_path, 'r') as file:
+with open(ontology_file_path, 'r') as file:
     content = file.read()
 
 # Set the headers for the request
-headers = defined_headers
+headers = ontology_headers
 
 # Make the POST request to load the Turtle file
 response = requests.post(
@@ -43,5 +31,3 @@ if response.status_code == 200 or response.status_code == 204:
     print('File loaded successfully.')
 else:
     print('Error loading file:', response.text)
-
-
