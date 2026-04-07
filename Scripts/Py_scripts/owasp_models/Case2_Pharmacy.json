@@ -1,0 +1,1702 @@
+{
+  "version": "2.5.0",
+  "summary": {
+    "title": "Case2_Pharmacy",
+    "owner": "",
+    "description": "",
+    "id": 0
+  },
+  "detail": {
+    "contributors": [],
+    "diagrams": [
+      {
+        "id": 0,
+        "title": "Pharmacy",
+        "diagramType": "STRIDE",
+        "placeholder": "New STRIDE diagram description",
+        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
+        "version": "2.5.0",
+        "cells": [
+          {
+            "position": {
+              "x": 179.99999999999972,
+              "y": 50.000000000000114
+            },
+            "size": {
+              "width": 490,
+              "height": 430
+            },
+            "attrs": {
+              "label": {
+                "text": "Pharmacy Application Zone"
+              }
+            },
+            "visible": true,
+            "shape": "trust-boundary-box",
+            "id": "f37d491a-68e7-4c13-b7f9-fd28099d604c",
+            "zIndex": -1,
+            "data": {
+              "type": "tm.BoundaryBox",
+              "name": "Pharmacy Application Zone",
+              "description": "The secured zone enclosing the pharmacy's prescription processing services, drug interaction checker, dispensing management system, and the local pharmacy inventory database. Protected by application-level authentication, role-based access enforcement, and dedicated firewall rules isolating pharmacy systems from the broader hospital network.",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": 836.9999999999994,
+              "y": 50
+            },
+            "size": {
+              "width": 290,
+              "height": 430
+            },
+            "attrs": {
+              "label": {
+                "text": "Hospital Clinical Data Zone"
+              }
+            },
+            "visible": true,
+            "shape": "trust-boundary-box",
+            "id": "c568f641-c424-4868-afd1-1a4c1ee9e67a",
+            "zIndex": -1,
+            "data": {
+              "type": "tm.BoundaryBox",
+              "name": "Hospital Clinical Data Zone",
+              "description": "The zone enclosing the hospital's shared clinical data assets — specifically the Electronic Health Records (EHR) Database and the Clinical Audit Trail — that are accessed by the pharmacy system for patient allergy and medication history lookups. This is the same internal clinical infrastructure referenced in Case 1, now accessed cross-zone by pharmacy services.",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": 20,
+              "y": 80
+            },
+            "size": {
+              "width": 112.5,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Prescribing Physician"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "5cd6380c-58bf-4799-a473-f29dfe2ebab4"
+                },
+                {
+                  "group": "right",
+                  "id": "11f19001-0a1e-40df-91e9-3e759c2fc47e"
+                },
+                {
+                  "group": "bottom",
+                  "id": "25ef8faa-b211-4909-947f-d65d38097899"
+                },
+                {
+                  "group": "left",
+                  "id": "f56c609d-a567-4e5f-8877-87e7e73b4e49"
+                }
+              ]
+            },
+            "id": "d8158e58-2de6-4ddf-aff4-8ebf1fd7a9b3",
+            "zIndex": 0,
+            "data": {
+              "type": "tm.Actor",
+              "name": "Prescribing Physician",
+              "description": "An attending physician within MedTrack General Hospital who creates and submits electronic prescriptions (e-prescriptions) through the hospital's clinical workstation. Each prescription includes patient identifier, medication name, dosage, route, frequency, quantity, and the physician's digital signature.",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "providesAuthentication": false,
+              "threats": [
+                {
+                  "id": "460a8fbd-9a56-428b-905d-bc81ef11ed85",
+                  "title": "Prescriber Identity Spoofing",
+                  "status": "Mitigated",
+                  "severity": "Critical",
+                  "type": "Spoofing",
+                  "description": "An attacker impersonates a licensed physician by using stolen credentials, a compromised workstation, or a forged digital signature to submit fraudulent prescriptions — particularly for controlled substances — enabling drug diversion, patient harm, or regulatory violations.",
+                  "mitigation": "Prescriber Digital Signature Verification: Every e-prescription must carry a valid digital signature from the prescribing physician's hospital-issued PKI certificate. The pharmacy system verifies the signature against the hospital's certificate authority and confirms the physician's active medical license status before accepting any prescription.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 1,
+                  "score": "8.9"
+                },
+                {
+                  "id": "3156f759-481f-4203-aa33-cb79f2844040",
+                  "title": "Prescription Submission Repudiation",
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "type": "Repudiation",
+                  "description": "A physician denies having prescribed a specific medication or dosage, and the system lacks sufficient non-repudiable evidence linking the prescription to the physician's authenticated session, workstation, and digital signature at the time of submission.",
+                  "mitigation": "Prescription Submission Immutable Logging: Every prescription submission is logged with the physician's authenticated identity, digital signature hash, workstation ID, timestamp, and the complete prescription content, stored on an append-only ledger that cannot be modified or deleted after creation.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 2,
+                  "score": "5.4"
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 1,
+                "repudiation": 1
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 20,
+              "y": 391
+            },
+            "size": {
+              "width": 112.5,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "National Drug Registry"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "5cd6380c-58bf-4799-a473-f29dfe2ebab4"
+                },
+                {
+                  "group": "right",
+                  "id": "11f19001-0a1e-40df-91e9-3e759c2fc47e"
+                },
+                {
+                  "group": "bottom",
+                  "id": "25ef8faa-b211-4909-947f-d65d38097899"
+                },
+                {
+                  "group": "left",
+                  "id": "f56c609d-a567-4e5f-8877-87e7e73b4e49"
+                }
+              ]
+            },
+            "id": "d2b22f36-d835-42da-8de6-2fc295ce7938",
+            "zIndex": 1,
+            "data": {
+              "type": "tm.Actor",
+              "name": "National Drug Registry",
+              "description": "A government-operated controlled substance monitoring database that tracks the prescribing and dispensing of scheduled medications (opioids, benzodiazepines, stimulants) across all pharmacies and hospitals in the country. MedTrack is legally required to report every controlled substance dispensing event to the NDR within 24 hours.",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "providesAuthentication": false,
+              "threats": [
+                {
+                  "id": "95c66b88-899e-4d3b-8467-21d8223c86fe",
+                  "title": "Drug Registry Endpoint Spoofing",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "type": "Spoofing",
+                  "description": "An attacker impersonates the National Drug Registry's API endpoint through DNS poisoning or certificate forgery, intercepting controlled substance reports to suppress reporting of suspicious prescriptions or to harvest controlled substance dispensing data across the hospital.",
+                  "mitigation": "NDR API Mutual TLS with Certificate Pinning: All communication with the National Drug Registry uses mutual TLS authentication with the NDR's certificate fingerprint pinned in the pharmacy system's configuration. Both sides verify each other's identity before any data exchange, and certificate changes require manual administrative approval.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 3,
+                  "score": "6.6"
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 1,
+                "repudiation": 0
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 260,
+              "y": 100
+            },
+            "size": {
+              "width": 60,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Receive & Validate Prescription"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "a7f8609f-28e2-404f-9296-dffa84990ad0"
+                },
+                {
+                  "group": "right",
+                  "id": "630c99fc-f9be-475b-9cad-e62e1815ca6c"
+                },
+                {
+                  "group": "bottom",
+                  "id": "5f3a2567-702d-404b-80fd-10bc4fe0e579"
+                },
+                {
+                  "group": "left",
+                  "id": "7ca49ade-0bca-4613-9403-f9282d71b90c"
+                }
+              ]
+            },
+            "id": "62d4f692-3e97-45c9-9de2-37e6d205bc0e",
+            "zIndex": 2,
+            "data": {
+              "type": "tm.Process",
+              "name": "Receive & Validate Prescription",
+              "description": "Receives incoming e-prescriptions from prescribing physicians, validates the prescription format (medication code, dosage range, quantity limits), verifies the prescriber's digital signature, and checks the prescription against formulary rules. Valid prescriptions are queued for drug interaction checking.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "",
+              "threats": [
+                {
+                  "id": "a7cf2021-c8d7-4848-92dc-db741910d8fe",
+                  "title": "Prescription Data Tampering",
+                  "status": "Mitigated",
+                  "severity": "Critical",
+                  "type": "Tampering",
+                  "description": "An attacker intercepts and modifies an e-prescription in transit between the physician's workstation and the pharmacy system, altering the medication, dosage, or quantity — potentially substituting a controlled substance or increasing a dosage to dangerous levels, directly endangering patient safety.",
+                  "mitigation": "Prescription Payload Integrity Verification: Each e-prescription payload includes a HMAC-SHA256 integrity hash computed over the full prescription content using a shared secret between the prescribing workstation and the pharmacy system. The receiving process recomputes and compares the hash before accepting the prescription.\n\nPrescriber Digital Signature Verification: Authentication & Identity Description: Every e-prescription must carry a valid digital signature from the prescribing physician's hospital-issued PKI certificate, ensuring that any post-signature modification is detectable.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 4,
+                  "score": "8.5"
+                },
+                {
+                  "id": "527167ad-7bd8-46e2-8e92-5834ff5f1cc8",
+                  "title": "Prescription Validation Bypass via Privilege Escalation",
+                  "status": "Mitigated",
+                  "severity": "Critical",
+                  "type": "Elevation of privilege",
+                  "description": "An attacker exploits a flaw in the prescription validation process to escalate from a limited pharmacy technician role to an override-capable pharmacist role, allowing them to approve prescriptions that would normally be flagged for dosage violations, formulary restrictions, or missing prescriber credentials.",
+                  "mitigation": "Role-Based Prescription Approval Enforcement: Prescription approval and override actions are restricted to authenticated pharmacist-role accounts. The system enforces server-side role checks at every approval step and rejects override attempts from technician-level sessions regardless of client-side UI state.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 5,
+                  "score": "7.6"
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 1,
+                "repudiation": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 2
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 260,
+              "y": 235
+            },
+            "size": {
+              "width": 60,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Check Drug Interactions"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "a7f8609f-28e2-404f-9296-dffa84990ad0"
+                },
+                {
+                  "group": "right",
+                  "id": "630c99fc-f9be-475b-9cad-e62e1815ca6c"
+                },
+                {
+                  "group": "bottom",
+                  "id": "5f3a2567-702d-404b-80fd-10bc4fe0e579"
+                },
+                {
+                  "group": "left",
+                  "id": "7ca49ade-0bca-4613-9403-f9282d71b90c"
+                }
+              ]
+            },
+            "id": "55a9df5e-8f9d-4211-bd65-d346d39083da",
+            "zIndex": 3,
+            "data": {
+              "type": "tm.Process",
+              "name": "Check Drug Interactions",
+              "description": "Queries the EHR Database for the patient's current medication list, known allergies, and clinical conditions, then cross-references the new prescription against a drug interaction knowledge base. Returns one of three outcomes: clear, warning (non-critical interaction), or block (contraindicated combination requiring pharmacist override).",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "",
+              "threats": [
+                {
+                  "id": "d48c992c-af49-44c0-b34f-a225b183047f",
+                  "title": "Drug Interaction Data Disclosure",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "The drug interaction checking process retrieves the patient's full medication history and allergy profile from the EHR but inadvertently exposes this data through verbose API responses, debug logging, or insufficiently scoped queries — revealing sensitive medical details beyond what the pharmacy workflow requires.",
+                  "mitigation": "Minimum Necessary Data Retrieval from EHR: The drug interaction query to the EHR is scoped to return only the patient's active medications and documented allergies. Diagnosis codes, treatment plans, physician notes, and other clinical details are explicitly excluded from the query projection, enforcing the HIPAA minimum necessary standard.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 6,
+                  "score": "7.2"
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 0,
+                "repudiation": 0,
+                "informationDisclosure": 1,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 0
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 260,
+              "y": 376
+            },
+            "size": {
+              "width": 60,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Dispense Medication"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "a7f8609f-28e2-404f-9296-dffa84990ad0"
+                },
+                {
+                  "group": "right",
+                  "id": "630c99fc-f9be-475b-9cad-e62e1815ca6c"
+                },
+                {
+                  "group": "bottom",
+                  "id": "5f3a2567-702d-404b-80fd-10bc4fe0e579"
+                },
+                {
+                  "group": "left",
+                  "id": "7ca49ade-0bca-4613-9403-f9282d71b90c"
+                }
+              ]
+            },
+            "id": "81785122-e937-4bc7-ac43-5e2835cbe3c0",
+            "zIndex": 4,
+            "data": {
+              "type": "tm.Process",
+              "name": "Dispense Medication",
+              "description": "Manages the physical dispensing workflow — confirms the pharmacist's approval, deducts the dispensed quantity from the pharmacy inventory, prints the medication label with patient instructions, and updates the dispensing record. For controlled substances, triggers a report to the National Drug Registry.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "",
+              "threats": [
+                {
+                  "id": "4125eeea-9377-4c46-a226-88e75252b086",
+                  "title": "Dispensing Record Tampering",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "An attacker or malicious pharmacy staff member modifies dispensing records after the fact — altering quantities dispensed, removing entries for controlled substances, or falsifying timestamps — to conceal drug diversion or inventory discrepancies.",
+                  "mitigation": "Dispensing Record Cryptographic Sealing: Each dispensing record is sealed with a cryptographic hash of its key fields (prescription ID, medication code, quantity, patient ID, timestamp, dispensing pharmacist). The hash is stored separately and verified on every read, enabling immediate detection of any post-creation modification.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 7,
+                  "score": "7.0"
+                },
+                {
+                  "id": "2213141b-ef2c-45b1-b940-bf48e4af021e",
+                  "title": "Controlled Substance Reporting Denial of Service",
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "type": "Denial of service",
+                  "description": "An attacker disrupts the reporting channel to the National Drug Registry by flooding the outbound queue or exploiting connection timeouts, causing controlled substance reports to be delayed beyond the 24-hour regulatory deadline, exposing the hospital to compliance penalties.",
+                  "mitigation": "Resilient Reporting Queue with Guaranteed Delivery: Controlled substance reports are placed in a persistent message queue with guaranteed delivery, automatic retry with exponential backoff, and disk-based overflow buffering. If the NDR is unreachable for more than 4 hours, an alert is escalated to the pharmacy compliance officer.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 8,
+                  "score": "5.8"
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 1,
+                "repudiation": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 1,
+                "elevationOfPrivilege": 0
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 469,
+              "y": 376
+            },
+            "size": {
+              "width": 120,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Pharmacy Dispensing & Inventory Records"
+              },
+              "topLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "730f7787-ed15-4537-8115-58ea130a24aa"
+                },
+                {
+                  "group": "right",
+                  "id": "d4a1985a-0adc-4bd6-b3aa-3b902260c7d6"
+                },
+                {
+                  "group": "bottom",
+                  "id": "97d81eeb-6ee3-4ac2-b8bb-5b6e18f8a695"
+                },
+                {
+                  "group": "left",
+                  "id": "82043aab-7861-4e9d-8021-a3fcf6058f72"
+                }
+              ]
+            },
+            "id": "7ffaa548-7a2d-4c03-b2a6-ca7748b621d5",
+            "zIndex": 5,
+            "data": {
+              "type": "tm.Store",
+              "name": "Pharmacy Dispensing & Inventory Records",
+              "description": "Stores all prescription processing records (received, validated, approved, dispensed, rejected), dispensing events (medication, quantity, dispensing pharmacist, timestamp), pharmacy inventory levels, and controlled substance tracking data.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": false,
+              "storesInventory": false,
+              "threats": [
+                {
+                  "id": "f8068bbd-70d6-4186-8dd2-d480ef943926",
+                  "title": "Controlled Substance Dispensing Record Deletion",
+                  "status": "Mitigated",
+                  "severity": "Critical",
+                  "type": "Tampering",
+                  "description": "A malicious insider deletes or modifies controlled substance dispensing records to conceal drug diversion — removing entries that would otherwise be reconciled against physical inventory counts and reported to the National Drug Registry during audits.",
+                  "mitigation": "Dispensing Record Cryptographic Sealing: Each dispensing record is sealed with a cryptographic hash of its key fields, enabling immediate detection of any post-creation modification or deletion attempt.\n\nAppend-Only Controlled Substance Ledger: All controlled substance dispensing events are additionally written to a dedicated append-only ledger on WORM storage, separate from the main dispensing records. This ledger cannot be modified or deleted even by database administrators, providing a tamper-proof audit trail for regulatory inspections.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 11,
+                  "score": "8.2"
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 1,
+                "repudiation": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 0
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 922,
+              "y": 100
+            },
+            "size": {
+              "width": 120,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Electronic Health Records Database"
+              },
+              "topLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "730f7787-ed15-4537-8115-58ea130a24aa"
+                },
+                {
+                  "group": "right",
+                  "id": "d4a1985a-0adc-4bd6-b3aa-3b902260c7d6"
+                },
+                {
+                  "group": "bottom",
+                  "id": "97d81eeb-6ee3-4ac2-b8bb-5b6e18f8a695"
+                },
+                {
+                  "group": "left",
+                  "id": "82043aab-7861-4e9d-8021-a3fcf6058f72"
+                }
+              ]
+            },
+            "id": "25399f23-679b-4f76-87d2-5226cc1af07b",
+            "zIndex": 6,
+            "data": {
+              "type": "tm.Store",
+              "name": "Electronic Health Records Database",
+              "description": "The central clinical database storing comprehensive patient medical records including demographics, medical histories, diagnoses (ICD-10 codes), treatment plans, medication orders, lab and imaging results, surgical notes, and provider assignments. HIPAA-regulated with strict access controls and encryption requirements.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": false,
+              "storesInventory": false,
+              "threats": [
+                {
+                  "id": "d342824b-9dad-4642-a42c-4ea1c7d146f0",
+                  "title": "Unauthorized Patient Medication History Disclosur",
+                  "status": "Mitigated",
+                  "severity": "Critical",
+                  "type": "Information disclosure",
+                  "description": "An attacker exploits the pharmacy system's read access to the EHR to extract patient medication histories, allergy profiles, and associated diagnoses beyond the scope of the current prescription, enabling patient profiling, blackmail, or a HIPAA breach notification obligation.",
+                  "mitigation": "Minimum Necessary Data Retrieval from EHR: The drug interaction query to the EHR is scoped to return only the patient's active medications and documented allergies, enforcing the HIPAA minimum necessary standard.\n\nCross-Zone Query Monitoring and Alerting: All queries from the Pharmacy Application Zone to the EHR Database are logged with the requesting service identity, patient ID queried, fields returned, and timestamp. Anomalous query patterns (bulk lookups, out-of-hours access, high-frequency single-patient queries) trigger real-time alerts to the security operations team.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 9,
+                  "score": "8.4"
+                },
+                {
+                  "id": "90a7c113-2484-4d27-a9da-a1c7e9fbc53d",
+                  "title": "EHR Medication Data Tampering via Pharmacy Channel",
+                  "status": "Mitigated",
+                  "severity": "Critical",
+                  "type": "Tampering",
+                  "description": "An attacker exploits a misconfigured pharmacy-to-EHR integration to write data to the EHR database through what should be a read-only channel, modifying patient allergy records or medication lists to suppress drug interaction warnings for future prescriptions.",
+                  "mitigation": "Read-Only Database Role for Pharmacy Services: The pharmacy system's EHR database service account is provisioned with strictly read-only permissions on a dedicated read replica. The account has no write, update, or delete privileges on any EHR table, and the read replica enforces this at the database engine level independently of application logic.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 10,
+                  "score": "7.8"
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 1,
+                "repudiation": 0,
+                "informationDisclosure": 1,
+                "denialOfService": 0
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 922,
+              "y": 331
+            },
+            "size": {
+              "width": 120,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Clinical Audit Trail"
+              },
+              "topLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "730f7787-ed15-4537-8115-58ea130a24aa"
+                },
+                {
+                  "group": "right",
+                  "id": "d4a1985a-0adc-4bd6-b3aa-3b902260c7d6"
+                },
+                {
+                  "group": "bottom",
+                  "id": "97d81eeb-6ee3-4ac2-b8bb-5b6e18f8a695"
+                },
+                {
+                  "group": "left",
+                  "id": "82043aab-7861-4e9d-8021-a3fcf6058f72"
+                }
+              ]
+            },
+            "id": "0a31bbb4-8ab2-44ad-948a-4280cec50c3a",
+            "zIndex": 7,
+            "data": {
+              "type": "tm.Store",
+              "name": "Clinical Audit Trail",
+              "description": "An append-only audit log capturing all clinical system events — patient record access, modifications, referral submissions, insurance verifications, discharge summary generations, and authentication events. Required for HIPAA compliance and forensic investigation.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": false,
+              "storesInventory": false,
+              "threats": [
+                {
+                  "id": "2842df9d-53a4-49a8-b05f-fa93875106f7",
+                  "title": "Pharmacy Audit Trail Denial of Service",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "type": "Denial of service",
+                  "description": "An attacker or misconfigured process generates an excessive volume of pharmacy-related audit events, saturating the Clinical Audit Trail's ingestion capacity and causing legitimate audit entries (particularly controlled substance tracking events) to be delayed or dropped, creating compliance gaps.",
+                  "mitigation": "Audit Pipeline Priority Queuing and Backpressure Protection: The audit logging pipeline assigns higher priority to controlled substance events over routine prescription events. Backpressure from audit log saturation triggers throttling of lower-priority events rather than dropping high-priority ones, and capacity alerts are raised when throughput exceeds 70% of maximum.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 12,
+                  "score": "5.6"
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 0,
+                "repudiation": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 1
+              }
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "E-Prescription Submission",
+              "description": "The prescribing physician submits a digitally signed e-prescription (medication, dosage, quantity, patient ID, physician signature) to the Receive and Validate Prescription process.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "E-Prescription Submission"
+            ],
+            "id": "2a8b2893-d217-403a-8f99-00218e57e91b",
+            "source": {
+              "cell": "d8158e58-2de6-4ddf-aff4-8ebf1fd7a9b3",
+              "port": "11f19001-0a1e-40df-91e9-3e759c2fc47e"
+            },
+            "target": {
+              "cell": "62d4f692-3e97-45c9-9de2-37e6d205bc0e",
+              "port": "7ca49ade-0bca-4613-9403-f9282d71b90c"
+            },
+            "vertices": [
+              {
+                "x": 230,
+                "y": 80
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Prescription Processing Audit Entry",
+              "description": "The Receive and Validate Prescription process writes an audit record for every prescription received — capturing prescriber identity, signature verification result, validation outcome, and timestamp.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Prescription Processing Audit Entry"
+            ],
+            "id": "9dd1169e-7099-4d12-b0ff-83a264ba99a2",
+            "source": {
+              "cell": "62d4f692-3e97-45c9-9de2-37e6d205bc0e",
+              "port": "630c99fc-f9be-475b-9cad-e62e1815ca6c"
+            },
+            "target": {
+              "cell": "0a31bbb4-8ab2-44ad-948a-4280cec50c3a",
+              "port": "82043aab-7861-4e9d-8021-a3fcf6058f72"
+            },
+            "vertices": [
+              {
+                "x": 1160,
+                "y": 30
+              },
+              {
+                "x": 1190,
+                "y": 361
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Validated Prescription Handoff",
+              "description": "The validated prescription (confirmed prescriber identity, format-compliant, formulary-checked) is forwarded from the Receive and Validate Prescription process to the Check Drug Interactions process.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Validated Prescription Handoff"
+            ],
+            "id": "21b6247e-bd8d-4d48-958c-a6da3708e88d",
+            "source": {
+              "cell": "62d4f692-3e97-45c9-9de2-37e6d205bc0e",
+              "port": "5f3a2567-702d-404b-80fd-10bc4fe0e579"
+            },
+            "target": {
+              "cell": "55a9df5e-8f9d-4211-bd65-d346d39083da",
+              "port": "a7f8609f-28e2-404f-9296-dffa84990ad0"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Interaction-Cleared Prescription",
+              "description": "The drug interaction-cleared prescription (or a prescription with pharmacist-overridden warnings) is forwarded from the Check Drug Interactions process to the Dispense Medication process.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Interaction-Cleared Prescription"
+            ],
+            "id": "c333c3fa-2f2b-4419-881b-ad1fc66db7de",
+            "source": {
+              "cell": "55a9df5e-8f9d-4211-bd65-d346d39083da",
+              "port": "5f3a2567-702d-404b-80fd-10bc4fe0e579"
+            },
+            "target": {
+              "cell": "81785122-e937-4bc7-ac43-5e2835cbe3c0",
+              "port": "a7f8609f-28e2-404f-9296-dffa84990ad0"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Controlled Substance Report",
+              "description": "The Dispense Medication process transmits a controlled substance dispensing report to the National Drug Registry, containing the medication schedule, quantity, patient identifier (anonymized), prescriber license number, and dispensing timestamp.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Controlled Substance Report"
+            ],
+            "id": "69c962cb-74c5-4570-90ad-3f4f06f388d7",
+            "source": {
+              "cell": "81785122-e937-4bc7-ac43-5e2835cbe3c0",
+              "port": "7ca49ade-0bca-4613-9403-f9282d71b90c"
+            },
+            "target": {
+              "cell": "d2b22f36-d835-42da-8de6-2fc295ce7938",
+              "port": "11f19001-0a1e-40df-91e9-3e759c2fc47e"
+            },
+            "vertices": [
+              {
+                "x": 220,
+                "y": 510
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Dispensing Record Storage",
+              "description": "The Dispense Medication process writes the completed dispensing record (medication, quantity, patient, pharmacist, timestamp, cryptographic seal) to the Pharmacy Dispensing & Inventory Records.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Dispensing Record Storage"
+            ],
+            "id": "a5268dd7-ad42-4051-9d5d-8f2c720ead4e",
+            "source": {
+              "cell": "81785122-e937-4bc7-ac43-5e2835cbe3c0",
+              "port": "630c99fc-f9be-475b-9cad-e62e1815ca6c"
+            },
+            "target": {
+              "cell": "7ffaa548-7a2d-4c03-b2a6-ca7748b621d5",
+              "port": "82043aab-7861-4e9d-8021-a3fcf6058f72"
+            },
+            "vertices": [
+              {
+                "x": 410,
+                "y": 360
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Dispensing Audit Entry",
+              "description": "The Dispense Medication process writes an audit record for every dispensing event — capturing medication dispensed, quantity, patient, dispensing pharmacist, controlled substance flag, and NDR report status.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Dispensing Audit Entry"
+            ],
+            "id": "f40de729-658b-4cb6-b015-bb1eb60a7613",
+            "source": {
+              "cell": "81785122-e937-4bc7-ac43-5e2835cbe3c0",
+              "port": "5f3a2567-702d-404b-80fd-10bc4fe0e579"
+            },
+            "target": {
+              "cell": "0a31bbb4-8ab2-44ad-948a-4280cec50c3a",
+              "port": "97d81eeb-6ee3-4ac2-b8bb-5b6e18f8a695"
+            },
+            "vertices": [
+              {
+                "x": 760,
+                "y": 500
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Patient Allergy and Medication Query",
+              "description": "The Check Drug Interactions process queries the EHR Database for the patient's active medication list, documented allergies, and relevant clinical conditions.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Patient Allergy and Medication Query"
+            ],
+            "id": "1421e46c-a561-4e17-9490-c48e76c99426",
+            "source": {
+              "cell": "55a9df5e-8f9d-4211-bd65-d346d39083da",
+              "port": "630c99fc-f9be-475b-9cad-e62e1815ca6c"
+            },
+            "target": {
+              "cell": "25399f23-679b-4f76-87d2-5226cc1af07b",
+              "port": "82043aab-7861-4e9d-8021-a3fcf6058f72"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Allergy and Medication Response",
+              "description": "The EHR Database returns the patient's active medications, allergy list, and relevant clinical flags to the Check Drug Interactions process.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Allergy and Medication Response"
+            ],
+            "id": "2a0fe5f2-21b7-4acb-8122-0817b193f196",
+            "source": {
+              "cell": "25399f23-679b-4f76-87d2-5226cc1af07b",
+              "port": "97d81eeb-6ee3-4ac2-b8bb-5b6e18f8a695"
+            },
+            "target": {
+              "cell": "55a9df5e-8f9d-4211-bd65-d346d39083da",
+              "port": "5f3a2567-702d-404b-80fd-10bc4fe0e579"
+            },
+            "vertices": []
+          }
+        ]
+      }
+    ],
+    "diagramTop": 1,
+    "reviewer": "",
+    "threatTop": 12
+  }
+}

@@ -1,0 +1,2273 @@
+{
+  "version": "2.5.0",
+  "summary": {
+    "title": "Patient Admission & Medical Records",
+    "owner": "",
+    "description": "",
+    "id": 0
+  },
+  "detail": {
+    "contributors": [],
+    "diagrams": [
+      {
+        "id": 0,
+        "title": "Patient Admission",
+        "diagramType": "STRIDE",
+        "placeholder": "New STRIDE diagram description",
+        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
+        "version": "2.5.0",
+        "cells": [
+          {
+            "position": {
+              "x": 419.9999999999998,
+              "y": 59.999999999999545
+            },
+            "size": {
+              "width": 230,
+              "height": 370
+            },
+            "attrs": {
+              "label": {
+                "text": "Hospital Perimeter Network"
+              }
+            },
+            "visible": true,
+            "shape": "trust-boundary-box",
+            "id": "3df744c4-e5d2-4299-ae41-0f7ac12227af",
+            "zIndex": -1,
+            "data": {
+              "type": "tm.BoundaryBox",
+              "name": "Hospital Perimeter Network",
+              "description": "The externally facing network zone that hosts the patient portal, API gateways, and insurance verification interfaces. All inbound traffic from patients, referring physicians, and insurance providers enters through this zone and is subjected to TLS termination, authentication enforcement, and request validation before being forwarded to the internal clinical network.",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": 749.9999999999989,
+              "y": 50.00000000000003
+            },
+            "size": {
+              "width": 570,
+              "height": 390
+            },
+            "attrs": {
+              "label": {
+                "text": "Internal Clinical Network"
+              }
+            },
+            "visible": true,
+            "shape": "trust-boundary-box",
+            "id": "ba4e7f4e-64b5-4e22-8975-d1465d6d8a72",
+            "zIndex": -1,
+            "data": {
+              "type": "tm.BoundaryBox",
+              "name": "Internal Clinical Network",
+              "description": "The secured internal network enclosing the hospital's clinical application servers, electronic health records database, insurance claims repository, and audit systems. Access is restricted to authenticated clinical workstations and authorized internal services. Network segmentation and endpoint protection enforce strict access boundaries.",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": 196.25,
+              "y": 110
+            },
+            "size": {
+              "width": 100,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Patient"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "2148a907-fb34-45c5-a27d-d44e9c87e552"
+                },
+                {
+                  "group": "right",
+                  "id": "af1c0d2a-1b6f-406f-8c64-21bfa3c50cac"
+                },
+                {
+                  "group": "bottom",
+                  "id": "d4c502f6-e364-4459-8855-b25c822784fd"
+                },
+                {
+                  "group": "left",
+                  "id": "21854ef0-e812-4a45-b635-a5c243374815"
+                }
+              ]
+            },
+            "id": "8001ce93-7247-446b-b983-3cb80f08b42f",
+            "zIndex": 1,
+            "data": {
+              "type": "tm.Actor",
+              "name": "Patient",
+              "description": "An individual seeking medical care who interacts with the hospital's patient portal via a web browser or mobile application to submit registration information, upload identification documents, view appointment schedules, and access their medical records.",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "providesAuthentication": false,
+              "threats": [
+                {
+                  "id": "9baa70e8-2ba9-4114-a7f4-8de00637cb11",
+                  "title": "Patient Identity Spoofing",
+                  "status": "Mitigated",
+                  "severity": "Critical",
+                  "type": "Spoofing",
+                  "description": "An attacker impersonates a legitimate patient by using stolen credentials, forged identity documents, or compromised session tokens to access the patient portal, view sensitive medical records, or register under a false identity to obtain fraudulent medical services.",
+                  "mitigation": "Multi-Factor Patient Authentication: Enforces multi-factor authentication (password + SMS OTP or authenticator app) for all patient portal logins and sensitive operations such as viewing medical records or updating personal information.\n\nBiometric Identity Verification at Registration: Requires patients to verify their identity through government-issued photo ID scanning with facial comparison at the point of in-person registration, creating a verified identity anchor for the digital account.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 1,
+                  "score": "8.5"
+                },
+                {
+                  "id": "ae866c0e-8c75-42fe-a60d-fc70e4a5bc5d",
+                  "title": "Patient Action Repudiation",
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "type": "Repudiation",
+                  "description": "A patient denies having submitted a registration form, signed a consent document, or authorized the release of medical records through the portal, and the system lacks sufficient audit evidence to prove the patient performed the action.",
+                  "mitigation": "Patient Action Audit Trail with Digital Signatures: Every patient-initiated action (registration, consent submission, record access, document upload) is logged with a cryptographically signed timestamp, session identifier, IP address, and device fingerprint, creating non-repudiable evidence of the action.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 2,
+                  "score": "5.0"
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 3,
+                "repudiation": 4
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 181.25,
+              "y": 212
+            },
+            "size": {
+              "width": 130,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Referring Physician\n"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "2148a907-fb34-45c5-a27d-d44e9c87e552"
+                },
+                {
+                  "group": "right",
+                  "id": "af1c0d2a-1b6f-406f-8c64-21bfa3c50cac"
+                },
+                {
+                  "group": "bottom",
+                  "id": "d4c502f6-e364-4459-8855-b25c822784fd"
+                },
+                {
+                  "group": "left",
+                  "id": "21854ef0-e812-4a45-b635-a5c243374815"
+                }
+              ]
+            },
+            "id": "8398490b-f3ef-4787-a5d6-3a86040204b2",
+            "zIndex": 2,
+            "data": {
+              "type": "tm.Actor",
+              "name": "Referring Physician\n",
+              "description": "An external healthcare provider (e.g., a general practitioner from an affiliated clinic) who submits patient referral letters, transfers clinical notes, and requests admission on behalf of a patient through the hospital's physician referral API.",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "providesAuthentication": false,
+              "threats": [
+                {
+                  "id": "1a0e7033-eb74-493c-8fe0-e5c541ad52a9",
+                  "title": "Physician Identity Spoofing",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "type": "Spoofing",
+                  "description": "An attacker impersonates a legitimate referring physician by using stolen API credentials or a compromised clinic workstation to submit fraudulent referral letters, access patient records outside their authorized scope, or admit patients under false medical pretenses.",
+                  "mitigation": "Physician Mutual TLS and Certificate Authentication: All physician referral API connections require mutual TLS authentication using X.509 certificates issued by the hospital's trusted certificate authority, ensuring that only registered and verified physician endpoints can establish connections.\n\nPhysician API Key Rotation and Scope Restriction: Physician API keys are scoped to specific permitted operations (referral submission, limited patient record read), automatically rotated every 90 days, and bound to registered clinic IP ranges. Any out-of-scope access attempt is blocked and triggers a security alert.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 3,
+                  "score": "7.2"
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 3,
+                "repudiation": 0
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 190,
+              "y": 368
+            },
+            "size": {
+              "width": 112.5,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Insurance Provider"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "2148a907-fb34-45c5-a27d-d44e9c87e552"
+                },
+                {
+                  "group": "right",
+                  "id": "af1c0d2a-1b6f-406f-8c64-21bfa3c50cac"
+                },
+                {
+                  "group": "bottom",
+                  "id": "d4c502f6-e364-4459-8855-b25c822784fd"
+                },
+                {
+                  "group": "left",
+                  "id": "21854ef0-e812-4a45-b635-a5c243374815"
+                }
+              ]
+            },
+            "id": "1363bd48-f8ee-492b-b221-28979fbd2d12",
+            "zIndex": 3,
+            "data": {
+              "type": "tm.Actor",
+              "name": "Insurance Provider",
+              "description": "An external insurance company that receives eligibility verification requests, processes pre-authorization inquiries, and returns coverage details and co-payment amounts through a standardized API (HL7 FHIR-based).",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "providesAuthentication": false,
+              "threats": [
+                {
+                  "id": "54a5b64e-eb2a-49e9-8656-edbdb4b0daf1",
+                  "title": "Insurance Provider Spoofing",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "type": "Spoofing",
+                  "description": "An attacker intercepts or impersonates the insurance provider's API endpoint, returning fabricated eligibility confirmations or coverage amounts that lead the hospital to admit patients under incorrect insurance assumptions, causing financial losses or treatment denials.",
+                  "mitigation": "Insurance API Endpoint Certificate Pinning: The hospital's insurance verification client pins the insurance provider's TLS certificate fingerprint and validates it on every connection, preventing man-in-the-middle attacks and endpoint impersonation even if a CA is compromised.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 4,
+                  "score": "6.4"
+                },
+                {
+                  "id": "772563b2-6706-440d-bdf1-0ac5f40c58d3",
+                  "title": "Insurance Communication Repudiation",
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "type": "Repudiation",
+                  "description": "The insurance provider disputes that a pre-authorization was granted or claims the coverage terms communicated were different from what the hospital received, and the system lacks non-repudiable records of the original API exchange.",
+                  "mitigation": "Insurance Transaction Logging with Message Signing: All insurance API requests and responses are logged with their complete payloads and cryptographically signed by both parties (using JWS), creating a non-repudiable record of every eligibility check and pre-authorization exchange.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 5,
+                  "score": "5.5"
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 1,
+                "repudiation": 1
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 510,
+              "y": 130
+            },
+            "size": {
+              "width": 60,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Patient Registration Gateway"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "6be0a129-031f-468d-a33f-d53c819047d0"
+                },
+                {
+                  "group": "right",
+                  "id": "a09d6f96-4dda-4ee2-9f4b-56a61a314c66"
+                },
+                {
+                  "group": "bottom",
+                  "id": "701c3182-887f-4750-bf3b-623ab01d75b5"
+                },
+                {
+                  "group": "left",
+                  "id": "a93b82f8-1868-4904-a29c-4d74a6d2466f"
+                }
+              ]
+            },
+            "id": "a52d19a5-e61f-449d-bc0c-fc3f310db39d",
+            "zIndex": 4,
+            "data": {
+              "type": "tm.Process",
+              "name": "Patient Registration Gateway",
+              "description": "Receives patient registration submissions from the patient portal, validates demographic data (name, date of birth, contact information, identification documents), checks for duplicate records in the EHR database, and creates or updates the patient's master record.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "",
+              "threats": [
+                {
+                  "id": "dcb9b66e-2339-4a9f-8334-2db5862ac504",
+                  "title": "Registration Data Tampering",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "An attacker intercepts and modifies patient registration data in transit between the patient portal and the registration gateway, altering demographic details, insurance policy numbers, or contact information to facilitate medical identity theft or insurance fraud.",
+                  "mitigation": "Server-Side Registration Data Validation: The registration gateway applies strict server-side validation on all submitted fields — format checks on dates and phone numbers, cross-referencing identification numbers against government databases, and integrity hash verification on the submitted payload.\n\nEnd-to-End Encryption for Registration Payloads: Registration data is encrypted at the application layer (JWE) in addition to TLS transport encryption, ensuring data integrity and confidentiality even if TLS termination at the DMZ is compromised.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 6,
+                  "score": "7.0"
+                },
+                {
+                  "id": "205c8e93-1e2d-4324-87bf-54a553db855b",
+                  "title": "Patient Record Information Disclosure",
+                  "status": "Mitigated",
+                  "severity": "Critical",
+                  "type": "Information disclosure",
+                  "description": "The registration gateway inadvertently exposes patient PII (Social Security numbers, insurance details, medical identifiers) through verbose error messages, debug logs, or overly detailed API responses to unauthorized callers.",
+                  "mitigation": "Structured Error Responses without PII Leakage: Error responses from the registration gateway use generic error codes and messages. All PII is stripped from logs, stack traces are suppressed in production, and API responses return only the minimum fields required by the caller's authorization level.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 7,
+                  "score": "8.8"
+                },
+                {
+                  "id": "54cc6ee7-e016-4033-b7d1-39998f21c8b0",
+                  "title": "Registration Service Denial of Service",
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "type": "Denial of service",
+                  "description": "An attacker floods the patient registration endpoint with a massive volume of requests, overwhelming the gateway and preventing legitimate patients from completing registration, potentially disrupting hospital admissions during peak hours.",
+                  "mitigation": "Registration Endpoint Rate Limiting and WAF Rules: The registration endpoint enforces per-IP and per-session rate limits with progressive CAPTCHA challenges, backed by a web application firewall that detects and blocks automated abuse patterns and volumetric attacks.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 8,
+                  "score": "6.0"
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 1,
+                "repudiation": 0,
+                "informationDisclosure": 3,
+                "denialOfService": 1,
+                "elevationOfPrivilege": 0
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 504.9999999999998,
+              "y": 308
+            },
+            "size": {
+              "width": 60,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Verify Insurance Eligibility"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "6be0a129-031f-468d-a33f-d53c819047d0"
+                },
+                {
+                  "group": "right",
+                  "id": "a09d6f96-4dda-4ee2-9f4b-56a61a314c66"
+                },
+                {
+                  "group": "bottom",
+                  "id": "701c3182-887f-4750-bf3b-623ab01d75b5"
+                },
+                {
+                  "group": "left",
+                  "id": "a93b82f8-1868-4904-a29c-4d74a6d2466f"
+                }
+              ]
+            },
+            "id": "aad82eff-7376-42c7-b9d0-0d8e4276c7f7",
+            "zIndex": 5,
+            "data": {
+              "type": "tm.Process",
+              "name": "Verify Insurance Eligibility",
+              "description": "Takes the patient's insurance policy details from the registration record, sends an eligibility verification request to the external Insurance Provider API, receives the coverage response, and updates the patient's admission record with verified insurance status, co-payment amounts, and pre-authorization codes.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "",
+              "threats": [
+                {
+                  "id": "f96227d7-b235-4702-8dd7-c7b75d48fa0d",
+                  "title": "Insurance Data Tampering in Transit",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "An attacker modifies insurance eligibility responses in transit between the Insurance Provider and the Verify Insurance Eligibility process, altering coverage amounts, pre-authorization codes, or co-payment values to inflate or falsify the patient's coverage.",
+                  "mitigation": "FHIR Message Integrity Validation: All inbound HL7 FHIR messages from the insurance provider include a digital signature (using JWS with RS256) that is validated by the eligibility verification process before any data is accepted, detecting any in-transit modification.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 9,
+                  "score": "7.4"
+                },
+                {
+                  "id": "3d45aac4-0bd7-464a-9433-790254526b95",
+                  "title": "Eligibility Process Elevation of Privilege",
+                  "status": "Mitigated",
+                  "severity": "Critical",
+                  "type": "Elevation of privilege",
+                  "description": "An attacker exploits a vulnerability in the insurance eligibility verification process to escalate from the limited DMZ service account to an internal clinical network account, gaining unauthorized access to the EHR database or other internal resources.",
+                  "mitigation": "DMZ Service Account Isolation and Least Privilege: The insurance eligibility process runs under a dedicated service account with minimal permissions — read access to patient insurance fields only, write access limited to eligibility status updates. The account cannot access clinical records, cannot initiate connections to the internal clinical network, and runs in a containerized environment with no shell access.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 10,
+                  "score": "7.8"
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 1,
+                "repudiation": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 1
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 902,
+              "y": 120
+            },
+            "size": {
+              "width": 60,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Manage Clinical Records"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "6be0a129-031f-468d-a33f-d53c819047d0"
+                },
+                {
+                  "group": "right",
+                  "id": "a09d6f96-4dda-4ee2-9f4b-56a61a314c66"
+                },
+                {
+                  "group": "bottom",
+                  "id": "701c3182-887f-4750-bf3b-623ab01d75b5"
+                },
+                {
+                  "group": "left",
+                  "id": "a93b82f8-1868-4904-a29c-4d74a6d2466f"
+                }
+              ]
+            },
+            "id": "b6e249b9-d551-4d27-8559-7d52942c36e8",
+            "zIndex": 6,
+            "data": {
+              "type": "tm.Process",
+              "name": "Manage Clinical Records",
+              "description": "Core clinical records management process that creates, reads, updates, and archives patient medical records in the EHR Database. Handles admission notes, diagnosis codes, treatment plans, medication orders, lab results, and attending physician assignments. Enforces role-based access control based on the clinical staff member's role and treating relationship with the patient.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "",
+              "threats": [
+                {
+                  "id": "b2b57c2b-ee35-48df-a37e-acbec7cc2ff1",
+                  "title": "Unauthorized Clinical Record Modification",
+                  "status": "Mitigated",
+                  "severity": "Critical",
+                  "type": "Tampering",
+                  "description": "An attacker or malicious insider modifies clinical records — altering diagnosis codes, medication dosages, lab results, or treatment plans — to conceal medical errors, commit insurance fraud, or endanger patient safety through incorrect medical information.",
+                  "mitigation": "Clinical Record Versioning with Change Tracking: Every modification to a clinical record creates a new version with the previous version preserved immutably. Each change is tagged with the authenticated clinician's identity, timestamp, workstation ID, and a mandatory change reason field, enabling full reconstruction of the record's history.\n\nDual Authorization for Critical Record Changes: Changes to critical clinical fields (diagnosis codes, medication orders, allergy information) require dual authorization — the initiating clinician and a supervising physician must both approve the change before it is committed to the EHR.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 11,
+                  "score": "9.0"
+                },
+                {
+                  "id": "a458b518-0591-4851-8574-00debc84754e",
+                  "title": "Clinical Record Access Repudiation",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "type": "Repudiation",
+                  "description": "A clinical staff member accesses patient records without a legitimate treating relationship (e.g., viewing a celebrity's medical records out of curiosity) and denies having done so, and the system lacks sufficiently granular audit evidence to prove the access occurred.",
+                  "mitigation": "Break-the-Glass Access Logging: All clinical record access events are logged with the clinician's identity, the patient record accessed, timestamp, workstation, and access justification. Access to records outside the clinician's assigned patient list triggers a break-the-glass workflow requiring a documented reason and generating an alert to the compliance team.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 12,
+                  "score": "6.2"
+                },
+                {
+                  "id": "d00686cd-6716-404f-bf10-3990ef7ae3db",
+                  "title": "Patient Data Exfiltration",
+                  "status": "Mitigated",
+                  "severity": "Critical",
+                  "type": "Information disclosure",
+                  "description": "An attacker gains access to the Manage Clinical Records process and extracts bulk patient data (medical histories, diagnoses, medications, SSNs) through API abuse, SQL injection, or exploitation of an over-privileged service account, leading to a HIPAA breach.",
+                  "mitigation": "Data Loss Prevention and Anomalous Query Detection: A data loss prevention layer monitors all data egress from the clinical records process, detecting and blocking bulk data extraction attempts, unusually large result sets, and query patterns inconsistent with normal clinical workflows. Alerts are generated for queries exceeding configurable row-count thresholds.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 13,
+                  "score": "9.2"
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 1,
+                "repudiation": 1,
+                "informationDisclosure": 1,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 0
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 902,
+              "y": 272
+            },
+            "size": {
+              "width": 60,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Generate Discharge Summary"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "6be0a129-031f-468d-a33f-d53c819047d0"
+                },
+                {
+                  "group": "right",
+                  "id": "a09d6f96-4dda-4ee2-9f4b-56a61a314c66"
+                },
+                {
+                  "group": "bottom",
+                  "id": "701c3182-887f-4750-bf3b-623ab01d75b5"
+                },
+                {
+                  "group": "left",
+                  "id": "a93b82f8-1868-4904-a29c-4d74a6d2466f"
+                }
+              ]
+            },
+            "id": "39f80ccd-c3bd-42e7-a9d3-4f1ee0b5fb8c",
+            "zIndex": 7,
+            "data": {
+              "type": "tm.Process",
+              "name": "Generate Discharge Summary",
+              "description": "Compiles the patient's admission record, treatment history, medications administered, lab results, and follow-up instructions into a structured discharge summary. The summary is stored in the EHR, sent to the patient via the portal, and transmitted to the referring physician if applicable. Trust Boundary: Resides inside the Internal Clinical Network.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "",
+              "threats": [
+                {
+                  "id": "9002148c-0c7b-4b62-8de1-9a511f27d073",
+                  "title": "Discharge Summary Tampering",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "An attacker or insider modifies the discharge summary after generation — altering medication instructions, follow-up schedules, or diagnosis information — before it reaches the patient or referring physician, potentially endangering post-discharge care.",
+                  "mitigation": "Discharge Summary Digital Signing: Each generated discharge summary is digitally signed by the discharging physician's certificate. Any modification after signing invalidates the signature, and recipients (patient portal, referring physician API) verify the signature before displaying or processing the document.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 14,
+                  "score": "6.8"
+                },
+                {
+                  "id": "a35f083f-f03f-4fe3-98a4-8e2c84719c10",
+                  "title": "PHI Exposure in Discharge Notifications",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "The discharge summary notification sent to the patient or referring physician includes excessive protected health information (PHI) in email subject lines, push notification previews, or unencrypted attachment metadata, exposing sensitive medical details to unauthorized observers.",
+                  "mitigation": "PHI Minimization in Notifications: Discharge notifications contain only a generic alert (\"Your discharge summary is ready\") with a secure link to the full document behind authentication. No PHI appears in email subjects, preview text, push notification bodies, or URL parameters.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 15,
+                  "score": "7.5"
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 1,
+                "repudiation": 0,
+                "informationDisclosure": 1,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 0
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 1132,
+              "y": 120
+            },
+            "size": {
+              "width": 120,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Electronic Health Records Database"
+              },
+              "topLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "e2d6811c-c503-41c3-b610-1a902c556db8"
+                },
+                {
+                  "group": "right",
+                  "id": "c81f17eb-f34e-4de7-bb7c-2fefef079b2a"
+                },
+                {
+                  "group": "bottom",
+                  "id": "e4e3ec41-86b6-4d95-9775-76bc489ca9a9"
+                },
+                {
+                  "group": "left",
+                  "id": "9420e210-2090-4fc2-b684-356b546ce72c"
+                }
+              ]
+            },
+            "id": "7949caf2-3fa8-49f4-ae96-168ae5b8a3b4",
+            "zIndex": 8,
+            "data": {
+              "type": "tm.Store",
+              "name": "Electronic Health Records Database",
+              "description": "The central clinical database storing comprehensive patient medical records including demographics, medical histories, diagnoses (ICD-10 codes), treatment plans, medication orders, lab and imaging results, surgical notes, and provider assignments. HIPAA-regulated with strict access controls and encryption requirements.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": false,
+              "storesInventory": false,
+              "threats": [
+                {
+                  "id": "148b6294-164a-4612-8a43-4b94033a6d7d",
+                  "title": "EHR Database Record Tampering",
+                  "status": "Mitigated",
+                  "severity": "Critical",
+                  "type": "Tampering",
+                  "description": "An attacker or malicious insider with database-level access modifies clinical records directly in the EHR database, bypassing application-level controls and audit logging, to alter diagnoses, delete adverse event records, or fabricate treatment histories.",
+                  "mitigation": "Clinical Record Versioning with Change Tracking: Every modification to a clinical record creates a new version with the previous version preserved immutably. Each change is tagged with the authenticated clinician's identity, timestamp, workstation ID, and a mandatory change reason field, enabling full reconstruction of the record's history.\n\nDatabase-Level Transparent Data Encryption and Access Auditing: The EHR database employs transparent data encryption (TDE) for all data at rest and maintains a database-level audit log capturing every read, write, and schema change operation with the authenticated principal, independent of the application layer.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 16,
+                  "score": "8.6"
+                },
+                {
+                  "id": "a9bf6e77-b49b-4603-ae8d-2bf0056299e5",
+                  "title": "Unauthorized EHR Data Disclosure",
+                  "status": "Mitigated",
+                  "severity": "Critical",
+                  "type": "Information disclosure",
+                  "description": "An attacker gains unauthorized read access to the EHR database, exfiltrating patient medical records, diagnoses, medications, and personal identifiers — constituting a HIPAA breach with regulatory penalties, legal liability, and severe patient harm.",
+                  "mitigation": "EHR Field-Level Encryption and Tokenization: Sensitive EHR fields (SSN, diagnosis codes, medication lists) are encrypted at the field level using AES-256 with per-patient keys. Patient identifiers in non-clinical tables are tokenized, limiting the value of exfiltrated data even if database-level access is compromised.\n\nData Loss Prevention and Anomalous Query Detection: A data loss prevention layer monitors all data egress from the clinical records process, detecting and blocking bulk data extraction attempts, unusually large result sets, and query patterns inconsistent with normal clinical workflows.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 17,
+                  "score": "9.0"
+                },
+                {
+                  "id": "7bf34c71-0688-493d-adc4-55aca45539e5",
+                  "title": "EHR Database Denial of Service",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "type": "Denial of service",
+                  "description": "An attacker or misconfigured process overwhelms the EHR database with excessive queries, long-running transactions, or lock contention, degrading database performance and preventing clinicians from accessing patient records during critical care situations.",
+                  "mitigation": "Database Connection Pooling and Query Throttling: The EHR database enforces per-service connection pool limits, query timeout thresholds, and automatic termination of runaway queries. Resource-intensive analytical queries are routed to a read replica, preserving the primary database's capacity for real-time clinical operations.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 18,
+                  "score": "7.0"
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 1,
+                "repudiation": 0,
+                "informationDisclosure": 1,
+                "denialOfService": 1
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 1132,
+              "y": 248
+            },
+            "size": {
+              "width": 120,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Insurance Claims Repository"
+              },
+              "topLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "e2d6811c-c503-41c3-b610-1a902c556db8"
+                },
+                {
+                  "group": "right",
+                  "id": "c81f17eb-f34e-4de7-bb7c-2fefef079b2a"
+                },
+                {
+                  "group": "bottom",
+                  "id": "e4e3ec41-86b6-4d95-9775-76bc489ca9a9"
+                },
+                {
+                  "group": "left",
+                  "id": "9420e210-2090-4fc2-b684-356b546ce72c"
+                }
+              ]
+            },
+            "id": "4333a04e-3ee1-4427-beec-5f6ad6cbac84",
+            "zIndex": 9,
+            "data": {
+              "type": "tm.Store",
+              "name": "Insurance Claims Repository",
+              "description": "Stores insurance eligibility verification records, pre-authorization codes, coverage details, co-payment amounts, claim submission statuses, and billing reconciliation data. Used by the insurance verification process and downstream billing systems. Trust Boundary: Resides inside the Internal Clinical Network.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": false,
+              "storesInventory": false,
+              "threats": [
+                {
+                  "id": "9a857c70-fa02-4d61-a104-9c91bda122dd",
+                  "title": "Insurance Claims Data Tampering",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "An attacker or malicious insider modifies insurance claim records — altering coverage amounts, pre-authorization codes, or billing codes — to commit insurance fraud, inflate reimbursements, or conceal denied claims.",
+                  "mitigation": "Claims Record Integrity Hashing: Each insurance claims record includes a cryptographic hash of its key fields (policy number, authorization code, coverage amount, billing code) computed at creation and verified on every read, enabling detection of unauthorized modifications.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 19,
+                  "score": "6.8"
+                },
+                {
+                  "id": "bb40cc07-734d-4beb-be4a-50e22b664e0a",
+                  "title": "Insurance Data Unauthorized Disclosure",
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "type": "Information disclosure",
+                  "description": "An unauthorized user gains access to the insurance claims repository, exposing patient insurance policy numbers, coverage details, claims history, and billing information that could be used for insurance fraud or patient profiling.",
+                  "mitigation": "Insurance Data Role-Based Access Control: Access to the insurance claims repository is restricted to authorized billing staff and the insurance verification service account. Clinical staff cannot access insurance details unless they hold a specific billing role. All access is logged and audited weekly.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 20,
+                  "score": "5.8"
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 1,
+                "repudiation": 0,
+                "informationDisclosure": 1,
+                "denialOfService": 0
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 1132,
+              "y": 368
+            },
+            "size": {
+              "width": 120,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Clinical Audit Trail"
+              },
+              "topLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "e2d6811c-c503-41c3-b610-1a902c556db8"
+                },
+                {
+                  "group": "right",
+                  "id": "c81f17eb-f34e-4de7-bb7c-2fefef079b2a"
+                },
+                {
+                  "group": "bottom",
+                  "id": "e4e3ec41-86b6-4d95-9775-76bc489ca9a9"
+                },
+                {
+                  "group": "left",
+                  "id": "9420e210-2090-4fc2-b684-356b546ce72c"
+                }
+              ]
+            },
+            "id": "325b0c69-a637-4c81-a1a6-7ab067a0a1e0",
+            "zIndex": 10,
+            "data": {
+              "type": "tm.Store",
+              "name": "Clinical Audit Trail",
+              "description": "An append-only audit log capturing all clinical system events — patient record access, modifications, referral submissions, insurance verifications, discharge summary generations, and authentication events. Required for HIPAA compliance and forensic investigation.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": false,
+              "storesInventory": false,
+              "threats": [
+                {
+                  "id": "c1b3a9ec-123a-4d8d-a15b-346c830e34a2",
+                  "title": "Audit Trail Tampering",
+                  "status": "Mitigated",
+                  "severity": "Critical",
+                  "type": "Tampering",
+                  "description": "An attacker or malicious insider with elevated privileges modifies or deletes audit log entries to cover traces of unauthorized clinical record access, data exfiltration, or fraudulent insurance claims, undermining the integrity of the compliance record.",
+                  "mitigation": "WORM Storage for Audit Logs: The clinical audit trail is stored on a WORM (Write Once Read Many) storage backend with cryptographic chaining (hash-linked entries), ensuring that no entry can be modified or deleted after creation, even by database administrators or system operators.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 21,
+                  "score": "7.8"
+                },
+                {
+                  "id": "2b2d5c1b-7764-4dae-a8b6-9569960c8b4f",
+                  "title": "Audit Log Repudiation",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "type": "Repudiation",
+                  "description": "An actor disputes that an event recorded in the audit trail actually occurred or claims the log entry was fabricated, and the system lacks cryptographic proof of log entry authenticity and temporal ordering.",
+                  "mitigation": "Cryptographically Signed Audit Entries with Timestamping: Each audit log entry is individually signed using the system's HSM-backed signing key and includes a trusted timestamp from an RFC 3161 timestamping authority, providing non-repudiable proof of both the entry's content and the time it was recorded.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 22,
+                  "score": "5.6"
+                },
+                {
+                  "id": "c64665a2-0999-461e-af74-e23d21f841ec",
+                  "title": "Audit Log Denial of Service",
+                  "status": "Mitigated",
+                  "severity": "Medium",
+                  "type": "Denial of service",
+                  "description": "An attacker generates an excessive volume of auditable events to overwhelm the audit log storage or processing capacity, causing legitimate audit entries to be dropped, delayed, or the audit system to become unavailable.",
+                  "mitigation": "Audit Log Buffering and Overflow Protection: The audit logging pipeline uses an asynchronous message queue with guaranteed delivery, automatic disk-based overflow buffering, and alerting when throughput exceeds 80% of capacity. Clinical operations are never blocked by audit log backpressure.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 23,
+                  "score": "5.2"
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 1,
+                "repudiation": 1,
+                "informationDisclosure": 0,
+                "denialOfService": 1
+              }
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Patient Registration Submission",
+              "description": "The patient submits demographic data, identification documents, and insurance details through the patient portal to the Patient Registration Gateway.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Patient Registration Submission"
+            ],
+            "id": "1fd5b0f2-6d28-4cd2-89c7-ed0293404adf",
+            "source": {
+              "cell": "8001ce93-7247-446b-b983-3cb80f08b42f",
+              "port": "af1c0d2a-1b6f-406f-8c64-21bfa3c50cac"
+            },
+            "target": {
+              "cell": "a52d19a5-e61f-449d-bc0c-fc3f310db39d",
+              "port": "a93b82f8-1868-4904-a29c-4d74a6d2466f"
+            },
+            "vertices": [
+              {
+                "x": 310,
+                "y": 130
+              },
+              {
+                "x": 360,
+                "y": 120
+              },
+              {
+                "x": 410,
+                "y": 140
+              },
+              {
+                "x": 450,
+                "y": 140
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Duplicate Record Check",
+              "description": "The Patient Registration Gateway queries the EHR Database to check for existing patient records with matching demographics to prevent duplicate registrations.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Duplicate Record Check"
+            ],
+            "id": "946e8dc3-6776-4784-b6c6-ff93c344e0cb",
+            "source": {
+              "cell": "a52d19a5-e61f-449d-bc0c-fc3f310db39d",
+              "port": "a09d6f96-4dda-4ee2-9f4b-56a61a314c66"
+            },
+            "target": {
+              "cell": "7949caf2-3fa8-49f4-ae96-168ae5b8a3b4",
+              "port": "9420e210-2090-4fc2-b684-356b546ce72c"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Insurance Verification Request",
+              "description": "The Patient Registration Gateway forwards the patient's insurance policy details to the Verify Insurance Eligibility process for coverage verification.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Insurance Verification Request"
+            ],
+            "id": "867a4279-904f-4439-823c-2e367b8ed2f2",
+            "source": {
+              "cell": "a52d19a5-e61f-449d-bc0c-fc3f310db39d",
+              "port": "701c3182-887f-4750-bf3b-623ab01d75b5"
+            },
+            "target": {
+              "cell": "aad82eff-7376-42c7-b9d0-0d8e4276c7f7",
+              "port": "6be0a129-031f-468d-a33f-d53c819047d0"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Insurance Eligibility Query",
+              "description": "The Verify Insurance Eligibility process sends an HL7 FHIR eligibility request to the external Insurance Provider.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Insurance Eligibility Query"
+            ],
+            "id": "244108f6-4bf9-4b22-8d0b-1565c13f6ae2",
+            "source": {
+              "cell": "aad82eff-7376-42c7-b9d0-0d8e4276c7f7",
+              "port": "a93b82f8-1868-4904-a29c-4d74a6d2466f"
+            },
+            "target": {
+              "cell": "1363bd48-f8ee-492b-b221-28979fbd2d12",
+              "port": "af1c0d2a-1b6f-406f-8c64-21bfa3c50cac"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Insurance Eligibility Response",
+              "description": "The Insurance Provider returns coverage details, co-payment amounts, and pre-authorization codes to the Verify Insurance Eligibility process.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Insurance Eligibility Response"
+            ],
+            "id": "75dd04c4-eb8c-4572-ab2d-eb4f83160696",
+            "source": {
+              "cell": "1363bd48-f8ee-492b-b221-28979fbd2d12",
+              "port": "af1c0d2a-1b6f-406f-8c64-21bfa3c50cac"
+            },
+            "target": {
+              "cell": "aad82eff-7376-42c7-b9d0-0d8e4276c7f7",
+              "port": "701c3182-887f-4750-bf3b-623ab01d75b5"
+            },
+            "vertices": [
+              {
+                "x": 450,
+                "y": 398
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Insurance Verification Result Storage",
+              "description": "The Verify Insurance Eligibility process writes the verified insurance status, coverage details, and pre-authorization codes to the Insurance Claims Repository.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Insurance Verification Result Storage"
+            ],
+            "id": "eb279962-a3e4-496e-9d07-bae3e78bfb98",
+            "source": {
+              "cell": "aad82eff-7376-42c7-b9d0-0d8e4276c7f7",
+              "port": "a09d6f96-4dda-4ee2-9f4b-56a61a314c66"
+            },
+            "target": {
+              "cell": "4333a04e-3ee1-4427-beec-5f6ad6cbac84",
+              "port": "9420e210-2090-4fc2-b684-356b546ce72c"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Physician Referral Submission",
+              "description": "The referring physician submits a referral letter with clinical notes and admission request through the physician referral API.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Physician Referral Submission"
+            ],
+            "id": "44749b3d-5887-48cf-a74f-51496224af06",
+            "source": {
+              "cell": "8398490b-f3ef-4787-a5d6-3a86040204b2",
+              "port": "af1c0d2a-1b6f-406f-8c64-21bfa3c50cac"
+            },
+            "target": {
+              "cell": "a52d19a5-e61f-449d-bc0c-fc3f310db39d",
+              "port": "701c3182-887f-4750-bf3b-623ab01d75b5"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Clinical Record Access",
+              "description": "The Manage Clinical Records process reads and writes clinical data (admission notes, diagnoses, treatment plans, medications, lab results) to and from the EHR Database.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Clinical Record Access"
+            ],
+            "id": "bddfd630-5527-4bd5-8bb1-ab9aa1b9e176",
+            "source": {
+              "cell": "b6e249b9-d551-4d27-8559-7d52942c36e8",
+              "port": "701c3182-887f-4750-bf3b-623ab01d75b5"
+            },
+            "target": {
+              "cell": "7949caf2-3fa8-49f4-ae96-168ae5b8a3b4",
+              "port": "e4e3ec41-86b6-4d95-9775-76bc489ca9a9"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Discharge Summary Data Retrieval",
+              "description": "The Generate Discharge Summary process reads the patient's complete admission record, treatment history, and medication list from the EHR Database to compile the discharge summary.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Discharge Summary Data Retrieval"
+            ],
+            "id": "41465902-42f7-4ca5-bae4-58bf9af56096",
+            "source": {
+              "cell": "39f80ccd-c3bd-42e7-a9d3-4f1ee0b5fb8c",
+              "port": "6be0a129-031f-468d-a33f-d53c819047d0"
+            },
+            "target": {
+              "cell": "7949caf2-3fa8-49f4-ae96-168ae5b8a3b4",
+              "port": "e4e3ec41-86b6-4d95-9775-76bc489ca9a9"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Discharge Summary to Patient",
+              "description": "The Generate Discharge Summary process sends a notification with a secure link to the discharge summary to the patient via the patient portal.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Discharge Summary to Patient"
+            ],
+            "id": "08418f89-7181-45e1-9224-a9b6f9e423ed",
+            "source": {
+              "cell": "39f80ccd-c3bd-42e7-a9d3-4f1ee0b5fb8c",
+              "port": "701c3182-887f-4750-bf3b-623ab01d75b5"
+            },
+            "target": {
+              "cell": "8001ce93-7247-446b-b983-3cb80f08b42f",
+              "port": "d4c502f6-e364-4459-8855-b25c822784fd"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Discharge Summary to Referring Physician",
+              "description": "The Generate Discharge Summary process transmits the signed discharge summary to the referring physician via the physician referral API.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Discharge Summary to Referring Physician"
+            ],
+            "id": "1d854ddc-9ddb-48eb-8839-a48eed49a120",
+            "source": {
+              "cell": "39f80ccd-c3bd-42e7-a9d3-4f1ee0b5fb8c",
+              "port": "701c3182-887f-4750-bf3b-623ab01d75b5"
+            },
+            "target": {
+              "cell": "8398490b-f3ef-4787-a5d6-3a86040204b2",
+              "port": "d4c502f6-e364-4459-8855-b25c822784fd"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Clinical Audit Log Entry",
+              "description": "The Manage Clinical Records process writes audit events (record access, modifications, authorization checks) to the Clinical Audit Trail.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Clinical Audit Log Entry"
+            ],
+            "id": "0ab0e5e7-a94d-44fa-abe5-2ad070d49ec4",
+            "source": {
+              "cell": "b6e249b9-d551-4d27-8559-7d52942c36e8",
+              "port": "701c3182-887f-4750-bf3b-623ab01d75b5"
+            },
+            "target": {
+              "cell": "325b0c69-a637-4c81-a1a6-7ab067a0a1e0",
+              "port": "9420e210-2090-4fc2-b684-356b546ce72c"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Registration Audit Log Entry",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Registration Audit Log Entry"
+            ],
+            "id": "a413d858-0cb8-4d0a-8efa-fc5a73b64310",
+            "source": {
+              "cell": "a52d19a5-e61f-449d-bc0c-fc3f310db39d",
+              "port": "701c3182-887f-4750-bf3b-623ab01d75b5"
+            },
+            "target": {
+              "cell": "325b0c69-a637-4c81-a1a6-7ab067a0a1e0",
+              "port": "9420e210-2090-4fc2-b684-356b546ce72c"
+            },
+            "vertices": []
+          }
+        ]
+      }
+    ],
+    "diagramTop": 1,
+    "reviewer": "",
+    "threatTop": 23
+  }
+}
