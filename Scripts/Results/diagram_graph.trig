@@ -1,0 +1,240 @@
+@prefix ex: <http://www.example.org#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix ex: <http://www.example.org#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+
+ex:Metadata
+{
+ex:DFD_ProcessPayment a ex:DFDDiagram .
+}
+
+ex:DFD_ProcessPayment
+{
+ex:ValidatePayDet1 rdfs:label "Validate Payment Details".
+ex:ValidatePayDet1 a ex:DFDProcess.
+ex:ValidatePayDet1 ex:describesProcess "Receives raw payment input from the customer, validates card number format (Luhn check), expiration date, and CVV presence. Enriches the request with the customer's profile data from the Customer Database. "^^xsd:string.
+ex:ValidatePayDet1 ex:hasSusceptibleThreat [ex:threatCode ex:PayDataTemperingInTransit1; ex:comment ""; a ex:ThreatAssessment ].
+ex:ValidatePayDet1 ex:hasSusceptibleThreat [ex:threatCode ex:CustIdentSpoofing1; ex:comment ""; a ex:ThreatAssessment ].
+ex:ValidatePayDet1 ex:hasMitigation [ex:mitigationCode ex:InputValIdentCheck1; ex:comment ""; a ex:MitigationAssessment ].
+ex:ValidatePayDet1 ex:hasMitigation [ex:mitigationCode ex:MFA1; ex:comment ""; a ex:MitigationAssessment ].
+ex:ValidatePayDet1 ex:residesInTrustZone ex:InternalNetworkBoundary.
+ex:ScreenForFraud rdfs:label "Screen for Fraud".
+ex:ScreenForFraud a ex:DFDProcess.
+ex:ScreenForFraud ex:describesProcess "Sends the validated payment request to the external Fraud Detection Service and cross-references the transaction against internal fraud rules. Returns an approve/reject/review decision."^^xsd:string.
+ex:ScreenForFraud ex:hasSusceptibleThreat [ex:threatCode ex:FraudScreeningDoS; ex:comment ""; a ex:ThreatAssessment ].
+ex:ScreenForFraud ex:hasSusceptibleThreat [ex:threatCode ex:FraudServiceRespSpoof1; ex:comment ""; a ex:ThreatAssessment ].
+ex:ScreenForFraud ex:hasSusceptibleThreat [ex:threatCode ex:TransRep1; ex:comment ""; a ex:ThreatAssessment ].
+ex:ScreenForFraud ex:hasMitigation [ex:mitigationCode ex:RateLimitingCircuitBreaker; ex:comment ""; a ex:MitigationAssessment ].
+ex:ScreenForFraud ex:hasMitigation [ex:mitigationCode ex:MutualTLSAuth; ex:comment ""; a ex:MitigationAssessment ].
+ex:ScreenForFraud ex:residesInTrustZone ex:InternalNetworkBoundary.
+ex:ExecutePaymentTransaction rdfs:label "Execute Payment Transaction".
+ex:ExecutePaymentTransaction a ex:DFDProcess.
+ex:ExecutePaymentTransaction ex:describesProcess "Sends the authorized payment request to the Payment Gateway Provider, receives the transaction result (approved/declined), and persists the transaction record."^^xsd:string.
+ex:ExecutePaymentTransaction ex:hasSusceptibleThreat [ex:threatCode ex:TransRep1; ex:comment ""; a ex:ThreatAssessment ].
+ex:ExecutePaymentTransaction ex:hasSusceptibleThreat [ex:threatCode ex:PayRecTamp1; ex:comment ""; a ex:ThreatAssessment ].
+ex:ExecutePaymentTransaction ex:hasMitigation [ex:mitigationCode ex:CompTransLog1; ex:comment ""; a ex:MitigationAssessment ].
+ex:ExecutePaymentTransaction ex:hasMitigation [ex:mitigationCode ex:DatabIntegCtrlsAuditLogg1; ex:comment ""; a ex:MitigationAssessment ].
+ex:ExecutePaymentTransaction ex:hasMitigation [ex:mitigationCode ex:ImmutableAppLogStor1; ex:comment ""; a ex:MitigationAssessment ].
+ex:ExecutePaymentTransaction ex:residesInTrustZone ex:PCIComplianceZone.
+ex:GenPayRec1 rdfs:label "Generate Payment Receipt".
+ex:GenPayRec1 a ex:DFDProcess.
+ex:GenPayRec1 ex:describesProcess "Creates a payment receipt with masked card details and transaction summary, stores it in the Audit Log, and delivers it to the customer."^^xsd:string.
+ex:GenPayRec1 ex:hasSusceptibleThreat [ex:threatCode ex:SensitiveDataLeakageReceipts1; ex:comment ""; a ex:ThreatAssessment ].
+ex:GenPayRec1 ex:hasSusceptibleThreat [ex:threatCode ex:AuditTrlTamp1; ex:comment ""; a ex:ThreatAssessment ].
+ex:GenPayRec1 ex:hasMitigation [ex:mitigationCode ex:PIIDataMaskOutput; ex:comment ""; a ex:MitigationAssessment ].
+ex:GenPayRec1 ex:hasMitigation [ex:mitigationCode ex:ImmutableAppLogStor1; ex:comment ""; a ex:MitigationAssessment ].
+ex:GenPayRec1 ex:residesInTrustZone ex:InternalNetworkBoundary.
+ex:Customer rdfs:label "Customer".
+ex:Customer a ex:DFDExternalEntity.
+ex:Customer ex:describesExternalEntity "The end-user who initiates the payment by submitting payment credentials (credit card, digital wallet) through the ShopNova checkout interface."^^xsd:string.
+ex:Customer ex:hasSusceptibleThreat [ex:threatCode ex:CustIdentSpoofing1; ex:comment ""; a ex:ThreatAssessment ].
+ex:Customer ex:hasMitigation [ex:mitigationCode ex:MFA1; ex:comment ""; a ex:MitigationAssessment ].
+ex:Customer ex:hasMitigation [ex:mitigationCode ex:InputValIdentCheck1; ex:comment ""; a ex:MitigationAssessment ].
+ex:Customer ex:residesInTrustZone ex:ExternalUsersZone.
+ex:PayGWProv1 rdfs:label "Payment Gateway Provider".
+ex:PayGWProv1 a ex:DFDExternalEntity.
+ex:PayGWProv1 ex:describesExternalEntity "he external payment processor that authorizes and settles credit card and digital wallet transactions on behalf of ShopNova."^^xsd:string.
+ex:PayGWProv1 ex:hasSusceptibleThreat [ex:threatCode ex:GatewayCommTampering1; ex:comment ""; a ex:ThreatAssessment ].
+ex:PayGWProv1 ex:hasSusceptibleThreat [ex:threatCode ex:TransRep1; ex:comment ""; a ex:ThreatAssessment ].
+ex:PayGWProv1 ex:hasMitigation [ex:mitigationCode ex:TLSCertPinning1; ex:comment ""; a ex:MitigationAssessment ].
+ex:PayGWProv1 ex:hasMitigation [ex:mitigationCode ex:CompTransLog1; ex:comment ""; a ex:MitigationAssessment ].
+ex:PayGWProv1 ex:residesInTrustZone ex:ExternalServicesZone.
+ex:PayGWProv1 owl:sameAs ex:PaymentGatewayProviderStripeConnect.
+ex:FrautDetServ1 rdfs:label "Fraud Detection Service".
+ex:FrautDetServ1 a ex:DFDExternalEntity.
+ex:FrautDetServ1 ex:describesExternalEntity "A third-party fraud scoring service that evaluates transactions against behavioral analytics and known fraud patterns."^^xsd:string.
+ex:FrautDetServ1 ex:hasSusceptibleThreat [ex:threatCode ex:FraudServiceRespSpoof1; ex:comment ""; a ex:ThreatAssessment ].
+ex:FrautDetServ1 ex:hasSusceptibleThreat [ex:threatCode ex:FraudScreeningDoS; ex:comment ""; a ex:ThreatAssessment ].
+ex:FrautDetServ1 ex:hasMitigation [ex:mitigationCode ex:MutualTLSAuth; ex:comment ""; a ex:MitigationAssessment ].
+ex:FrautDetServ1 ex:residesInTrustZone ex:ExternalServicesZone.
+ex:CustDatabase1 rdfs:label "Customer Database".
+ex:CustDatabase1 a ex:DFDDataStore.
+ex:CustDatabase1 ex:describesDataStore "Central relational database storing customer profiles, addresses, payment method tokens, and order history. Shared across multiple ShopNova subsystems."^^xsd:string.
+ex:CustDatabase1 ex:hasSusceptibleThreat [ex:threatCode ex:UnauthAccessCustPII1; ex:comment ""; a ex:ThreatAssessment ].
+ex:CustDatabase1 ex:hasSusceptibleThreat [ex:threatCode ex:CustIdentSpoofing1; ex:comment ""; a ex:ThreatAssessment ].
+ex:CustDatabase1 ex:hasMitigation [ex:mitigationCode ex:EncRestRBAC1; ex:comment ""; a ex:MitigationAssessment ].
+ex:CustDatabase1 ex:hasMitigation [ex:mitigationCode ex:DatabIntegCtrlsAuditLogg1; ex:comment ""; a ex:MitigationAssessment ].
+ex:CustDatabase1 ex:hasMitigation [ex:mitigationCode ex:ImmutableAppLogStor1; ex:comment ""; a ex:MitigationAssessment ].
+ex:CustDatabase1 ex:residesInTrustZone ex:InternalNetworkBoundary.
+ex:CustDatabase1 owl:sameAs ex:CustomerDatabase.
+ex:PaymentRecs rdfs:label "Payment Records".
+ex:PaymentRecs a ex:DFDDataStore.
+ex:PaymentRecs ex:describesDataStore "PCI-compliant data store holding transaction records, authorization codes, settlement statuses, and tokenized card references."^^xsd:string.
+ex:PaymentRecs ex:hasSusceptibleThreat [ex:threatCode ex:PayRecTamp1; ex:comment ""; a ex:ThreatAssessment ].
+ex:PaymentRecs ex:hasSusceptibleThreat [ex:threatCode ex:UnauthAccessCustPII1; ex:comment ""; a ex:ThreatAssessment ].
+ex:PaymentRecs ex:hasMitigation [ex:mitigationCode ex:DatabIntegCtrlsAuditLogg1; ex:comment ""; a ex:MitigationAssessment ].
+ex:PaymentRecs ex:hasMitigation [ex:mitigationCode ex:ImmutableAppLogStor1; ex:comment ""; a ex:MitigationAssessment ].
+ex:PaymentRecs ex:residesInTrustZone ex:PCIComplianceZone.
+ex:FraudRulesRepo1 rdfs:label "Fraud Rules Repository".
+ex:FraudRulesRepo1 a ex:DFDDataStore.
+ex:FraudRulesRepo1 ex:describesDataStore "Stores configurable fraud detection rules, velocity thresholds, blacklisted card BINs, and geolocation risk scores used by the internal fraud screening logic."^^xsd:string.
+ex:FraudRulesRepo1 ex:hasSusceptibleThreat [ex:threatCode ex:UnauthFraudRuleModif1; ex:comment ""; a ex:ThreatAssessment ].
+ex:FraudRulesRepo1 ex:hasMitigation [ex:mitigationCode ex:PrivilegedAccessManagement; ex:comment ""; a ex:MitigationAssessment ].
+ex:FraudRulesRepo1 ex:residesInTrustZone ex:InternalNetworkBoundary.
+ex:AuditLogDS rdfs:label "Audit Log".
+ex:AuditLogDS a ex:DFDDataStore.
+ex:AuditLogDS ex:describesDataStore "Append-only log capturing all payment-related events, state transitions, and administrative actions for compliance and forensic purposes. Shared across multiple ShopNova subsystems."^^xsd:string.
+ex:AuditLogDS ex:hasSusceptibleThreat [ex:threatCode ex:AuditTrlTamp1; ex:comment ""; a ex:ThreatAssessment ].
+ex:AuditLogDS ex:hasSusceptibleThreat [ex:threatCode ex:TransRep1; ex:comment ""; a ex:ThreatAssessment ].
+ex:AuditLogDS ex:hasMitigation [ex:mitigationCode ex:ImmutableAppLogStor1; ex:comment ""; a ex:MitigationAssessment ].
+ex:AuditLogDS ex:hasMitigation [ex:mitigationCode ex:CompTransLog1; ex:comment ""; a ex:MitigationAssessment ].
+ex:AuditLogDS ex:residesInTrustZone ex:InternalNetworkBoundary.
+ex:AuditLogDS owl:sameAs ex:AuditLog.
+ex:AuditLogDS owl:sameAs ex:AuditLog.
+ex:AuditLogDS owl:sameAs ex:AuditLog.
+ex:ExternalUsersZone rdfs:label "External Users Zone".
+ex:ExternalUsersZone a ex:DFDTrustBoundary.
+ex:InternalNetworkBoundary rdfs:label "Internal Network Boundary".
+ex:InternalNetworkBoundary a ex:DFDTrustBoundary.
+ex:PCIComplianceZone rdfs:label "PCI Compliance Zone".
+ex:PCIComplianceZone a ex:DFDTrustBoundary.
+ex:ExternalServicesZone rdfs:label "External Services Zone".
+ex:ExternalServicesZone a ex:DFDTrustBoundary.
+ex:PaymentsDetailsSubmission rdfs:label "Payment Details Submission".
+ex:PaymentsDetailsSubmission a ex:DFDDataFlow.
+ex:PaymentsDetailsSubmission ex:protocol "HTTPS".
+ex:PaymentsDetailsSubmission ex:describesDataFlow "The customer submits payment credentials (card number, expiry, CVV or digital wallet token) to the Validate Payment Details process."^^xsd:string.
+ex:ValidatePayDet1 ex:hasInputDataFlow ex:PaymentsDetailsSubmission.
+ex:Customer ex:sendsDataFlow ex:PaymentsDetailsSubmission.
+ex:PaymentsDetailsSubmission ex:crossesTrustBoundary External Users Zone;Internal Network Boundary;.
+ex:PaymentsDetailsSubmission ex:crossesTrustBoundary External Users Zone;Internal Network Boundary;.
+ex:PaymentsDetailsSubmission ex:hasSusceptibleThreat [ex:threatCode ex:PayDataTemperingInTransit1; ex:comment ""; a ex:ThreatAssessment ].
+ex:PaymentsDetailsSubmission ex:hasSusceptibleThreat [ex:threatCode ex:CustIdentSpoofing1; ex:comment ""; a ex:ThreatAssessment ].
+ex:PaymentsDetailsSubmission ex:hasMitigation [ex:mitigationCode ex:InputValIdentCheck1; ex:comment ""; a ex:MitigationAssessment ].
+ex:PaymentsDetailsSubmission ex:hasMitigation [ex:mitigationCode ex:MFA1; ex:comment ""; a ex:MitigationAssessment ].
+ex:CustomerProfileLookup rdfs:label "Customer Profile Lookup".
+ex:CustomerProfileLookup a ex:DFDDataFlow.
+ex:CustomerProfileLookup ex:protocol "TLS".
+ex:CustomerProfileLookup ex:describesDataFlow "The Validate Payment Details process queries the Customer Database to retrieve the customer's stored profile and payment token history."^^xsd:string.
+ex:ValidatePayDet1 ex:hasOutputDataFlow ex:CustomerProfileLookup.
+ex:CustDatabase1 ex:storesDataFlow ex:CustomerProfileLookup.
+ex:CustomerProfileLookup ex:residesInTrustZone ex:InternalNetworkBoundary.
+ex:ValidatePaymentDetails rdfs:label "Validated Payment Request".
+ex:ValidatePaymentDetails a ex:DFDDataFlow.
+ex:ValidatePaymentDetails ex:protocol "HTTPS".
+ex:ValidatePaymentDetails ex:describesDataFlow "The validated and enriched payment request is forwarded from the Validate Payment Details process to the Screen for Fraud process."^^xsd:string.
+ex:ValidatePayDet1 ex:hasOutputDataFlow ex:ValidatePaymentDetails.
+ex:ScreenForFraud ex:hasInputDataFlow ex:ValidatePaymentDetails.
+ex:ValidatePaymentDetails ex:residesInTrustZone ex:InternalNetworkBoundary.
+ex:FraudCheckRequest rdfs:label "Fraud Check Request".
+ex:FraudCheckRequest a ex:DFDDataFlow.
+ex:FraudCheckRequest ex:protocol "HTTPS".
+ex:FraudCheckRequest ex:describesDataFlow "The Screen for Fraud process sends transaction data to the external Fraud Detection Service for risk scoring."^^xsd:string.
+ex:ScreenForFraud ex:hasOutputDataFlow ex:FraudCheckRequest.
+ex:FrautDetServ1 ex:receivesDataFlow ex:FraudCheckRequest.
+ex:FraudCheckRequest ex:crossesTrustBoundary Internal Network Boundary;External Services Zone;PCI Compliance Zone;.
+ex:FraudCheckRequest ex:crossesTrustBoundary Internal Network Boundary;External Services Zone;PCI Compliance Zone;.
+ex:FraudCheckRequest ex:crossesTrustBoundary Internal Network Boundary;External Services Zone;PCI Compliance Zone;.
+ex:FraudCheckRequest ex:hasSusceptibleThreat [ex:threatCode ex:FraudServiceRespSpoof1; ex:comment ""; a ex:ThreatAssessment ].
+ex:FraudCheckRequest ex:hasMitigation [ex:mitigationCode ex:MutualTLSAuth; ex:comment ""; a ex:MitigationAssessment ].
+ex:FraudScoringResponse rdfs:label "Fraud Scoring Response".
+ex:FraudScoringResponse a ex:DFDDataFlow.
+ex:FraudScoringResponse ex:protocol "HTTPS".
+ex:FraudScoringResponse ex:describesDataFlow "The Fraud Detection Service returns a risk score and decision (approve/decline/manual review) to the Screen for Fraud process."^^xsd:string.
+ex:ScreenForFraud ex:hasInputDataFlow ex:FraudScoringResponse.
+ex:FrautDetServ1 ex:sendsDataFlow ex:FraudScoringResponse.
+ex:FraudScoringResponse ex:crossesTrustBoundary Internal Network Boundary;PCI Compliance Zone;External Services Zone;.
+ex:FraudScoringResponse ex:crossesTrustBoundary Internal Network Boundary;PCI Compliance Zone;External Services Zone;.
+ex:FraudScoringResponse ex:crossesTrustBoundary Internal Network Boundary;PCI Compliance Zone;External Services Zone;.
+ex:FraudScoringResponse ex:hasSusceptibleThreat [ex:threatCode ex:FraudServiceRespSpoof1; ex:comment ""; a ex:ThreatAssessment ].
+ex:FraudScoringResponse ex:hasSusceptibleThreat [ex:threatCode ex:FraudScreeningDoS; ex:comment ""; a ex:ThreatAssessment ].
+ex:FraudScoringResponse ex:hasMitigation [ex:mitigationCode ex:MutualTLSAuth; ex:comment ""; a ex:MitigationAssessment ].
+ex:FraudScoringResponse ex:hasMitigation [ex:mitigationCode ex:RateLimitingCircuitBreaker; ex:comment ""; a ex:MitigationAssessment ].
+ex:FraudRulesQuery rdfs:label "Fraud Rules Query".
+ex:FraudRulesQuery a ex:DFDDataFlow.
+ex:FraudRulesQuery ex:protocol "TLS".
+ex:FraudRulesQuery ex:describesDataFlow "The Screen for Fraud process queries the Fraud Rules Repository for applicable velocity checks, BIN blacklists, and risk thresholds."^^xsd:string.
+ex:ScreenForFraud ex:hasOutputDataFlow ex:FraudRulesQuery.
+ex:FraudRulesRepo1 ex:storesDataFlow ex:FraudRulesQuery.
+ex:FraudRulesQuery ex:residesInTrustZone ex:InternalNetworkBoundary.
+ex:ApprovedPaymentRequest rdfs:label "Approved Payment Request".
+ex:ApprovedPaymentRequest a ex:DFDDataFlow.
+ex:ApprovedPaymentRequest ex:protocol "HTTPS".
+ex:ApprovedPaymentRequest ex:describesDataFlow "Approved Payment Request Description: The fraud-cleared payment request is forwarded from the Screen for Fraud process to the Execute Payment Transaction process."^^xsd:string.
+ex:ScreenForFraud ex:hasOutputDataFlow ex:ApprovedPaymentRequest.
+ex:ExecutePaymentTransaction ex:hasInputDataFlow ex:ApprovedPaymentRequest.
+ex:ApprovedPaymentRequest ex:crossesTrustBoundary Internal Network Boundary;PCI Compliance Zone;.
+ex:ApprovedPaymentRequest ex:crossesTrustBoundary Internal Network Boundary;PCI Compliance Zone;.
+ex:ApprovedPaymentRequest ex:hasSusceptibleThreat [ex:threatCode ex:PayDataTemperingInTransit1; ex:comment ""; a ex:ThreatAssessment ].
+ex:ApprovedPaymentRequest ex:hasMitigation [ex:mitigationCode ex:TLSCertPinning1; ex:comment ""; a ex:MitigationAssessment ].
+ex:TransactionAuthorizationRequest rdfs:label "Transaction Authorization Request".
+ex:TransactionAuthorizationRequest a ex:DFDDataFlow.
+ex:TransactionAuthorizationRequest ex:protocol "HTTPS".
+ex:TransactionAuthorizationRequest ex:describesDataFlow "Transaction Authorization Request Description: The Execute Payment Transaction process sends the payment authorization request to the Payment Gateway Provider"^^xsd:string.
+ex:ExecutePaymentTransaction ex:hasOutputDataFlow ex:TransactionAuthorizationRequest.
+ex:PayGWProv1 ex:receivesDataFlow ex:TransactionAuthorizationRequest.
+ex:TransactionAuthorizationRequest ex:crossesTrustBoundary External Services Zone;PCI Compliance Zone;.
+ex:TransactionAuthorizationRequest ex:crossesTrustBoundary External Services Zone;PCI Compliance Zone;.
+ex:TransactionAuthorizationRequest ex:hasSusceptibleThreat [ex:threatCode ex:GatewayCommTampering1; ex:comment ""; a ex:ThreatAssessment ].
+ex:TransactionAuthorizationRequest ex:hasMitigation [ex:mitigationCode ex:TLSCertPinning1; ex:comment ""; a ex:MitigationAssessment ].
+ex:TransactionAuthorizationRequest ex:hasMitigation [ex:mitigationCode ex:CompTransLog1; ex:comment ""; a ex:MitigationAssessment ].
+ex:TransactionAuthorizationRespone rdfs:label "Transaction Authorization Response".
+ex:TransactionAuthorizationRespone a ex:DFDDataFlow.
+ex:TransactionAuthorizationRespone ex:protocol "HTTPS".
+ex:TransactionAuthorizationRespone ex:describesDataFlow "The Payment Gateway Provider returns the authorization result (approved, declined, or error) to the Execute Payment Transaction process."^^xsd:string.
+ex:ExecutePaymentTransaction ex:hasInputDataFlow ex:TransactionAuthorizationRespone.
+ex:PayGWProv1 ex:sendsDataFlow ex:TransactionAuthorizationRespone.
+ex:TransactionAuthorizationRespone ex:crossesTrustBoundary External Services Zone;PCI Compliance Zone;.
+ex:TransactionAuthorizationRespone ex:crossesTrustBoundary External Services Zone;PCI Compliance Zone;.
+ex:TransactionAuthorizationRespone ex:hasSusceptibleThreat [ex:threatCode ex:GatewayCommTampering1; ex:comment ""; a ex:ThreatAssessment ].
+ex:TransactionAuthorizationRespone ex:hasMitigation [ex:mitigationCode ex:TLSCertPinning1; ex:comment ""; a ex:MitigationAssessment ].
+ex:PaymentRecordStorage rdfs:label "Payment Record Storage".
+ex:PaymentRecordStorage a ex:DFDDataFlow.
+ex:PaymentRecordStorage ex:protocol "TLS".
+ex:PaymentRecordStorage ex:describesDataFlow "The Execute Payment Transaction process writes the completed transaction record (authorization code, amount, status, timestamp) to the Payment Records data store."^^xsd:string.
+ex:ExecutePaymentTransaction ex:hasOutputDataFlow ex:PaymentRecordStorage.
+ex:PaymentRecs ex:storesDataFlow ex:PaymentRecordStorage.
+ex:PaymentRecordStorage ex:residesInTrustZone ex:PCIComplianceZone.
+ex:ReceiptGenerationData rdfs:label "Receipt Generation Data".
+ex:ReceiptGenerationData a ex:DFDDataFlow.
+ex:ReceiptGenerationData ex:protocol "HTTPS".
+ex:ReceiptGenerationData ex:describesDataFlow "The Execute Payment Transaction process sends the transaction summary to the Generate Payment Receipt process for receipt creation."^^xsd:string.
+ex:ExecutePaymentTransaction ex:hasOutputDataFlow ex:ReceiptGenerationData.
+ex:GenPayRec1 ex:hasInputDataFlow ex:ReceiptGenerationData.
+ex:ReceiptGenerationData ex:crossesTrustBoundary Internal Network Boundary;PCI Compliance Zone;.
+ex:ReceiptGenerationData ex:crossesTrustBoundary Internal Network Boundary;PCI Compliance Zone;.
+ex:ReceiptGenerationData ex:hasSusceptibleThreat [ex:threatCode ex:SensitiveDataLeakageReceipts1; ex:comment ""; a ex:ThreatAssessment ].
+ex:ReceiptGenerationData ex:hasMitigation [ex:mitigationCode ex:PIIDataMaskOutput; ex:comment ""; a ex:MitigationAssessment ].
+ex:ReceiptDelivery rdfs:label "Receipt Delivery".
+ex:ReceiptDelivery a ex:DFDDataFlow.
+ex:ReceiptDelivery ex:protocol "HTTPS".
+ex:ReceiptDelivery ex:describesDataFlow "The Generate Payment Receipt process sends the formatted receipt (with masked card details) to the customer via email and in-app notification."^^xsd:string.
+ex:GenPayRec1 ex:hasOutputDataFlow ex:ReceiptDelivery.
+ex:Customer ex:receivesDataFlow ex:ReceiptDelivery.
+ex:ReceiptDelivery ex:crossesTrustBoundary External Users Zone;Internal Network Boundary;.
+ex:ReceiptDelivery ex:crossesTrustBoundary External Users Zone;Internal Network Boundary;.
+ex:ReceiptDelivery ex:hasSusceptibleThreat [ex:threatCode ex:SensitiveDataLeakageReceipts1; ex:comment ""; a ex:ThreatAssessment ].
+ex:ReceiptDelivery ex:hasMitigation [ex:mitigationCode ex:PIIDataMaskOutput; ex:comment ""; a ex:MitigationAssessment ].
+ex:AuditLogEntry rdfs:label "Audit Log Entry".
+ex:AuditLogEntry a ex:DFDDataFlow.
+ex:AuditLogEntry ex:protocol "TLS".
+ex:AuditLogEntry ex:describesDataFlow "The Generate Payment Receipt process writes a log entry capturing the receipt generation event, including a hash of the receipt content, to the Audit Log."^^xsd:string.
+ex:GenPayRec1 ex:hasOutputDataFlow ex:AuditLogEntry.
+ex:AuditLogDS ex:storesDataFlow ex:AuditLogEntry.
+ex:AuditLogEntry ex:residesInTrustZone ex:InternalNetworkBoundary.
+}

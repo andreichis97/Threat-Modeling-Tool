@@ -1,0 +1,14 @@
+
+ex:Process1 rdfs:label "Process".
+ex:Process1 a ex:DFDProcess.
+ex:Process1 ex:residesInTrustZone ex:ExternalUsersZone.
+ex:ExternalEntity1 rdfs:label "External entity".
+ex:ExternalEntity1 a ex:DFDExternalEntity.
+ex:ExternalEntity1 ex:residesInTrustZone ex:ExternalUsersZone.
+ex:ExternalUsersZone rdfs:label "External Users Zone".
+ex:ExternalUsersZone a ex:DFDTrustBoundary.
+ex:DataFlow1 rdfs:label "Data Flow 1".
+ex:DataFlow1 a ex:DFDDataFlow.
+ex:DataFlow1 ex:protocol "HTTPS".
+ex:Process1 ex:hasInputDataFlow ex:DataFlow1.
+ex:ExternalEntity1 ex:sendsDataFlow ex:DataFlow1.
