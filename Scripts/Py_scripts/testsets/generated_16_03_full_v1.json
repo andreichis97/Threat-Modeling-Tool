@@ -1,0 +1,333 @@
+[
+  {
+    "category_id": "1",
+    "question_id": "1",
+    "question": "What is the risk level of \"Carrier Identity Spoofing\"?",
+    "ground_truth": "The risk level of \"Carrier Identity Spoofing\" is \"Critical\"."
+  },
+  {
+    "category_id": "1",
+    "question_id": "2",
+    "question": "What is the protocol used by \"Receipt Delivery\"?",
+    "ground_truth": "The protocol used by \"Receipt Delivery\" is \"HTTPS\"."
+  },
+  {
+    "category_id": "1",
+    "question_id": "3",
+    "question": "What is the protocol used by \"Customer Profile Lookup\"?",
+    "ground_truth": "The protocol used by \"Customer Profile Lookup\" is \"TLS\"."
+  },
+  {
+    "category_id": "1",
+    "question_id": "4",
+    "question": "What is the cost of \"Immutable Append-Only Log Storage\"?",
+    "ground_truth": "The cost of \"Immutable Append-Only Log Storage\" is 14,000."
+  },
+  {
+    "category_id": "1",
+    "question_id": "5",
+    "question": "What is the implementation status of \"Return Eligibility Verification Engine\"?",
+    "ground_truth": "The implementation status of \"Return Eligibility Verification Engine\" is \"Implemented\"."
+  },
+  {
+    "category_id": "2",
+    "question_id": "6",
+    "question": "Which data flows are inputs to \"Screen for Fraud\"?",
+    "ground_truth": "The data flows that are inputs to \"Screen for Fraud\" are \"Validated Payment Request\" and \"Fraud Scoring Response\"."
+  },
+  {
+    "category_id": "2",
+    "question_id": "7",
+    "question": "Which data store receives \"Refund Execution Audit Entry\"?",
+    "ground_truth": "The data store that receives \"Refund Execution Audit Entry\" is \"Audit Log\"."
+  },
+  {
+    "category_id": "2",
+    "question_id": "8",
+    "question": "Which is the following task after \"Ship Order\"?",
+    "ground_truth": "The following task after \"Ship Order\" is \"Update Delivery Status\"."
+  },
+  {
+    "category_id": "2",
+    "question_id": "9",
+    "question": "Which is the following task after \"Display Return Policy\"?",
+    "ground_truth": "The task following \"Display Return Policy\" is \"Collect Return Reason\"."
+  },
+  {
+    "category_id": "2",
+    "question_id": "10",
+    "question": "Which are the possible mitigations for threat \"Payment Data Tampering in Transit\"?",
+    "ground_truth": "The possible mitigations for threat \"Payment Data Tampering in Transit\" are \"TLS 1.3 with Certificate Pinning\" and \"Input Validation and Integrity Checks\"."
+  },
+  {
+    "category_id": "3",
+    "question_id": "11",
+    "question": "What threats are linked to \"Generate Delivery Milestone\"?",
+    "ground_truth": "The threats linked to \"Generate Delivery Milestone\" are \"Delivery Confirmation Repudiation\" and \"Customer Delivery Address Exposure\"."
+  },
+  {
+    "category_id": "3",
+    "question_id": "12",
+    "question": "What categories are the mitigations which can counter threat named \"Sensitive Data Leakage in Receipts\"?",
+    "ground_truth": "The mitigations that can counter the threat named \"Sensitive Data Leakage in Receipts\" are \"PII Data Masking in Output\" and \"Encryption at Rest with RBAC\"; their categories are \"Data Protection\"."
+  },
+  {
+    "category_id": "3",
+    "question_id": "13",
+    "question": "Which trust boundaries are crossed by the data flows that are input to \"Execute Refund\"?",
+    "ground_truth": "The data flow \"Approved Return for Refund\" is input to \"Execute Refund\" and crosses the \"Internal Returns Processing Zone\" trust boundary and the \"Financial Services Zone\" trust boundary."
+  },
+  {
+    "category_id": "3",
+    "question_id": "14",
+    "question": "What trust zone does the data store that stores \"Payment Record Storage\" reside in?",
+    "ground_truth": "The data store that stores \"Payment Record Storage\" is \"Payment Records,\" and it resides within the PCI Compliance Zone."
+  },
+  {
+    "category_id": "3",
+    "question_id": "15",
+    "question": "What mitigations are implemented to data store \"Fraud Rules Repository\"?",
+    "ground_truth": "The mitigations implemented to the data store \"Fraud Rules Repository\" are \"Privileged Access Management\"."
+  },
+  {
+    "category_id": "4",
+    "question_id": "16",
+    "question": "What threats impact the data flows which are outputted by the process \"Execute Payment Transaction\"?",
+    "ground_truth": "The threats impacting the data flows outputted by the process \"Execute Payment Transaction\" are:\n- For \"Transaction Authorization Request\": T2 — Gateway Communication Tampering\n- For \"Payment Record Storage\": T9 — Payment Record Tampering and T8 — Unauthorized Access to Customer PII\n- For \"Receipt Generation Data\": T7 — Sensitive Data Leakage in Receipts\n"
+  },
+  {
+    "category_id": "4",
+    "question_id": "17",
+    "question": "What threats impact the data flows which cross the trust boundary named \"Internal Order Management Zone (1)\"?",
+    "ground_truth": "The provided descriptions do not contain sufficient information to answer this question."
+  },
+  {
+    "category_id": "4",
+    "question_id": "18",
+    "question": "What mitigations are implemented for the processes residing in trust zone named \"Internal Network Boundary (2)\"?",
+    "ground_truth": "The mitigations implemented for processes residing in the \"Internal Network Boundary\" are \"Multi-Factor Authentication\", \"Input Validation and Integrity Checks\", \"TLS 1.3 with Certificate Pinning\", \"Mutual TLS Authentication\", \"Rate Limiting and Circuit Breaker\", \"Comprehensive Transaction Logging\", \"PII Data Masking in Output\", \"Encryption at Rest with RBAC\", \"Privileged Access Management\", \"Database Integrity Controls and Write-Audit Logging\", and \"Immutable Append-Only Log Storage\"."
+  },
+  {
+    "category_id": "4",
+    "question_id": "19",
+    "question": "What mitigations secure the data flows stored by the data store \"Customer Database\"?",
+    "ground_truth": "The mitigations that secure the data flows stored by the data store \"Customer Database\" are \"Encryption at Rest with RBAC\", \"Privileged Access Management\", \"Account Enumeration Prevention\", \"Return Data Access Restrictions\", and \"Return Record Integrity Verification\"."
+  },
+  {
+    "category_id": "4",
+    "question_id": "20",
+    "question": "What threats impact the external entity which sends the data flow named \"Carrier Tracking Update\"?",
+    "ground_truth": "The threats that impact the external entity \"Shipping Carrier (LogiTrack)\", which sends the data flow named \"Carrier Tracking Update\", are \"Carrier Identity Spoofing\" and \"Tracking Update Flooding\"."
+  },
+  {
+    "category_id": "5",
+    "question_id": "21",
+    "question": "What categories are the threats impacting the data flows which are inputs for the process \"Publish Approved Review\"?",
+    "ground_truth": "The threats impacting the data flows which are inputs for the process \"Publish Approved Review\" are in the following categories: \"Tampering\" and \"Elevation of Privilege\"."
+  },
+  {
+    "category_id": "5",
+    "question_id": "22",
+    "question": "What categories are the mitigations which can counter the threats affecting data store \"Audit Log\"?",
+    "ground_truth": "The mitigation categories for mitigations that can counter threats affecting the data store \"Audit Log\" are \"Logging & Monitoring\" and \"Data Protection\"."
+  },
+  {
+    "category_id": "5",
+    "question_id": "23",
+    "question": "What categories are the mitigations which can counter the threats affecting data store \"Order and Shipment Database\"?",
+    "ground_truth": "The mitigations which can counter the threats affecting data store \"Order and Shipment Database\" are in the categories \"Input Validation\" and \"Data Protection\"."
+  },
+  {
+    "category_id": "5",
+    "question_id": "24",
+    "question": "What threats impact the process which outputs the data flow which is stored by data store \"Inventory Database\"?",
+    "ground_truth": "The process that outputs the data flow stored by the data store \"Inventory Database\" is \"Assess Return Eligibility,\" and the threats impacting \"Assess Return Eligibility\" are \"Return Condition Data Tampering,\" \"Return Record Falsification,\" and \"Fraudulent Return Request Spoofing.\""
+  },
+  {
+    "category_id": "5",
+    "question_id": "25",
+    "question": "What mitigations are used for the process which outputs the data flow that is taken as input by process \"Assess Return Eligibility\"?",
+    "ground_truth": "The process that outputs the data flow taken as input by \"Assess Return Eligibility\" is \"Validate Return Request,\" which outputs \"Validated Return for Assessment.\" The mitigations used for \"Validate Return Request\" are \"Return Eligibility Verification Engine\" and \"Input Validation and Integrity Checks.\""
+  },
+  {
+    "category_id": "6",
+    "question_id": "26",
+    "question": "What are the external entities from the \"Process Payment\" BPMN Sub-Process?",
+    "ground_truth": "The external entities from the DFD decomposition of \"Process Payment\" are \"Customer\", \"Payment Gateway Provider (StripeConnect)\", and \"Fraud Detection Service (FraudShield)\"."
+  },
+  {
+    "category_id": "6",
+    "question_id": "27",
+    "question": "What are the data stores from the \"Manage Customer Profile\" BPMN Sub-Process?",
+    "ground_truth": "The data stores from the DFD decomposition of the \"Manage Customer Profile\" BPMN Sub-Process are \"Customer Database\", \"Audit Log\", and \"Session Store\"."
+  },
+  {
+    "category_id": "6",
+    "question_id": "28",
+    "question": "What threats affect the processes from the DFD decomposition of \"Process Tracking Update & Notify Customer\" BPMN Sub-Process?",
+    "ground_truth": "The threats that affect the processes from the DFD decomposition of \"Process Tracking Update & Notify Customer\" BPMN Sub-Process are \"Carrier Identity Spoofing\", \"Shipment Tracking Data Tampering\", \"Carrier API Privilege Escalation\", \"Delivery Confirmation Repudiation\", \"Customer Delivery Address Exposure\", \"Order Status Record Tampering\", and \"Notification Content Spoofing\"."
+  },
+  {
+    "category_id": "6",
+    "question_id": "29",
+    "question": "What are the risk levels of threats affecting processes from the DFD decomposition of \"Submit and Moderate Review\" BPMN Sub-Process?",
+    "ground_truth": "The risk levels of threats affecting processes from the DFD decomposition of \"Submit and Moderate Review\" BPMN Sub-Process are: \"Critical\" for \"Fake Review Identity Spoofing\", \"Medium\" for \"Review Content Manipulation After Submission\", \"Low\" for \"Review Authorship Denial\", \"Medium\" for \"Review Submission Flooding\", \"High\" for \"Moderation Bypass via Content Obfuscation\", and \"High\" for \"Review Score Tampering in Database\"."
+  },
+  {
+    "category_id": "6",
+    "question_id": "30",
+    "question": "What are the trust zones from the DFD Decomposition of \"Process Return & Issue Refund\" BPMN Sub-Process?",
+    "ground_truth": "The trust zones from the DFD decomposition of the \"Process Return & Issue Refund\" BPMN Sub-Process are \"Internal Returns Processing Zone\" and \"Financial Services Zone\"."
+  },
+  {
+    "category_id": "7",
+    "question_id": "31",
+    "question": "What threats affect the \"Screen for Fraud\" process?",
+    "ground_truth": "The threats that affect the \"Screen for Fraud\" process are \"Fraud Screening Denial of Service\", \"Fraud Service Response Spoofing\", and \"Transaction Repudiation\"."
+  },
+  {
+    "category_id": "7",
+    "question_id": "32",
+    "question": "What are the threats affecting the \"Execute Payment Transaction\" process?",
+    "ground_truth": "The threats affecting the \"Execute Payment Transaction\" process are \"Transaction Repudiation\" and \"Payment Record Tampering\"."
+  },
+  {
+    "category_id": "7",
+    "question_id": "33",
+    "question": "What are the threats affecting the \"Session Store\" data store?",
+    "ground_truth": "The threats affecting the \"Session Store\" data store are \"Session Fixation Attack\" and \"Account Takeover via Credential Stuffing\"."
+  },
+  {
+    "category_id": "7",
+    "question_id": "34",
+    "question": "What are the threats affecting the \"Content Moderation Service (ModerateAI)\" external entity?",
+    "ground_truth": "The threats affecting the \"Content Moderation Service (ModerateAI)\" external entity are \"Moderation Bypass via Content Obfuscation\"."
+  },
+  {
+    "category_id": "7",
+    "question_id": "35",
+    "question": "What are the threats affecting the \"Order and Shipment Database\" data store?",
+    "ground_truth": "The threats affecting the \"Order and Shipment Database\" data store are \"Order Status Record Tampering\" and \"Customer Delivery Address Exposure\"."
+  },
+  {
+    "category_id": "8",
+    "question_id": "36",
+    "question": "Which threats does \"Immutable Append-Only Log Storage\" mitigate?",
+    "ground_truth": "\"Immutable Append-Only Log Storage\" mitigates the following threats: \"Transaction Repudiation\", \"Audit Trail Tampering\", \"Refund Repudiation\", \"Moderation Decision Repudiation\", \"Review Score Tampering in Database\", \"Return Processing Audit Gap\", and \"Delivery Audit Trail Gaps\"."
+  },
+  {
+    "category_id": "8",
+    "question_id": "37",
+    "question": "Which mitigations are defined for \"Transaction Repudiation\"?",
+    "ground_truth": "The mitigations defined for \"Transaction Repudiation\" are \"Comprehensive Transaction Logging\" and \"Immutable Append-Only Log Storage\"."
+  },
+  {
+    "category_id": "8",
+    "question_id": "38",
+    "question": "Which mitigations are defined for \"Refund Amount Escalation\"?",
+    "ground_truth": "The mitigations defined for \"Refund Amount Escalation\" are \"Refund Amount Validation and Caps\" and \"Refund Authorization Workflow\"."
+  },
+  {
+    "category_id": "8",
+    "question_id": "39",
+    "question": "Which threats does \"Carrier API Key Authentication and IP Allowlisting\" mitigate?",
+    "ground_truth": "\"Carrier API Key Authentication and IP Allowlisting\" mitigates \"Carrier Identity Spoofing\" and \"Carrier API Privilege Escalation\"."
+  },
+  {
+    "category_id": "8",
+    "question_id": "40",
+    "question": "Which mitigations are defined for \"Refund Repudiation\"?",
+    "ground_truth": "The mitigations defined for \"Refund Repudiation\" are \"Comprehensive Transaction Logging\", \"Refund Authorization Workflow\", and \"Immutable Append-Only Log Storage\"."
+  },
+  {
+    "category_id": "9",
+    "question_id": "41",
+    "question": "To what processes is the external entity \"Customer\" sending data flows across all cases?",
+    "ground_truth": "Across all cases, the external entity \"Customer\" is sending data flows to the following processes: \"Validate Payment Details\", \"Authenticate and Authorize User\", \"Receive and Validate Review\", \"Validate Return Request\", and \"Add Items to Shopping Cart\"."
+  },
+  {
+    "category_id": "9",
+    "question_id": "42",
+    "question": "What data flows are being sent by external entity \"Payment Gateway Provider (StripeConnect)\" across all cases?",
+    "ground_truth": "The data flows being sent by external entity \"Payment Gateway Provider (StripeConnect)\" across all cases are \"Transaction Authorization Response\" and \"Refund Authorization Response\"."
+  },
+  {
+    "category_id": "9",
+    "question_id": "43",
+    "question": "To what threats is the data store \"Customer Database\" exposed across all cases?",
+    "ground_truth": "Across all cases, the data store \"Customer Database\" is exposed to the following threats: \"Unauthorized Access to Customer PII\", \"Customer Identity Spoofing\", \"Profile Data Tampering\", \"Account Enumeration Attack\", \"Return Record Falsification\", and \"Customer Order History Exposure in Returns\"."
+  },
+  {
+    "category_id": "9",
+    "question_id": "44",
+    "question": "What mitigations are defined for the data flows stored by data store \"Audit Log\" across all cases?",
+    "ground_truth": "The mitigations defined for the data flows stored by the data store \"Audit Log\" across all cases are \"Immutable Append-Only Log Storage\", \"Comprehensive Transaction Logging\", \"Moderation Action Logging\", \"Detailed Profile Change Audit Trail\", and \"Return Processing Audit Trail\"."
+  },
+  {
+    "category_id": "9",
+    "question_id": "45",
+    "question": "What threats are being mitigated by mitigation \"Comprehensive Transaction Logging\" across all cases?",
+    "ground_truth": "The threats being mitigated by \"Comprehensive Transaction Logging\" across all cases are \"Transaction Repudiation\", \"Audit Trail Tampering\", \"Unauthorized Profile Change Repudiation\", \"Review Authorship Denial\", \"Refund Repudiation\", and \"Delivery Audit Trail Gaps\"."
+  },
+  {
+    "category_id": "10",
+    "question_id": "46",
+    "question": "Trace the path from process \"Screen for Fraud\" to data store \"Payment Records\".",
+    "ground_truth": "The path from \"Screen for Fraud\" to \"Payment Records\" is \"Screen for Fraud\" -> \"Approved Payment Request\" -> \"Execute Payment Transaction\" -> \"Payment Record Storage\" -> \"Payment Records\"."
+  },
+  {
+    "category_id": "10",
+    "question_id": "47",
+    "question": "Trace the path from external entity \"Payment Gateway Provider (StripeConnect)\" to external entity \"Customer\".",
+    "ground_truth": "The path from \"Payment Gateway Provider (StripeConnect)\" to \"Customer\" is \"Payment Gateway Provider (StripeConnect)\" -> \"Transaction Authorization Response\" -> \"Execute Payment Transaction\" -> \"Receipt Generation Data\" -> \"Generate Payment Receipt\" -> \"Receipt Delivery\" -> \"Customer\"."
+  },
+  {
+    "category_id": "10",
+    "question_id": "48",
+    "question": "Trace the path from external entity \"Customer\" to external entity \"Email Delivery Service (SendGrid)\".",
+    "ground_truth": "The path from external entity \"Customer\" to external entity \"Email Delivery Service (SendGrid)\" is \"Customer\" -> \"Profile Modification Submission\" -> \"Validate and Apply Profile Changes\" -> \"Notification Trigger\" -> \"Dispatch Notification\" -> \"Email Dispatch Request\" -> \"Email Delivery Service (SendGrid)\"."
+  },
+  {
+    "category_id": "10",
+    "question_id": "49",
+    "question": "Trace the path from process \"Receive and Validate Review\" to data store \"Product Reviews Database\".",
+    "ground_truth": "The path from \"Receive and Validate Review\" to \"Product Reviews Database\" is \"Receive and Validate Review\" -> \"Validated Review Handoff\" -> \"Screen Review Content\" -> \"Approved Review for Publication\" -> \"Publish Approved Review\" -> \"Published Review Storage\" -> \"Product Reviews Database\"."
+  },
+  {
+    "category_id": "10",
+    "question_id": "50",
+    "question": "Trace the path from process \"Validate Return Request\" to external entity \"Payment Gateway Provider (StripeConnect)\".",
+    "ground_truth": "The path from \"Validate Return Request\" to \"Payment Gateway Provider (StripeConnect)\" is \"Validate Return Request\" -> \"Validated Return for Assessment\" -> \"Assess Return Eligibility\" -> \"Approved Return for Refund\" -> \"Execute Refund\" -> \"Refund Authorization Request\" -> \"Payment Gateway Provider (StripeConnect)\"."
+  },
+  {
+    "category_id": "11",
+    "question_id": "51",
+    "question": "What is the risk level of \"Carrier Identity Spoofing\", and what trust boundary does \"Ingest & Validate Carrier Update\" reside in?",
+    "ground_truth": "The risk level of \"Carrier Identity Spoofing\" is \"Critical\", and the \"Ingest and Validate Carrier Update\" process resides inside the \"Carrier Integration Zone\" trust boundary."
+  },
+  {
+    "category_id": "11",
+    "question_id": "52",
+    "question": "Which mitigations are linked to \"Refund Repudiation\", and what protocol is used by \"Refund Authorization Request\"?",
+    "ground_truth": "The mitigations linked to \"Refund Repudiation\" are \"Comprehensive Transaction Logging\", \"Refund Authorization Workflow\", and \"Immutable Append-Only Log Storage\". The protocol used by \"Refund Authorization Request\" is \"HTTPS\"."
+  },
+  {
+    "category_id": "11",
+    "question_id": "53",
+    "question": "What threats affect \"Screen for Fraud\" and what mitigations are applied to \"Fraud Rules Repository\"?",
+    "ground_truth": "The threats that affect \"Screen for Fraud\" are \"Fraud Screening Denial of Service\", \"Fraud Service Response Spoofing\", and \"Transaction Repudiation\". The mitigations applied to \"Fraud Rules Repository\" are \"Privileged Access Management\"."
+  },
+  {
+    "category_id": "11",
+    "question_id": "54",
+    "question": "What trust boundaries are crossed by \"Approved Payment Request\" and what threats affect \"Generate Payment Receipt\"?",
+    "ground_truth": "The trust boundaries crossed by \"Approved Payment Request\" are the Internal Network Boundary and the PCI Compliance Zone. The threats that affect \"Generate Payment Receipt\" are \"Sensitive Data Leakage in Receipts\" and \"Audit Trail Tampering\"."
+  },
+  {
+    "category_id": "11",
+    "question_id": "55",
+    "question": "What is the implementation status of \"Return Eligibility Verification Engine\", and what data store receives \"Return Processing Audit Entry\"?",
+    "ground_truth": "The implementation status of \"Return Eligibility Verification Engine\" is \"Implemented\", and the data store that receives \"Return Processing Audit Entry\" is \"Audit Log\".",
+    "remark": "The correct version of the testset is in questions.py"
+  }
+]

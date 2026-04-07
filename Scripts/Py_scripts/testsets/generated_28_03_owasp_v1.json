@@ -1,0 +1,92 @@
+[
+  {
+    "category_id": "1",
+    "question_id": "1",
+    "question": "What is the score and severity of the threat 'Patient Data Exfiltration'?",
+    "ground_truth": "The score of the threat \"Patient Data Exfiltration\" is 9.2, and the severity is Critical."
+  },
+  {
+    "category_id": "1",
+    "question_id": "2",
+    "question": "What is the severity of the threat 'Physician Identity Spoofing'?",
+    "ground_truth": "The severity of the threat \"Physician Identity Spoofing\" is \"High\"."
+  },
+  {
+    "category_id": "1",
+    "question_id": "3",
+    "question": "How long is the regulatory deadline for substance reporting in the case of threat 'Controlled Substance Reporting Denial of Service'?",
+    "ground_truth": "The regulatory deadline for substance reporting in the case of the threat \"Controlled Substance Reporting Denial of Service\" is 24 hours."
+  },
+  {
+    "category_id": "2",
+    "question_id": "1",
+    "question": "What threats is the 'Patient' external entity susceptible to?",
+    "ground_truth": "The \"Patient\" external entity is susceptible to \"Patient Identity Spoofing\" and \"Patient Action Repudiation\"."
+  },
+  {
+    "category_id": "2",
+    "question_id": "2",
+    "question": "Which threats affect the 'Pharmacy Dispensing & Inventory Records', and what are their risk levels?",
+    "ground_truth": "The threats that affect \"Pharmacy Dispensing & Inventory Records\" are \"Controlled Substance Dispensing Record Deletion\" with a risk level of \"Critical\" and \"Dispensing Record Tampering\" with a risk level of \"High\"."
+  },
+  {
+    "category_id": "2",
+    "question_id": "3",
+    "question": "What threats are assigned to the process 'Manage Clinical Records', and what is the severity of each?",
+    "ground_truth": "The threats assigned to the process \"Manage Clinical Records\" are \"Unauthorized Clinical Record Modification\" with severity \"Critical\", \"Clinical Record Access Repudiation\" with severity \"High\", and \"Patient Data Exfiltration\" with severity \"Critical\"."
+  },
+  {
+    "category_id": "3",
+    "question_id": "1",
+    "question": "Which mitigations address the threat 'Unauthorized Clinical Record Modification'?",
+    "ground_truth": "The mitigations that address the threat \"Unauthorized Clinical Record Modification\" are \"Clinical Record Versioning with Change Tracking\" and \"Dual Authorization for Critical Record Changes\"."
+  },
+  {
+    "category_id": "3",
+    "question_id": "2",
+    "question": "What mitigations are linked to 'Controlled Substance Dispensing Record Deletion', and what are their descriptions?",
+    "ground_truth": "The mitigations linked to \"Controlled Substance Dispensing Record Deletion\" are \"Dispensing Record Cryptographic Sealing\" and \"Append-Only Controlled Substance Ledger\". The description of \"Dispensing Record Cryptographic Sealing\" is: \"Each dispensing record is sealed with a cryptographic hash of its key fields, enabling immediate detection of any post-creation modification or deletion attempt.\" The description of \"Append-Only Controlled Substance Ledger\" is: \"All controlled substance dispensing events are additionally written to a dedicated append-only ledger on WORM storage, separate from the main dispensing records. This ledger cannot be modified or deleted even by database administrators, providing a tamper-proof audit trail for regulatory inspections.\""
+  },
+  {
+    "category_id": "3",
+    "question_id": "3",
+    "question": "Which single mitigation addresses 'Eligibility Process Elevation of Privilege'?",
+    "ground_truth": "The single mitigation that addresses \"Eligibility Process Elevation of Privilege\" is \"DMZ Service Account Isolation and Least Privilege\"."
+  },
+  {
+    "category_id": "4",
+    "question_id": "1",
+    "question": "Which mitigations address the threats affecting the process 'Dispense Medication'?",
+    "ground_truth": "The mitigations that address the threats affecting the process \"Dispense Medication\" are \"Dispensing Record Cryptographic Sealing\", \"Resilient Reporting Queue with Guaranteed Delivery\", \"Append-Only Controlled Substance Ledger\", and \"Audit Pipeline Priority Queuing and Backpressure Protection\"."
+  },
+  {
+    "category_id": "4",
+    "question_id": "2",
+    "question": "Which mitigations address the threats affecting the data store 'Insurance Claims Repository'?",
+    "ground_truth": "The mitigations that address the threats affecting the data store \"Insurance Claims Repository\" are \"Claims Record Integrity Hashing\" and \"Insurance Data Role-Based Access Control\"."
+  },
+  {
+    "category_id": "4",
+    "question_id": "3",
+    "question": "What threats is the 'Electronic Health Records Database' data store susceptible to across all cases?",
+    "ground_truth": "The \"Electronic Health Records Database\" data store is susceptible to the following threats across all cases: \"EHR Database Record Tampering\", \"Unauthorized EHR Data Disclosure\", \"EHR Database Denial of Service\", \"Unauthorized Patient Medication History Disclosure\", and \"EHR Medication Data Tampering via Pharmacy Channel\"."
+  },
+  {
+    "category_id": "5",
+    "question_id": "1",
+    "question": "What process takes as input the data flow outputted by process 'Patient Registration Gateway'?",
+    "ground_truth": "The process that takes as input the data flow outputted by process \"Patient Registration Gateway\" is \"Verify Insurance Eligibility\", which receives the \"Insurance Verification Request\" data flow from \"Patient Registration Gateway\"."
+  },
+  {
+    "category_id": "5",
+    "question_id": "2",
+    "question": "What processes take as input the data flows provided by data store 'Electronic Health Records Database'?",
+    "ground_truth": "The processes that take as input the data flows provided by the data store \"Electronic Health Records Database\" are \"Manage Clinical Records\", \"Generate Discharge Summary\", and \"Check Drug Interactions\"."
+  },
+  {
+    "category_id": "5",
+    "question_id": "3",
+    "question": "What data stores store data flows outputted by the process 'Dispense Medication'?",
+    "ground_truth": "The data stores that store data flows outputted by the process \"Dispense Medication\" are \"Pharmacy Dispensing & Inventory Records\" and \"Clinical Audit Trail\"."
+  }
+]
