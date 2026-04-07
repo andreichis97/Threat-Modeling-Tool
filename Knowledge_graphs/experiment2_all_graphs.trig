@@ -1,0 +1,1354 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ex: <http://www.example.org#> . 
+
+ex:Ontology
+{
+    #Metadata
+    ex:Diagram rdf:type rdfs:Class .
+    ex:BPMNDiagram rdfs:subClassOf ex:Diagram .
+    ex:DFDDiagram rdfs:subClassOf ex:Diagram .
+    ex:ThreatDiagram rdfs:subClassOf ex:Diagram .
+
+    #BPMN
+    ex:BPMNNode rdf:type rdfs:Class .
+
+    ex:BPMNContainer rdf:type rdfs:Class .
+
+    ex:BPMNPool rdfs:subClassOf ex:BPMNContainer ;
+        rdfs:label "BPMN Pool" .
+
+    ex:BPMNLane rdfs:subClassOf ex:BPMNContainer ;
+        rdfs:label "BPMN Lane" .
+    
+    ex:contains rdf:type rdf:Property ;
+        rdfs:label "contains" ;
+        rdfs:domain ex:BPMNContainer ;
+        rdfs:range ex:BPMNNode .
+    
+    ex:containsLane rdf:type rdf:Property ;
+        rdfs:label "contains lane" ;
+        rdfs:domain ex:BPMNPool ;
+        rdfs:range ex:BPMNLane .
+
+    ex:BPMNSubProcess rdfs:subClassOf ex:BPMNNode ;
+        rdfs:label "BPMN Sub-Process" .
+
+    ex:BPMNTask rdfs:subClassOf ex:BPMNNode ;
+        rdfs:label "BPMN Task" .
+
+    ex:BPMNGateway rdfs:subClassOf ex:BPMNNode ;
+        rdfs:label "BPMN Gateway" .
+
+    ex:BPMNExclusiveGateway rdfs:subClassOf ex:BPMNGateway ;
+        rdfs:label "BPMN Exclusive Gateway" .
+
+    ex:BPMNNonExclusiveGateway rdfs:subClassOf ex:BPMNGateway ;
+        rdfs:label "BPMN Non-Exclusive Gateway" .
+
+    ex:BPMNNonExclusiveGatewayConverging rdfs:subClassOf ex:BPMNGateway ;
+        rdfs:label "BPMN Non-Exclusive Gateway Converging" .
+
+    ex:BPMNStartEvent rdfs:subClassOf ex:BPMNNode ;
+        rdfs:label "BPMN Start Event" .
+
+    ex:BPMNEndEvent rdfs:subClassOf ex:BPMNNode ;
+        rdfs:label "BPMN End Event" .
+
+    ex:description rdf:type rdf:Property ;
+        rdfs:label "description" ;
+        rdfs:domain ex:BPMNNode ;
+        rdfs:range xsd:string .
+
+    ex:isFollowedBy rdf:type rdf:Property ;
+        rdfs:label "is followed by" ;
+        rdfs:domain ex:BPMNNode ;
+        rdfs:range ex:BPMNNode .
+
+    #DFD & Threat Modeling
+    ex:DFDDataFlow rdf:type rdfs:Class ;
+        rdfs:label "Data Flow" .
+
+    ex:DFDProcess rdf:type rdfs:Class ;
+        rdfs:label "Process" .
+
+    ex:DFDExternalEntity rdf:type rdfs:Class ;
+        rdfs:label "External Entity" .
+
+    ex:DFDDataStore rdf:type rdfs:Class ;
+        rdfs:label "Data Store" .
+
+    ex:DFDTrustBoundary rdf:type rdfs:Class ;
+        rdfs:label "Trust boundary" .
+
+    ex:ThreatAssessment rdf:type rdfs:Class ;
+        rdfs:label "Threat assessment" .
+
+    ex:ThreatCategory rdf:type rdfs:Class;
+        rdfs:label "Threat category" .
+
+    ex:MitigationCategory rdf:type rdfs:Class;
+        rdfs:label "Mitigation category" .
+
+    ex:MitigationAssessment rdf:type rdfs:Class ;
+        rdfs:label "Mitigation assessment" .
+
+    ex:hasInputDataFlow rdf:type rdf:Property ;
+        rdfs:label "has input data flow" ;
+        rdfs:domain ex:DFDProcess ;
+        rdfs:range ex:DFDDataFlow .
+
+    ex:hasOutputDataFlow rdf:type rdf:Property ;
+        rdfs:label "has output data flow" ;
+        rdfs:domain ex:DFDProcess ;
+        rdfs:range ex:DFDDataFlow .
+
+    ex:sendsDataFlow rdf:type rdf:Property ;
+        rdfs:label "sends data flow" ;
+        rdfs:domain ex:DFDExternalEntity ;
+        rdfs:range ex:DFDDataFlow .
+
+    ex:receivesDataFlow rdf:type rdf:Property ;
+        rdfs:label "receives data flow" ;
+        rdfs:domain ex:DFDExternalEntity ;
+        rdfs:range ex:DFDDataFlow .
+
+    #ex:sourceDataFlow rdf:type rdf:Property ; #change
+    #    rdfs:label "source data flow" ;
+    #    rdfs:domain ex:DFDDataFlow ;
+    #    rdfs:range [ rdf:type owl:Class ;
+    #                owl:unionOf ( ex:DFDProcess ex:DFDExternalEntity )
+    #                ] .
+
+    #ex:destinationDataFlow rdf:type rdf:Property ; #change
+    #    rdfs:label "destination data flow" ;
+    #    rdfs:domain ex:DFDDataFlow ;
+    #    rdfs:range [ rdf:type owl:Class ;
+    #                owl:unionOf ( ex:DFDProcess ex:DFDExternalEntity )
+    #                ] .
+
+    ex:storesDataFlow rdf:type rdf:Property ;
+        rdfs:label "stores data flow" ;
+        rdfs:domain ex:DFDDataStore ;
+        rdfs:range ex:DFDDataFlow .
+
+    ex:providesDataFlow rdf:type rdf:Property ;
+        rdfs:label "provides data flow" ;
+        rdfs:domain ex:DFDDataStore ;
+        rdfs:range ex:DFDDataFlow .
+
+    ex:describesProcess rdf:type rdf:Property ;
+        rdfs:label "describes process" ;
+        rdfs:domain ex:DFDProcess ;
+        rdfs:range xsd:string .
+
+    ex:describesTrustBoundary rdf:type rdf:Property ;
+        rdfs:label "describes trust boundary" ;
+        rdfs:domain ex:DFDTrustBoundary ;
+        rdfs:range xsd:string .
+
+    #ex:hasProjectPath rdf:type rdf:Property ;
+    #                    rdfs:label "has project path" ;
+    #                    rdfs:domain ex:DFDProcess ;
+    #                   rdfs:range xsd:string .
+
+    ex:describesExternalEntity rdf:type rdf:Property ;
+        rdfs:label "describes external entity" ;
+        rdfs:domain ex:DFDExternalEntity ;
+        rdfs:range xsd:string .
+
+    ex:describesDataStore rdf:type rdf:Property ;
+        rdfs:label "describes data store" ;
+        rdfs:domain ex:DFDDataStore ;
+        rdfs:range xsd:string .
+
+    ex:describesDataFlow rdf:type rdf:Property ;
+        rdfs:label "describes data flow" ;
+        rdfs:domain ex:DFDDataFlow ;
+        rdfs:range xsd:string .
+
+    ex:threatCode rdf:type rdf:Property ;
+        rdfs:label "threat code" ;
+        rdfs:domain ex:ThreatAssessment ;
+        rdfs:range ex:Threat .
+
+    ex:mitigationCode rdf:type rdf:Property ;
+        rdfs:label "mitigation code" ;
+        rdfs:domain ex:MitigationAssessment ;
+        rdfs:range ex:Mitigation .
+
+    ex:isOfThreatCategory rdf:type rdf:Property ;
+        rdfs:label "is of threat category" ;
+        rdfs:domain ex:Threat ;
+        rdfs:range ex:ThreatCategory .
+
+    ex:isOfMitigationCategory rdf:type rdf:Property ;
+        rdfs:label "is of mitigation category" ;
+        rdfs:domain ex:Mitigation ;
+        rdfs:range ex:MitigationCategory .
+
+    ex:hasSusceptibleThreat rdf:type rdf:Property ;
+        rdfs:label "has susceptible threat" ;
+        rdfs:domain [ rdf:type owl:Class ;
+                    owl:unionOf ( ex:DFDProcess ex:DFDExternalEntity ex:DFDDataStore ex:DFDDataFlow )
+                    ] ;
+        rdfs:range ex:ThreatAssessment .
+
+    ex:residesInTrustZone rdf:type rdf:Property ;
+        rdfs:label "resides in trust zone" ;
+        rdfs:domain [ rdf:type owl:Class ;
+                    owl:unionOf ( ex:DFDProcess ex:DFDExternalEntity ex:DFDDataStore ex:DFDDataFlow )
+                    ] ;
+        rdfs:range ex:DFDTrustBoundary .
+
+    ex:crossesTrustBoundary rdf:type rdf:Property ;
+        rdfs:label "crosses trust boundary" ;
+        rdfs:domain ex:DFDDataFlow ;
+        rdfs:range ex:DFDTrustBoundary .
+
+    ex:hasMitigation rdf:type rdf:Property ;
+        rdfs:label "has mitigation" ;
+        rdfs:domain [ rdf:type owl:Class ;
+                    owl:unionOf ( ex:DFDProcess ex:DFDExternalEntity ex:DFDDataStore ex:DFDDataFlow )
+                    ] ;
+        rdfs:range ex:MitigationAssessment .
+
+    ex:comment rdf:type rdf:Property ;
+        rdfs:label "comment" ;
+        rdfs:domain [ rdf:type owl:Class ;
+                    owl:unionOf ( ex:ThreatAssessment ex:MitigationAssessment )
+                    ] ;
+        rdfs:range xsd:string .
+
+    ex:protocol rdf:type rdf:Property ;
+        rdfs:label "protocol" ;
+        rdfs:domain ex:DFDDataFlow ;
+        rdfs:range xsd:string .
+
+    ex:boundaryType rdf:type rdf:Property ;
+        rdfs:label "boundary type" ;
+        rdfs:domain ex:DFDDataFlow ;
+        rdfs:range xsd:string .
+
+    ex:Threat rdf:type rdfs:Class ;
+        rdfs:label "Threat" .
+
+    ex:Mitigation rdf:type rdfs:Class ;
+        rdfs:label "Mitigation" .
+
+    ex:hasDescription rdf:type rdf:Property ;
+        rdfs:label "has description" ;
+        rdfs:domain [ rdf:type owl:Class ;
+                        owl:unionOf ( ex:Threat ex:Mitigation ex:DFDProcess ex:DFDDataStore ex:DFDExternalEntity ex:DFDDataFlow ex:DFDTrustBoundary ex:ThreatCategory ex:MitigationCategory )
+                        ] ;
+        rdfs:range xsd:string .
+
+    ex:hasDfdDecompositionLink rdf:type rdf:Property ;
+        rdfs:label "has DFD decomposition link" ;
+        rdfs:domain ex:BPMNSubProcess ;
+        rdfs:range ex:DFDDiagram .
+
+    ex:riskLevel rdf:type rdf:Property ;
+        rdfs:label "risk level" ;
+        rdfs:domain ex:Threat ;
+        rdfs:range xsd:string .
+
+    ex:likelihood rdf:type rdf:Property ;
+        rdfs:label "likelihood" ;
+        rdfs:domain ex:Threat ;
+        rdfs:range xsd:string .
+
+    ex:controlType rdf:type rdf:Property ;
+        rdfs:label "control type" ;
+        rdfs:domain ex:Mitigation ;
+        rdfs:range xsd:string .
+
+    ex:implementationStatus rdf:type rdf:Property ;
+        rdfs:label "implementation status" ;
+        rdfs:domain ex:Mitigation ;
+        rdfs:range xsd:string .
+
+    ex:costType rdf:type rdf:Property ;
+        rdfs:label "cost type" ;
+        rdfs:domain ex:Mitigation ;
+        rdfs:range xsd:string .
+
+    ex:costValue rdf:type rdf:Property ;
+        rdfs:label "cost value" ;
+        rdfs:domain ex:Mitigation ;
+        rdfs:range xsd:float .
+
+    ex:mitigatedBy rdf:type rdf:Property ; 
+        rdfs:label "mitigated by" ; 
+        rdfs:domain ex:Threat ; 
+        rdfs:range ex:Mitigation .
+    
+    ex:score rdf:type rdf:Property ;
+        rdfs:label "score" ;
+        rdfs:domain ex:Threat ;
+        rdfs:range xsd:float .
+    
+    ex:severity rdf:type rdf:Property ;
+        rdfs:label "severity" ;
+        rdfs:domain ex:Threat ;
+        rdfs:range xsd:string .
+}
+
+ex:Metadata
+{
+ex:DFD_PatientAdmissionRecords a ex:DFDDiagram .
+}
+
+ex:DFD_PatientAdmissionRecords
+{
+ex:PatientRegistrationGateway rdfs:label "Patient Registration Gateway".
+ex:PatientRegistrationGateway a ex:DFDProcess.
+ex:PatientRegistrationGateway ex:describesProcess "Receives patient registration submissions from the patient portal, validates demographic data (name, date of birth, contact information, identification documents), checks for duplicate records in the EHR database, and creates or updates the patient's master record."^^xsd:string.
+ex:PatientRegistrationGateway ex:hasSusceptibleThreat [ex:threatCode ex:RegistrationDataTampering; ex:comment ""; a ex:ThreatAssessment ].
+ex:PatientRegistrationGateway ex:hasSusceptibleThreat [ex:threatCode ex:PatientRecordInformationDisclosure; ex:comment ""; a ex:ThreatAssessment ].
+ex:PatientRegistrationGateway ex:hasSusceptibleThreat [ex:threatCode ex:RegistrationServiceDenialofService; ex:comment ""; a ex:ThreatAssessment ].
+ex:PatientRegistrationGateway ex:residesInTrustZone ex:HospitalPerimeterNetwork.
+ex:VerifyInsuranceEligibility rdfs:label "Verify Insurance Eligibility".
+ex:VerifyInsuranceEligibility a ex:DFDProcess.
+ex:VerifyInsuranceEligibility ex:describesProcess "Takes the patient's insurance policy details from the registration record, sends an eligibility verification request to the external Insurance Provider API, receives the coverage response, and updates the patient's admission record with verified insurance status, co-payment amounts, and pre-authorization codes."^^xsd:string.
+ex:VerifyInsuranceEligibility ex:hasSusceptibleThreat [ex:threatCode ex:InsuranceDataTamperinginTransit; ex:comment ""; a ex:ThreatAssessment ].
+ex:VerifyInsuranceEligibility ex:hasSusceptibleThreat [ex:threatCode ex:EligibilityProcessElevationofPrivilege; ex:comment ""; a ex:ThreatAssessment ].
+ex:VerifyInsuranceEligibility ex:residesInTrustZone ex:HospitalPerimeterNetwork.
+ex:ManageClinicalRecords rdfs:label "Manage Clinical Records".
+ex:ManageClinicalRecords a ex:DFDProcess.
+ex:ManageClinicalRecords ex:describesProcess "Core clinical records management process that creates, reads, updates, and archives patient medical records in the EHR Database. Handles admission notes, diagnosis codes, treatment plans, medication orders, lab results, and attending physician assignments. Enforces role-based access control based on the clinical staff member's role and treating relationship with the patient."^^xsd:string.
+ex:ManageClinicalRecords ex:hasSusceptibleThreat [ex:threatCode ex:UnauthorizedClinicalRecordModification; ex:comment ""; a ex:ThreatAssessment ].
+ex:ManageClinicalRecords ex:hasSusceptibleThreat [ex:threatCode ex:ClinicalRecordAccessRepudiation; ex:comment ""; a ex:ThreatAssessment ].
+ex:ManageClinicalRecords ex:hasSusceptibleThreat [ex:threatCode ex:PatientDataExfiltration; ex:comment ""; a ex:ThreatAssessment ].
+ex:ManageClinicalRecords ex:residesInTrustZone ex:InternalClinicalNetwork.
+ex:GenerateDischargeSummary rdfs:label "Generate Discharge Summary".
+ex:GenerateDischargeSummary a ex:DFDProcess.
+ex:GenerateDischargeSummary ex:describesProcess "Compiles the patient's admission record, treatment history, medications administered, lab results, and follow-up instructions into a structured discharge summary. The summary is stored in the EHR, sent to the patient via the portal, and transmitted to the referring physician if applicable."^^xsd:string.
+ex:GenerateDischargeSummary ex:hasSusceptibleThreat [ex:threatCode ex:DischargeSummaryTampering; ex:comment ""; a ex:ThreatAssessment ].
+ex:GenerateDischargeSummary ex:hasSusceptibleThreat [ex:threatCode ex:PHIExposureinDischargeNotifications; ex:comment ""; a ex:ThreatAssessment ].
+ex:GenerateDischargeSummary ex:residesInTrustZone ex:InternalClinicalNetwork.
+ex:Patient rdfs:label "Patient".
+ex:Patient a ex:DFDExternalEntity.
+ex:Patient ex:describesExternalEntity "An individual seeking medical care who interacts with the hospital's patient portal via a web browser or mobile application to submit registration information, upload identification documents, view appointment schedules, and access their medical records."^^xsd:string.
+ex:Patient ex:hasSusceptibleThreat [ex:threatCode ex:PatientIdentitySpoofing; ex:comment ""; a ex:ThreatAssessment ].
+ex:Patient ex:hasSusceptibleThreat [ex:threatCode ex:PatientActionRepudiation; ex:comment ""; a ex:ThreatAssessment ].
+ex:ReferringPhysician rdfs:label "Referring Physician".
+ex:ReferringPhysician a ex:DFDExternalEntity.
+ex:ReferringPhysician ex:describesExternalEntity "An external healthcare provider (e.g., a general practitioner from an affiliated clinic) who submits patient referral letters, transfers clinical notes, and requests admission on behalf of a patient through the hospital's physician referral API."^^xsd:string.
+ex:ReferringPhysician ex:hasSusceptibleThreat [ex:threatCode ex:PhysicianIdentitySpoofing; ex:comment ""; a ex:ThreatAssessment ].
+ex:InsuranceProvider rdfs:label "Insurance Provider".
+ex:InsuranceProvider a ex:DFDExternalEntity.
+ex:InsuranceProvider ex:describesExternalEntity "An external insurance company that receives eligibility verification requests, processes pre-authorization inquiries, and returns coverage details and co-payment amounts through a standardized API (HL7 FHIR-based)."^^xsd:string.
+ex:InsuranceProvider ex:hasSusceptibleThreat [ex:threatCode ex:InsuranceProviderSpoofing; ex:comment ""; a ex:ThreatAssessment ].
+ex:InsuranceProvider ex:hasSusceptibleThreat [ex:threatCode ex:InsuranceCommunicationRepudiation; ex:comment ""; a ex:ThreatAssessment ].
+ex:ElectronicHealthRecordsDatabase rdfs:label "Electronic Health Records Database".
+ex:ElectronicHealthRecordsDatabase a ex:DFDDataStore.
+ex:ElectronicHealthRecordsDatabase ex:describesDataStore "The central clinical database storing comprehensive patient medical records including demographics, medical histories, diagnoses (ICD-10 codes), treatment plans, medication orders, lab and imaging results, surgical notes, and provider assignments. HIPAA-regulated with strict access controls and encryption requirements."^^xsd:string.
+ex:ElectronicHealthRecordsDatabase ex:hasSusceptibleThreat [ex:threatCode ex:EHRDatabaseRecordTampering; ex:comment ""; a ex:ThreatAssessment ].
+ex:ElectronicHealthRecordsDatabase ex:hasSusceptibleThreat [ex:threatCode ex:UnauthorizedEHRDataDisclosure; ex:comment ""; a ex:ThreatAssessment ].
+ex:ElectronicHealthRecordsDatabase ex:hasSusceptibleThreat [ex:threatCode ex:EHRDatabaseDenialofService; ex:comment ""; a ex:ThreatAssessment ].
+ex:ElectronicHealthRecordsDatabase ex:residesInTrustZone ex:InternalClinicalNetwork.
+ex:InsuranceClaimsRepository rdfs:label "Insurance Claims Repository".
+ex:InsuranceClaimsRepository a ex:DFDDataStore.
+ex:InsuranceClaimsRepository ex:describesDataStore "Stores insurance eligibility verification records, pre-authorization codes, coverage details, co-payment amounts, claim submission statuses, and billing reconciliation data. Used by the insurance verification process and downstream billing systems. "^^xsd:string.
+ex:InsuranceClaimsRepository ex:hasSusceptibleThreat [ex:threatCode ex:InsuranceClaimsDataTampering; ex:comment ""; a ex:ThreatAssessment ].
+ex:InsuranceClaimsRepository ex:hasSusceptibleThreat [ex:threatCode ex:InsuranceDataUnauthorizedDisclosure; ex:comment ""; a ex:ThreatAssessment ].
+ex:InsuranceClaimsRepository ex:residesInTrustZone ex:InternalClinicalNetwork.
+ex:ClinicalAuditTrail rdfs:label "Clinical Audit Trail".
+ex:ClinicalAuditTrail a ex:DFDDataStore.
+ex:ClinicalAuditTrail ex:describesDataStore "An append-only audit log capturing all clinical system events — patient record access, modifications, referral submissions, insurance verifications, discharge summary generations, and authentication events. Required for HIPAA compliance and forensic investigation."^^xsd:string.
+ex:ClinicalAuditTrail ex:hasSusceptibleThreat [ex:threatCode ex:AuditTrailTampering; ex:comment ""; a ex:ThreatAssessment ].
+ex:ClinicalAuditTrail ex:hasSusceptibleThreat [ex:threatCode ex:AuditLogRepudiation; ex:comment ""; a ex:ThreatAssessment ].
+ex:ClinicalAuditTrail ex:hasSusceptibleThreat [ex:threatCode ex:AuditLogDenialofService; ex:comment ""; a ex:ThreatAssessment ].
+ex:ClinicalAuditTrail ex:residesInTrustZone ex:InternalClinicalNetwork.
+ex:HospitalPerimeterNetwork rdfs:label "Hospital Perimeter Network ".
+ex:HospitalPerimeterNetwork a ex:DFDTrustBoundary.
+ex:HospitalPerimeterNetwork ex:describesTrustBoundary "The externally facing network zone that hosts the patient portal, API gateways, and insurance verification interfaces. All inbound traffic from patients, referring physicians, and insurance providers enters through this zone and is subjected to TLS termination, authentication enforcement, and request validation before being forwarded to the internal clinical network."^^xsd:string.
+ex:HospitalPerimeterNetwork rdfs:label "Hospital Perimeter Network".
+ex:HospitalPerimeterNetwork a ex:DFDTrustBoundary.
+ex:HospitalPerimeterNetwork ex:describesTrustBoundary "The externally facing network zone that hosts the patient portal, API gateways, and insurance verification interfaces. All inbound traffic from patients, referring physicians, and insurance providers enters through this zone and is subjected to TLS termination, authentication enforcement, and request validation before being forwarded to the internal clinical network."^^xsd:string.
+ex:InternalClinicalNetwork rdfs:label "Internal Clinical Network ".
+ex:InternalClinicalNetwork a ex:DFDTrustBoundary.
+ex:InternalClinicalNetwork ex:describesTrustBoundary "The secured internal network enclosing the hospital's clinical application servers, electronic health records database, insurance claims repository, and audit systems. Access is restricted to authenticated clinical workstations and authorized internal services. Network segmentation and endpoint protection enforce strict access boundaries."^^xsd:string.
+ex:InternalClinicalNetwork rdfs:label "Internal Clinical Network".
+ex:InternalClinicalNetwork a ex:DFDTrustBoundary.
+ex:InternalClinicalNetwork ex:describesTrustBoundary "The secured internal network enclosing the hospital's clinical application servers, electronic health records database, insurance claims repository, and audit systems. Access is restricted to authenticated clinical workstations and authorized internal services. Network segmentation and endpoint protection enforce strict access boundaries."^^xsd:string.
+ex:PatientRegistrationSubmission rdfs:label "Patient Registration Submission".
+ex:PatientRegistrationSubmission a ex:DFDDataFlow.
+ex:PatientRegistrationSubmission ex:protocol "HTTPS".
+ex:PatientRegistrationSubmission ex:describesDataFlow "The patient submits demographic data, identification documents, and insurance details through the patient portal to the Patient Registration Gateway."^^xsd:string.
+ex:PatientRegistrationGateway ex:hasInputDataFlow ex:PatientRegistrationSubmission.
+ex:Patient ex:sendsDataFlow ex:PatientRegistrationSubmission.
+ex:PatientRegistrationSubmission ex:crossesTrustBoundary ex:HospitalPerimeterNetwork.
+ex:DuplicateRecordCheck rdfs:label "Duplicate Record Check".
+ex:DuplicateRecordCheck a ex:DFDDataFlow.
+ex:DuplicateRecordCheck ex:protocol "TLS".
+ex:DuplicateRecordCheck ex:describesDataFlow "The Patient Registration Gateway queries the EHR Database to check for existing patient records with matching demographics to prevent duplicate registrations."^^xsd:string.
+ex:PatientRegistrationGateway ex:hasOutputDataFlow ex:DuplicateRecordCheck.
+ex:ElectronicHealthRecordsDatabase ex:storesDataFlow ex:DuplicateRecordCheck.
+ex:DuplicateRecordCheck ex:crossesTrustBoundary ex:HospitalPerimeterNetwork.
+ex:DuplicateRecordCheck ex:crossesTrustBoundary ex:InternalClinicalNetwork.
+ex:InsuranceVerificationRequest rdfs:label "Insurance Verification Request".
+ex:InsuranceVerificationRequest a ex:DFDDataFlow.
+ex:InsuranceVerificationRequest ex:protocol "HTTPS".
+ex:InsuranceVerificationRequest ex:describesDataFlow "The Patient Registration Gateway forwards the patient's insurance policy details to the Verify Insurance Eligibility process for coverage verification."^^xsd:string.
+ex:PatientRegistrationGateway ex:hasOutputDataFlow ex:InsuranceVerificationRequest.
+ex:VerifyInsuranceEligibility ex:hasInputDataFlow ex:InsuranceVerificationRequest.
+ex:InsuranceVerificationRequest ex:residesInTrustZone ex:HospitalPerimeterNetwork.
+ex:InsuranceEligibilityQuery rdfs:label "Insurance Eligibility Query".
+ex:InsuranceEligibilityQuery a ex:DFDDataFlow.
+ex:InsuranceEligibilityQuery ex:protocol "HTTPS".
+ex:InsuranceEligibilityQuery ex:describesDataFlow "The Verify Insurance Eligibility process sends an HL7 FHIR eligibility request to the external Insurance Provider."^^xsd:string.
+ex:VerifyInsuranceEligibility ex:hasOutputDataFlow ex:InsuranceEligibilityQuery.
+ex:InsuranceProvider ex:receivesDataFlow ex:InsuranceEligibilityQuery.
+ex:InsuranceEligibilityQuery ex:crossesTrustBoundary ex:HospitalPerimeterNetwork.
+ex:InsuranceEligibilityResponse rdfs:label "Insurance Eligibility Response".
+ex:InsuranceEligibilityResponse a ex:DFDDataFlow.
+ex:InsuranceEligibilityResponse ex:protocol "HTTPS".
+ex:InsuranceEligibilityResponse ex:describesDataFlow "The Insurance Provider returns coverage details, co-payment amounts, and pre-authorization codes to the Verify Insurance Eligibility process."^^xsd:string.
+ex:VerifyInsuranceEligibility ex:hasInputDataFlow ex:InsuranceEligibilityResponse.
+ex:InsuranceProvider ex:sendsDataFlow ex:InsuranceEligibilityResponse.
+ex:InsuranceEligibilityResponse ex:crossesTrustBoundary ex:HospitalPerimeterNetwork.
+ex:InsuranceVerificationResultStorage rdfs:label "Insurance Verification Result Storage".
+ex:InsuranceVerificationResultStorage a ex:DFDDataFlow.
+ex:InsuranceVerificationResultStorage ex:protocol "TLS".
+ex:InsuranceVerificationResultStorage ex:describesDataFlow "The Verify Insurance Eligibility process writes the verified insurance status, coverage details, and pre-authorization codes to the Insurance Claims Repository."^^xsd:string.
+ex:VerifyInsuranceEligibility ex:hasOutputDataFlow ex:InsuranceVerificationResultStorage.
+ex:InsuranceClaimsRepository ex:storesDataFlow ex:InsuranceVerificationResultStorage.
+ex:InsuranceVerificationResultStorage ex:crossesTrustBoundary ex:HospitalPerimeterNetwork.
+ex:InsuranceVerificationResultStorage ex:crossesTrustBoundary ex:InternalClinicalNetwork.
+ex:PhysicianReferralSubmission rdfs:label "Physician Referral Submission".
+ex:PhysicianReferralSubmission a ex:DFDDataFlow.
+ex:PhysicianReferralSubmission ex:protocol "HTTPS".
+ex:PhysicianReferralSubmission ex:describesDataFlow "The referring physician submits a referral letter with clinical notes and admission request through the physician referral API."^^xsd:string.
+ex:PatientRegistrationGateway ex:hasInputDataFlow ex:PhysicianReferralSubmission.
+ex:ReferringPhysician ex:sendsDataFlow ex:PhysicianReferralSubmission.
+ex:PhysicianReferralSubmission ex:crossesTrustBoundary ex:HospitalPerimeterNetwork.
+ex:ClinicalRecordAccess rdfs:label "Clinical Record Access".
+ex:ClinicalRecordAccess a ex:DFDDataFlow.
+ex:ClinicalRecordAccess ex:protocol "TLS".
+ex:ClinicalRecordAccess ex:describesDataFlow "The Manage Clinical Records process reads and writes clinical data (admission notes, diagnoses, treatment plans, medications, lab results) to and from the EHR Database."^^xsd:string.
+ex:ManageClinicalRecords ex:hasOutputDataFlow ex:ClinicalRecordAccess.
+ex:ElectronicHealthRecordsDatabase ex:storesDataFlow ex:ClinicalRecordAccess.
+ex:ClinicalRecordAccess ex:residesInTrustZone ex:InternalClinicalNetwork.
+ex:DischargeSummaryDataRetrieval rdfs:label "Discharge Summary Data Retrieval".
+ex:DischargeSummaryDataRetrieval a ex:DFDDataFlow.
+ex:DischargeSummaryDataRetrieval ex:protocol "TLS".
+ex:DischargeSummaryDataRetrieval ex:describesDataFlow "The Generate Discharge Summary process reads the patient's complete admission record, treatment history, and medication list from the EHR Database to compile the discharge summary."^^xsd:string.
+ex:GenerateDischargeSummary ex:hasOutputDataFlow ex:DischargeSummaryDataRetrieval.
+ex:ElectronicHealthRecordsDatabase ex:storesDataFlow ex:DischargeSummaryDataRetrieval.
+ex:DischargeSummaryDataRetrieval ex:residesInTrustZone ex:InternalClinicalNetwork.
+ex:DischargeSummarytoPatient rdfs:label "Discharge Summary to Patient".
+ex:DischargeSummarytoPatient a ex:DFDDataFlow.
+ex:DischargeSummarytoPatient ex:protocol "HTTPS".
+ex:DischargeSummarytoPatient ex:describesDataFlow "The Generate Discharge Summary process sends a notification with a secure link to the discharge summary to the patient via the patient portal."^^xsd:string.
+ex:GenerateDischargeSummary ex:hasOutputDataFlow ex:DischargeSummarytoPatient.
+ex:Patient ex:receivesDataFlow ex:DischargeSummarytoPatient.
+ex:DischargeSummarytoPatient ex:crossesTrustBoundary ex:HospitalPerimeterNetwork.
+ex:DischargeSummarytoPatient ex:crossesTrustBoundary ex:HospitalPerimeterNetwork.
+ex:DischargeSummarytoPatient ex:crossesTrustBoundary ex:InternalClinicalNetwork.
+ex:DischargeSummarytoReferringPhysician rdfs:label "Discharge Summary to Referring Physician".
+ex:DischargeSummarytoReferringPhysician a ex:DFDDataFlow.
+ex:DischargeSummarytoReferringPhysician ex:protocol "HTTPS".
+ex:DischargeSummarytoReferringPhysician ex:describesDataFlow "The Generate Discharge Summary process transmits the signed discharge summary to the referring physician via the physician referral API."^^xsd:string.
+ex:GenerateDischargeSummary ex:hasOutputDataFlow ex:DischargeSummarytoReferringPhysician.
+ex:ReferringPhysician ex:receivesDataFlow ex:DischargeSummarytoReferringPhysician.
+ex:DischargeSummarytoReferringPhysician ex:crossesTrustBoundary ex:HospitalPerimeterNetwork.
+ex:DischargeSummarytoReferringPhysician ex:crossesTrustBoundary ex:HospitalPerimeterNetwork.
+ex:DischargeSummarytoReferringPhysician ex:crossesTrustBoundary ex:InternalClinicalNetwork.
+ex:ClinicalAuditLogEntry rdfs:label "Clinical Audit Log Entry".
+ex:ClinicalAuditLogEntry a ex:DFDDataFlow.
+ex:ClinicalAuditLogEntry ex:protocol "TLS".
+ex:ClinicalAuditLogEntry ex:describesDataFlow "The Manage Clinical Records process writes audit events (record access, modifications, authorization checks) to the Clinical Audit Trail."^^xsd:string.
+ex:ManageClinicalRecords ex:hasOutputDataFlow ex:ClinicalAuditLogEntry.
+ex:ClinicalAuditTrail ex:storesDataFlow ex:ClinicalAuditLogEntry.
+ex:ClinicalAuditLogEntry ex:residesInTrustZone ex:InternalClinicalNetwork.
+ex:RegistrationAuditLogEntry rdfs:label "Registration Audit Log Entry".
+ex:RegistrationAuditLogEntry a ex:DFDDataFlow.
+ex:RegistrationAuditLogEntry ex:protocol "TLS".
+ex:RegistrationAuditLogEntry ex:describesDataFlow "The Patient Registration Gateway writes audit events (registration attempts, duplicate checks, validation outcomes) to the Clinical Audit Trail."^^xsd:string.
+ex:PatientRegistrationGateway ex:hasOutputDataFlow ex:RegistrationAuditLogEntry.
+ex:ClinicalAuditTrail ex:storesDataFlow ex:RegistrationAuditLogEntry.
+ex:RegistrationAuditLogEntry ex:crossesTrustBoundary ex:HospitalPerimeterNetwork.
+ex:RegistrationAuditLogEntry ex:crossesTrustBoundary ex:InternalClinicalNetwork.
+}
+
+ex:TM_PatientAdmissionRecords
+{
+ex:PatientIdentitySpoofing rdfs:label "Patient Identity Spoofing".
+ex:PatientIdentitySpoofing a ex:Threat.
+ex:PatientIdentitySpoofing ex:hasDescription "An attacker impersonates a legitimate patient by using stolen credentials, forged identity documents, or compromised session tokens to access the patient portal, view sensitive medical records, or register under a false identity to obtain fraudulent medical services."^^xsd:string.
+ex:PatientIdentitySpoofing ex:riskLevel "Critical".
+ex:PatientIdentitySpoofing ex:likelihood "Very high".
+ex:PatientIdentitySpoofing ex:severity "Critical".
+ex:PatientIdentitySpoofing ex:score  "8.5"^^xsd:float.
+ex:PatientIdentitySpoofing ex:isOfThreatCategory ex:Spoofing.
+ex:Spoofing rdfs:label "Spoofing".
+ex:Spoofing ex:hasDescription "Threats involving an attacker impersonating another user, system, or service to gain unauthorized access or perform unauthorized actions. In the STRIDE model, spoofing relates to violations of authentication mechanisms."^^xsd:string.
+ex:PatientActionRepudiation rdfs:label "Patient Action Repudiation".
+ex:PatientActionRepudiation a ex:Threat.
+ex:PatientActionRepudiation ex:hasDescription "A patient denies having submitted a registration form, signed a consent document, or authorized the release of medical records through the portal, and the system lacks sufficient audit evidence to prove the patient performed the action."^^xsd:string.
+ex:PatientActionRepudiation ex:riskLevel "Medium".
+ex:PatientActionRepudiation ex:likelihood "Medium".
+ex:PatientActionRepudiation ex:severity "Medium".
+ex:PatientActionRepudiation ex:score  "5"^^xsd:float.
+ex:PatientActionRepudiation ex:isOfThreatCategory ex:Repudiation.
+ex:Repudiation rdfs:label "Repudiation".
+ex:Repudiation ex:hasDescription "Threats where an actor denies having performed an action and the system lacks sufficient evidence (logs, signatures, timestamps) to prove otherwise."^^xsd:string.
+ex:PhysicianIdentitySpoofing rdfs:label "Physician Identity Spoofing".
+ex:PhysicianIdentitySpoofing a ex:Threat.
+ex:PhysicianIdentitySpoofing ex:hasDescription "An attacker impersonates a legitimate referring physician by using stolen API credentials or a compromised clinic workstation to submit fraudulent referral letters, access patient records outside their authorized scope, or admit patients under false medical pretenses."^^xsd:string.
+ex:PhysicianIdentitySpoofing ex:riskLevel "High".
+ex:PhysicianIdentitySpoofing ex:likelihood "Medium".
+ex:PhysicianIdentitySpoofing ex:severity "High".
+ex:PhysicianIdentitySpoofing ex:score  "7.2"^^xsd:float.
+ex:PhysicianIdentitySpoofing ex:isOfThreatCategory ex:Spoofing.
+ex:Spoofing rdfs:label "Spoofing".
+ex:Spoofing ex:hasDescription "Threats involving an attacker impersonating another user, system, or service to gain unauthorized access or perform unauthorized actions. In the STRIDE model, spoofing relates to violations of authentication mechanisms."^^xsd:string.
+ex:InsuranceProviderSpoofing rdfs:label "Insurance Provider Spoofing".
+ex:InsuranceProviderSpoofing a ex:Threat.
+ex:InsuranceProviderSpoofing ex:hasDescription "An attacker intercepts or impersonates the insurance provider's API endpoint, returning fabricated eligibility confirmations or coverage amounts that lead the hospital to admit patients under incorrect insurance assumptions, causing financial losses or treatment denials."^^xsd:string.
+ex:InsuranceProviderSpoofing ex:riskLevel "High".
+ex:InsuranceProviderSpoofing ex:likelihood "Low".
+ex:InsuranceProviderSpoofing ex:severity "High".
+ex:InsuranceProviderSpoofing ex:score  "6.4"^^xsd:float.
+ex:InsuranceProviderSpoofing ex:isOfThreatCategory ex:Spoofing.
+ex:Spoofing rdfs:label "Spoofing".
+ex:Spoofing ex:hasDescription "Threats involving an attacker impersonating another user, system, or service to gain unauthorized access or perform unauthorized actions. In the STRIDE model, spoofing relates to violations of authentication mechanisms."^^xsd:string.
+ex:InsuranceCommunicationRepudiation rdfs:label "Insurance Communication Repudiation".
+ex:InsuranceCommunicationRepudiation a ex:Threat.
+ex:InsuranceCommunicationRepudiation ex:hasDescription "The insurance provider disputes that a pre-authorization was granted or claims the coverage terms communicated were different from what the hospital received, and the system lacks non-repudiable records of the original API exchange."^^xsd:string.
+ex:InsuranceCommunicationRepudiation ex:riskLevel "Medium".
+ex:InsuranceCommunicationRepudiation ex:likelihood "Medium".
+ex:InsuranceCommunicationRepudiation ex:severity "Medium".
+ex:InsuranceCommunicationRepudiation ex:score  "5.5"^^xsd:float.
+ex:InsuranceCommunicationRepudiation ex:isOfThreatCategory ex:Repudiation.
+ex:Repudiation rdfs:label "Repudiation".
+ex:Repudiation ex:hasDescription "Threats where an actor denies having performed an action and the system lacks sufficient evidence (logs, signatures, timestamps) to prove otherwise."^^xsd:string.
+ex:RegistrationDataTampering rdfs:label "Registration Data Tampering".
+ex:RegistrationDataTampering a ex:Threat.
+ex:RegistrationDataTampering ex:hasDescription "An attacker intercepts and modifies patient registration data in transit between the patient portal and the registration gateway, altering demographic details, insurance policy numbers, or contact information to facilitate medical identity theft or insurance fraud."^^xsd:string.
+ex:RegistrationDataTampering ex:riskLevel "High".
+ex:RegistrationDataTampering ex:likelihood "Medium".
+ex:RegistrationDataTampering ex:severity "High".
+ex:RegistrationDataTampering ex:score  "7"^^xsd:float.
+ex:RegistrationDataTampering ex:isOfThreatCategory ex:Tampering.
+ex:Tampering rdfs:label "Tampering".
+ex:Tampering ex:hasDescription "Threats involving unauthorized modification of data in transit or at rest, including alteration of messages, records, or configuration to subvert system integrity."^^xsd:string.
+ex:PatientRecordInformationDisclosure rdfs:label "Patient Record Information Disclosure".
+ex:PatientRecordInformationDisclosure a ex:Threat.
+ex:PatientRecordInformationDisclosure ex:hasDescription "The registration gateway inadvertently exposes patient PII (Social Security numbers, insurance details, medical identifiers) through verbose error messages, debug logs, or overly detailed API responses to unauthorized callers."^^xsd:string.
+ex:PatientRecordInformationDisclosure ex:riskLevel "Critical".
+ex:PatientRecordInformationDisclosure ex:likelihood "Medium".
+ex:PatientRecordInformationDisclosure ex:severity "Critical".
+ex:PatientRecordInformationDisclosure ex:score  "8.8"^^xsd:float.
+ex:PatientRecordInformationDisclosure ex:isOfThreatCategory ex:InformationDisclosure.
+ex:InformationDisclosure rdfs:label "Information Disclosure".
+ex:InformationDisclosure ex:hasDescription "Threats involving the exposure of sensitive or confidential information to unauthorized parties, whether through direct access, side channels, or inadequate output sanitization."^^xsd:string.
+ex:RegistrationServiceDenialofService rdfs:label "Registration Service Denial of Service".
+ex:RegistrationServiceDenialofService a ex:Threat.
+ex:RegistrationServiceDenialofService ex:hasDescription "An attacker floods the patient registration endpoint with a massive volume of requests, overwhelming the gateway and preventing legitimate patients from completing registration, potentially disrupting hospital admissions during peak hours."^^xsd:string.
+ex:RegistrationServiceDenialofService ex:riskLevel "Medium".
+ex:RegistrationServiceDenialofService ex:likelihood "High".
+ex:RegistrationServiceDenialofService ex:severity "Medium".
+ex:RegistrationServiceDenialofService ex:score  "6"^^xsd:float.
+ex:RegistrationServiceDenialofService ex:isOfThreatCategory ex:DenialOfService.
+ex:DenialOfService rdfs:label "Denial of Service".
+ex:DenialOfService ex:hasDescription "Threats aimed at degrading or disabling system availability by overwhelming resources, exploiting resource exhaustion vulnerabilities, or disrupting dependent services."^^xsd:string.
+ex:InsuranceDataTamperinginTransit rdfs:label "Insurance Data Tampering in Transit".
+ex:InsuranceDataTamperinginTransit a ex:Threat.
+ex:InsuranceDataTamperinginTransit ex:hasDescription "An attacker modifies insurance eligibility responses in transit between the Insurance Provider and the Verify Insurance Eligibility process, altering coverage amounts, pre-authorization codes, or co-payment values to inflate or falsify the patient's coverage."^^xsd:string.
+ex:InsuranceDataTamperinginTransit ex:riskLevel "High".
+ex:InsuranceDataTamperinginTransit ex:likelihood "Medium".
+ex:InsuranceDataTamperinginTransit ex:severity "High".
+ex:InsuranceDataTamperinginTransit ex:score  "7.4"^^xsd:float.
+ex:InsuranceDataTamperinginTransit ex:isOfThreatCategory ex:Tampering.
+ex:Tampering rdfs:label "Tampering".
+ex:Tampering ex:hasDescription "Threats involving unauthorized modification of data in transit or at rest, including alteration of messages, records, or configuration to subvert system integrity."^^xsd:string.
+ex:EligibilityProcessElevationofPrivilege rdfs:label "Eligibility Process Elevation of Privilege".
+ex:EligibilityProcessElevationofPrivilege a ex:Threat.
+ex:EligibilityProcessElevationofPrivilege ex:hasDescription "An attacker exploits a vulnerability in the insurance eligibility verification process to escalate from the limited DMZ service account to an internal clinical network account, gaining unauthorized access to the EHR database or other internal resources."^^xsd:string.
+ex:EligibilityProcessElevationofPrivilege ex:riskLevel "High".
+ex:EligibilityProcessElevationofPrivilege ex:likelihood "Low".
+ex:EligibilityProcessElevationofPrivilege ex:severity "Critical".
+ex:EligibilityProcessElevationofPrivilege ex:score  "7.8"^^xsd:float.
+ex:EligibilityProcessElevationofPrivilege ex:isOfThreatCategory ex:ElevationOfPrivilege.
+ex:ElevationOfPrivilege rdfs:label "Elevation of Privilege".
+ex:ElevationOfPrivilege ex:hasDescription "Threats where an attacker gains access rights beyond what was originally granted, allowing them to perform administrative or restricted operations without proper authorization."^^xsd:string.
+ex:UnauthorizedClinicalRecordModification rdfs:label "Unauthorized Clinical Record Modification".
+ex:UnauthorizedClinicalRecordModification a ex:Threat.
+ex:UnauthorizedClinicalRecordModification ex:hasDescription "An attacker or malicious insider modifies clinical records — altering diagnosis codes, medication dosages, lab results, or treatment plans — to conceal medical errors, commit insurance fraud, or endanger patient safety through incorrect medical information."^^xsd:string.
+ex:UnauthorizedClinicalRecordModification ex:riskLevel "Critical".
+ex:UnauthorizedClinicalRecordModification ex:likelihood "Medium".
+ex:UnauthorizedClinicalRecordModification ex:severity "Critical".
+ex:UnauthorizedClinicalRecordModification ex:score  "9"^^xsd:float.
+ex:UnauthorizedClinicalRecordModification ex:isOfThreatCategory ex:Tampering.
+ex:Tampering rdfs:label "Tampering".
+ex:Tampering ex:hasDescription "Threats involving unauthorized modification of data in transit or at rest, including alteration of messages, records, or configuration to subvert system integrity."^^xsd:string.
+ex:ClinicalRecordAccessRepudiation rdfs:label "Clinical Record Access Repudiation".
+ex:ClinicalRecordAccessRepudiation a ex:Threat.
+ex:ClinicalRecordAccessRepudiation ex:hasDescription "A clinical staff member accesses patient records without a legitimate treating relationship (e.g., viewing a celebrity's medical records out of curiosity) and denies having done so, and the system lacks sufficiently granular audit evidence to prove the access occurred."^^xsd:string.
+ex:ClinicalRecordAccessRepudiation ex:riskLevel "Medium".
+ex:ClinicalRecordAccessRepudiation ex:likelihood "Medium".
+ex:ClinicalRecordAccessRepudiation ex:severity "High".
+ex:ClinicalRecordAccessRepudiation ex:score  "6.2"^^xsd:float.
+ex:ClinicalRecordAccessRepudiation ex:isOfThreatCategory ex:Repudiation.
+ex:Repudiation rdfs:label "Repudiation".
+ex:Repudiation ex:hasDescription "Threats where an actor denies having performed an action and the system lacks sufficient evidence (logs, signatures, timestamps) to prove otherwise."^^xsd:string.
+ex:PatientDataExfiltration rdfs:label "Patient Data Exfiltration".
+ex:PatientDataExfiltration a ex:Threat.
+ex:PatientDataExfiltration ex:hasDescription "An attacker gains access to the Manage Clinical Records process and extracts bulk patient data (medical histories, diagnoses, medications, SSNs) through API abuse, SQL injection, or exploitation of an over-privileged service account, leading to a HIPAA breach."^^xsd:string.
+ex:PatientDataExfiltration ex:riskLevel "Critical".
+ex:PatientDataExfiltration ex:likelihood "Medium".
+ex:PatientDataExfiltration ex:severity "Critical".
+ex:PatientDataExfiltration ex:score  "9.2"^^xsd:float.
+ex:PatientDataExfiltration ex:isOfThreatCategory ex:InformationDisclosure.
+ex:InformationDisclosure rdfs:label "Information Disclosure".
+ex:InformationDisclosure ex:hasDescription "Threats involving the exposure of sensitive or confidential information to unauthorized parties, whether through direct access, side channels, or inadequate output sanitization."^^xsd:string.
+ex:DischargeSummaryTampering rdfs:label "Discharge Summary Tampering".
+ex:DischargeSummaryTampering a ex:Threat.
+ex:DischargeSummaryTampering ex:hasDescription "An attacker or insider modifies the discharge summary after generation — altering medication instructions, follow-up schedules, or diagnosis information — before it reaches the patient or referring physician, potentially endangering post-discharge care."^^xsd:string.
+ex:DischargeSummaryTampering ex:riskLevel "High".
+ex:DischargeSummaryTampering ex:likelihood "Low".
+ex:DischargeSummaryTampering ex:severity "High".
+ex:DischargeSummaryTampering ex:score  "6.8"^^xsd:float.
+ex:DischargeSummaryTampering ex:isOfThreatCategory ex:Tampering.
+ex:Tampering rdfs:label "Tampering".
+ex:Tampering ex:hasDescription "Threats involving unauthorized modification of data in transit or at rest, including alteration of messages, records, or configuration to subvert system integrity."^^xsd:string.
+ex:PHIExposureinDischargeNotifications rdfs:label "PHI Exposure in Discharge Notifications".
+ex:PHIExposureinDischargeNotifications a ex:Threat.
+ex:PHIExposureinDischargeNotifications ex:hasDescription "The discharge summary notification sent to the patient or referring physician includes excessive protected health information (PHI) in email subject lines, push notification previews, or unencrypted attachment metadata, exposing sensitive medical details to unauthorized observers."^^xsd:string.
+ex:PHIExposureinDischargeNotifications ex:riskLevel "High".
+ex:PHIExposureinDischargeNotifications ex:likelihood "Medium".
+ex:PHIExposureinDischargeNotifications ex:severity "High".
+ex:PHIExposureinDischargeNotifications ex:score  "7.5"^^xsd:float.
+ex:PHIExposureinDischargeNotifications ex:isOfThreatCategory ex:InformationDisclosure.
+ex:InformationDisclosure rdfs:label "Information Disclosure".
+ex:InformationDisclosure ex:hasDescription "Threats involving the exposure of sensitive or confidential information to unauthorized parties, whether through direct access, side channels, or inadequate output sanitization."^^xsd:string.
+ex:EHRDatabaseRecordTampering rdfs:label "EHR Database Record Tampering".
+ex:EHRDatabaseRecordTampering a ex:Threat.
+ex:EHRDatabaseRecordTampering ex:hasDescription "An attacker or malicious insider with database-level access modifies clinical records directly in the EHR database, bypassing application-level controls and audit logging, to alter diagnoses, delete adverse event records, or fabricate treatment histories."^^xsd:string.
+ex:EHRDatabaseRecordTampering ex:riskLevel "Critical".
+ex:EHRDatabaseRecordTampering ex:likelihood "Low".
+ex:EHRDatabaseRecordTampering ex:severity "Critical".
+ex:EHRDatabaseRecordTampering ex:score  "8.6"^^xsd:float.
+ex:EHRDatabaseRecordTampering ex:isOfThreatCategory ex:Tampering.
+ex:Tampering rdfs:label "Tampering".
+ex:Tampering ex:hasDescription "Threats involving unauthorized modification of data in transit or at rest, including alteration of messages, records, or configuration to subvert system integrity."^^xsd:string.
+ex:UnauthorizedEHRDataDisclosure rdfs:label "Unauthorized EHR Data Disclosure".
+ex:UnauthorizedEHRDataDisclosure a ex:Threat.
+ex:UnauthorizedEHRDataDisclosure ex:hasDescription "An attacker gains unauthorized read access to the EHR database, exfiltrating patient medical records, diagnoses, medications, and personal identifiers — constituting a HIPAA breach with regulatory penalties, legal liability, and severe patient harm."^^xsd:string.
+ex:UnauthorizedEHRDataDisclosure ex:riskLevel "Critical".
+ex:UnauthorizedEHRDataDisclosure ex:likelihood "Medium".
+ex:UnauthorizedEHRDataDisclosure ex:severity "Critical".
+ex:UnauthorizedEHRDataDisclosure ex:score  "9"^^xsd:float.
+ex:UnauthorizedEHRDataDisclosure ex:isOfThreatCategory ex:InformationDisclosure.
+ex:InformationDisclosure rdfs:label "Information Disclosure".
+ex:InformationDisclosure ex:hasDescription "Threats involving the exposure of sensitive or confidential information to unauthorized parties, whether through direct access, side channels, or inadequate output sanitization."^^xsd:string.
+ex:EHRDatabaseDenialofService rdfs:label "EHR Database Denial of Service".
+ex:EHRDatabaseDenialofService a ex:Threat.
+ex:EHRDatabaseDenialofService ex:hasDescription "An attacker or misconfigured process overwhelms the EHR database with excessive queries, long-running transactions, or lock contention, degrading database performance and preventing clinicians from accessing patient records during critical care situations."^^xsd:string.
+ex:EHRDatabaseDenialofService ex:riskLevel "High".
+ex:EHRDatabaseDenialofService ex:likelihood "Medium".
+ex:EHRDatabaseDenialofService ex:severity "High".
+ex:EHRDatabaseDenialofService ex:score  "7"^^xsd:float.
+ex:EHRDatabaseDenialofService ex:isOfThreatCategory ex:DenialOfService.
+ex:DenialOfService rdfs:label "Denial of Service".
+ex:DenialOfService ex:hasDescription "Threats aimed at degrading or disabling system availability by overwhelming resources, exploiting resource exhaustion vulnerabilities, or disrupting dependent services."^^xsd:string.
+ex:InsuranceClaimsDataTampering rdfs:label "Insurance Claims Data Tampering".
+ex:InsuranceClaimsDataTampering a ex:Threat.
+ex:InsuranceClaimsDataTampering ex:hasDescription "An attacker or malicious insider modifies insurance claim records — altering coverage amounts, pre-authorization codes, or billing codes — to commit insurance fraud, inflate reimbursements, or conceal denied claims."^^xsd:string.
+ex:InsuranceClaimsDataTampering ex:riskLevel "High".
+ex:InsuranceClaimsDataTampering ex:likelihood "Low".
+ex:InsuranceClaimsDataTampering ex:severity "High".
+ex:InsuranceClaimsDataTampering ex:score  "6.8"^^xsd:float.
+ex:InsuranceClaimsDataTampering ex:isOfThreatCategory ex:Tampering.
+ex:Tampering rdfs:label "Tampering".
+ex:Tampering ex:hasDescription "Threats involving unauthorized modification of data in transit or at rest, including alteration of messages, records, or configuration to subvert system integrity."^^xsd:string.
+ex:InsuranceDataUnauthorizedDisclosure rdfs:label "Insurance Data Unauthorized Disclosure".
+ex:InsuranceDataUnauthorizedDisclosure a ex:Threat.
+ex:InsuranceDataUnauthorizedDisclosure ex:hasDescription "An unauthorized user gains access to the insurance claims repository, exposing patient insurance policy numbers, coverage details, claims history, and billing information that could be used for insurance fraud or patient profiling."^^xsd:string.
+ex:InsuranceDataUnauthorizedDisclosure ex:riskLevel "Medium".
+ex:InsuranceDataUnauthorizedDisclosure ex:likelihood "Medium".
+ex:InsuranceDataUnauthorizedDisclosure ex:severity "Medium".
+ex:InsuranceDataUnauthorizedDisclosure ex:score  "5.8"^^xsd:float.
+ex:InsuranceDataUnauthorizedDisclosure ex:isOfThreatCategory ex:InformationDisclosure.
+ex:InformationDisclosure rdfs:label "Information Disclosure".
+ex:InformationDisclosure ex:hasDescription "Threats involving the exposure of sensitive or confidential information to unauthorized parties, whether through direct access, side channels, or inadequate output sanitization."^^xsd:string.
+ex:AuditTrailTampering rdfs:label "Audit Trail Tampering".
+ex:AuditTrailTampering a ex:Threat.
+ex:AuditTrailTampering ex:hasDescription "An attacker or malicious insider with elevated privileges modifies or deletes audit log entries to cover traces of unauthorized clinical record access, data exfiltration, or fraudulent insurance claims, undermining the integrity of the compliance record."^^xsd:string.
+ex:AuditTrailTampering ex:riskLevel "High".
+ex:AuditTrailTampering ex:likelihood "Low".
+ex:AuditTrailTampering ex:severity "Critical".
+ex:AuditTrailTampering ex:score  "7.8"^^xsd:float.
+ex:AuditTrailTampering ex:isOfThreatCategory ex:Tampering.
+ex:Tampering rdfs:label "Tampering".
+ex:Tampering ex:hasDescription "Threats involving unauthorized modification of data in transit or at rest, including alteration of messages, records, or configuration to subvert system integrity."^^xsd:string.
+ex:AuditLogRepudiation rdfs:label "Audit Log Repudiation".
+ex:AuditLogRepudiation a ex:Threat.
+ex:AuditLogRepudiation ex:hasDescription "An actor disputes that an event recorded in the audit trail actually occurred or claims the log entry was fabricated, and the system lacks cryptographic proof of log entry authenticity and temporal ordering."^^xsd:string.
+ex:AuditLogRepudiation ex:riskLevel "Medium".
+ex:AuditLogRepudiation ex:likelihood "Low".
+ex:AuditLogRepudiation ex:severity "High".
+ex:AuditLogRepudiation ex:score  "5.6"^^xsd:float.
+ex:AuditLogRepudiation ex:isOfThreatCategory ex:Repudiation.
+ex:Repudiation rdfs:label "Repudiation".
+ex:Repudiation ex:hasDescription "Threats where an actor denies having performed an action and the system lacks sufficient evidence (logs, signatures, timestamps) to prove otherwise."^^xsd:string.
+ex:AuditLogDenialofService rdfs:label "Audit Log Denial of Service".
+ex:AuditLogDenialofService a ex:Threat.
+ex:AuditLogDenialofService ex:hasDescription "An attacker generates an excessive volume of auditable events to overwhelm the audit log storage or processing capacity, causing legitimate audit entries to be dropped, delayed, or the audit system to become unavailable."^^xsd:string.
+ex:AuditLogDenialofService ex:riskLevel "Medium".
+ex:AuditLogDenialofService ex:likelihood "Medium".
+ex:AuditLogDenialofService ex:severity "Medium".
+ex:AuditLogDenialofService ex:score  "5.2"^^xsd:float.
+ex:AuditLogDenialofService ex:isOfThreatCategory ex:DenialOfService.
+ex:DenialOfService rdfs:label "Denial of Service".
+ex:DenialOfService ex:hasDescription "Threats aimed at degrading or disabling system availability by overwhelming resources, exploiting resource exhaustion vulnerabilities, or disrupting dependent services."^^xsd:string.
+ex:MultiFactorPatientAuthentication rdfs:label "Multi-Factor Patient Authentication".
+ex:MultiFactorPatientAuthentication a ex:Mitigation.
+ex:MultiFactorPatientAuthentication ex:controlType "Preventive".
+ex:MultiFactorPatientAuthentication ex:implementationStatus "Implemented".
+ex:MultiFactorPatientAuthentication ex:costType "High".
+ex:MultiFactorPatientAuthentication ex:hasDescription "Enforces multi-factor authentication (password + SMS OTP or authenticator app) for all patient portal logins and sensitive operations such as viewing medical records or updating personal information."^^xsd:string.
+ex:MultiFactorPatientAuthentication ex:isOfMitigationCategory ex:AuthenticationIdentity.
+ex:AuthenticationIdentity rdfs:label "Authentication & Identity".
+ex:AuthenticationIdentity ex:hasDescription "Mitigations that verify the identity of users, services, or systems before granting access. Includes multi-factor authentication, mutual TLS, biometric verification, certificate validation, and identity federation."^^xsd:string.
+ex:BiometricIdentityVerificationatRegistration rdfs:label "Biometric Identity Verification at Registration".
+ex:BiometricIdentityVerificationatRegistration a ex:Mitigation.
+ex:BiometricIdentityVerificationatRegistration ex:controlType "Preventive".
+ex:BiometricIdentityVerificationatRegistration ex:implementationStatus "Implemented".
+ex:BiometricIdentityVerificationatRegistration ex:costType "High".
+ex:BiometricIdentityVerificationatRegistration ex:hasDescription "Requires patients to verify their identity through government-issued photo ID scanning with facial comparison at the point of in-person registration, creating a verified identity anchor for the digital account."^^xsd:string.
+ex:BiometricIdentityVerificationatRegistration ex:isOfMitigationCategory ex:AuthenticationIdentity.
+ex:AuthenticationIdentity rdfs:label "Authentication & Identity".
+ex:AuthenticationIdentity ex:hasDescription "Mitigations that verify the identity of users, services, or systems before granting access. Includes multi-factor authentication, mutual TLS, biometric verification, certificate validation, and identity federation."^^xsd:string.
+ex:PatientActionAuditTrailwithDigitalSignatures rdfs:label "Patient Action Audit Trail with Digital Signatures".
+ex:PatientActionAuditTrailwithDigitalSignatures a ex:Mitigation.
+ex:PatientActionAuditTrailwithDigitalSignatures ex:controlType "Preventive".
+ex:PatientActionAuditTrailwithDigitalSignatures ex:implementationStatus "Implemented".
+ex:PatientActionAuditTrailwithDigitalSignatures ex:costType "High".
+ex:PatientActionAuditTrailwithDigitalSignatures ex:hasDescription "Every patient-initiated action (registration, consent submission, record access, document upload) is logged with a cryptographically signed timestamp, session identifier, IP address, and device fingerprint, creating non-repudiable evidence of the action."^^xsd:string.
+ex:PatientActionAuditTrailwithDigitalSignatures ex:isOfMitigationCategory ex:LoggingMonitoring.
+ex:LoggingMonitoring rdfs:label "Logging & Monitoring".
+ex:LoggingMonitoring ex:hasDescription "Mitigations that provide audit trails, event logging, and real-time monitoring for detection, forensics, and non-repudiation. Includes immutable logs, WORM storage, cryptographic timestamping, and break-the-glass logging."^^xsd:string.
+ex:PhysicianMutualTLSandCertificateAuthentication rdfs:label "Physician Mutual TLS and Certificate Authentication".
+ex:PhysicianMutualTLSandCertificateAuthentication a ex:Mitigation.
+ex:PhysicianMutualTLSandCertificateAuthentication ex:controlType "Preventive".
+ex:PhysicianMutualTLSandCertificateAuthentication ex:implementationStatus "Implemented".
+ex:PhysicianMutualTLSandCertificateAuthentication ex:costType "High".
+ex:PhysicianMutualTLSandCertificateAuthentication ex:hasDescription "All physician referral API connections require mutual TLS authentication using X.509 certificates issued by the hospital's trusted certificate authority, ensuring that only registered and verified physician endpoints can establish connections."^^xsd:string.
+ex:PhysicianMutualTLSandCertificateAuthentication ex:isOfMitigationCategory ex:AuthenticationIdentity.
+ex:AuthenticationIdentity rdfs:label "Authentication & Identity".
+ex:AuthenticationIdentity ex:hasDescription "Mitigations that verify the identity of users, services, or systems before granting access. Includes multi-factor authentication, mutual TLS, biometric verification, certificate validation, and identity federation."^^xsd:string.
+ex:PhysicianAPIKeyRotationandScopeRestriction rdfs:label "Physician API Key Rotation and Scope Restriction".
+ex:PhysicianAPIKeyRotationandScopeRestriction a ex:Mitigation.
+ex:PhysicianAPIKeyRotationandScopeRestriction ex:controlType "Preventive".
+ex:PhysicianAPIKeyRotationandScopeRestriction ex:implementationStatus "Implemented".
+ex:PhysicianAPIKeyRotationandScopeRestriction ex:costType "High".
+ex:PhysicianAPIKeyRotationandScopeRestriction ex:hasDescription "Physician API keys are scoped to specific permitted operations (referral submission, limited patient record read), automatically rotated every 90 days, and bound to registered clinic IP ranges. Any out-of-scope access attempt is blocked and triggers a security alert."^^xsd:string.
+ex:PhysicianAPIKeyRotationandScopeRestriction ex:isOfMitigationCategory ex:AccessControl.
+ex:AccessControl rdfs:label "Access Control".
+ex:AccessControl ex:hasDescription "Mitigations that enforce authorization policies and least-privilege principles. Includes role-based access control, service account isolation, dual authorization, API scope restrictions, and key rotation."^^xsd:string.
+ex:InsuranceAPIEndpointCertificatePinning rdfs:label "Insurance API Endpoint Certificate Pinning".
+ex:InsuranceAPIEndpointCertificatePinning a ex:Mitigation.
+ex:InsuranceAPIEndpointCertificatePinning ex:controlType "Preventive".
+ex:InsuranceAPIEndpointCertificatePinning ex:implementationStatus "Implemented".
+ex:InsuranceAPIEndpointCertificatePinning ex:costType "High".
+ex:InsuranceAPIEndpointCertificatePinning ex:hasDescription "The hospital's insurance verification client pins the insurance provider's TLS certificate fingerprint and validates it on every connection, preventing man-in-the-middle attacks and endpoint impersonation even if a CA is compromised."^^xsd:string.
+ex:InsuranceAPIEndpointCertificatePinning ex:isOfMitigationCategory ex:NetworkSecurity.
+ex:NetworkSecurity rdfs:label "Network Security".
+ex:NetworkSecurity ex:hasDescription "Mitigations that protect data in transit and enforce secure communication channels. Includes TLS enforcement, certificate pinning, end-to-end encryption, network segmentation, and firewall rules."^^xsd:string.
+ex:InsuranceTransactionLoggingwithMessageSigning rdfs:label "Insurance Transaction Logging with Message Signing".
+ex:InsuranceTransactionLoggingwithMessageSigning a ex:Mitigation.
+ex:InsuranceTransactionLoggingwithMessageSigning ex:controlType "Preventive".
+ex:InsuranceTransactionLoggingwithMessageSigning ex:implementationStatus "Implemented".
+ex:InsuranceTransactionLoggingwithMessageSigning ex:costType "High".
+ex:InsuranceTransactionLoggingwithMessageSigning ex:hasDescription "All insurance API requests and responses are logged with their complete payloads and cryptographically signed by both parties (using JWS), creating a non-repudiable record of every eligibility check and pre-authorization exchange."^^xsd:string.
+ex:InsuranceTransactionLoggingwithMessageSigning ex:isOfMitigationCategory ex:LoggingMonitoring.
+ex:LoggingMonitoring rdfs:label "Logging & Monitoring".
+ex:LoggingMonitoring ex:hasDescription "Mitigations that provide audit trails, event logging, and real-time monitoring for detection, forensics, and non-repudiation. Includes immutable logs, WORM storage, cryptographic timestamping, and break-the-glass logging."^^xsd:string.
+ex:ServerSideRegistrationDataValidation rdfs:label "Server-Side Registration Data Validation".
+ex:ServerSideRegistrationDataValidation a ex:Mitigation.
+ex:ServerSideRegistrationDataValidation ex:controlType "Preventive".
+ex:ServerSideRegistrationDataValidation ex:implementationStatus "Implemented".
+ex:ServerSideRegistrationDataValidation ex:costType "High".
+ex:ServerSideRegistrationDataValidation ex:hasDescription "The registration gateway applies strict server-side validation on all submitted fields — format checks on dates and phone numbers, cross-referencing identification numbers against government databases, and integrity hash verification on the submitted payload."^^xsd:string.
+ex:ServerSideRegistrationDataValidation ex:isOfMitigationCategory ex:InputValidation.
+ex:InputValidation rdfs:label "Input Validation".
+ex:InputValidation ex:hasDescription "Mitigations that validate, sanitize, and verify the integrity of all incoming data before processing. Includes format checks, schema validation, digital signature verification, and message integrity validation."^^xsd:string.
+ex:EndtoEndEncryptionforRegistrationPayloads rdfs:label "End-to-End Encryption for Registration Payloads".
+ex:EndtoEndEncryptionforRegistrationPayloads a ex:Mitigation.
+ex:EndtoEndEncryptionforRegistrationPayloads ex:controlType "Preventive".
+ex:EndtoEndEncryptionforRegistrationPayloads ex:implementationStatus "Implemented".
+ex:EndtoEndEncryptionforRegistrationPayloads ex:costType "High".
+ex:EndtoEndEncryptionforRegistrationPayloads ex:hasDescription "Registration data is encrypted at the application layer (JWE) in addition to TLS transport encryption, ensuring data integrity and confidentiality even if TLS termination at the DMZ is compromised."^^xsd:string.
+ex:EndtoEndEncryptionforRegistrationPayloads ex:isOfMitigationCategory ex:NetworkSecurity.
+ex:NetworkSecurity rdfs:label "Network Security".
+ex:NetworkSecurity ex:hasDescription "Mitigations that protect data in transit and enforce secure communication channels. Includes TLS enforcement, certificate pinning, end-to-end encryption, network segmentation, and firewall rules."^^xsd:string.
+ex:StructuredErrorResponseswithoutPIILeakage rdfs:label "Structured Error Responses without PII Leakage".
+ex:StructuredErrorResponseswithoutPIILeakage a ex:Mitigation.
+ex:StructuredErrorResponseswithoutPIILeakage ex:controlType "Preventive".
+ex:StructuredErrorResponseswithoutPIILeakage ex:implementationStatus "Implemented".
+ex:StructuredErrorResponseswithoutPIILeakage ex:costType "High".
+ex:StructuredErrorResponseswithoutPIILeakage ex:hasDescription "Error responses from the registration gateway use generic error codes and messages. All PII is stripped from logs, stack traces are suppressed in production, and API responses return only the minimum fields required by the caller's authorization level."^^xsd:string.
+ex:StructuredErrorResponseswithoutPIILeakage ex:isOfMitigationCategory ex:DataProtection.
+ex:DataProtection rdfs:label "Data Protection".
+ex:DataProtection ex:hasDescription "Mitigations that protect data confidentiality and integrity at rest and in output. Includes encryption (field-level, TDE), data masking, tokenization, versioning, change tracking, integrity hashing, DLP, and digital signing."^^xsd:string.
+ex:RegistrationEndpointRateLimitingandWAFRules rdfs:label "Registration Endpoint Rate Limiting and WAF Rules".
+ex:RegistrationEndpointRateLimitingandWAFRules a ex:Mitigation.
+ex:RegistrationEndpointRateLimitingandWAFRules ex:controlType "Preventive".
+ex:RegistrationEndpointRateLimitingandWAFRules ex:implementationStatus "Implemented".
+ex:RegistrationEndpointRateLimitingandWAFRules ex:costType "High".
+ex:RegistrationEndpointRateLimitingandWAFRules ex:hasDescription "The registration endpoint enforces per-IP and per-session rate limits with progressive CAPTCHA challenges, backed by a web application firewall that detects and blocks automated abuse patterns and volumetric attacks."^^xsd:string.
+ex:RegistrationEndpointRateLimitingandWAFRules ex:isOfMitigationCategory ex:AvailabilityResilience.
+ex:AvailabilityResilience rdfs:label "Availability & Resilience".
+ex:AvailabilityResilience ex:hasDescription "Mitigations that maintain system availability under adverse conditions. Includes rate limiting, connection pooling, query throttling, WAF rules, overflow protection, and capacity planning."^^xsd:string.
+ex:FHIRMessageIntegrityValidation rdfs:label "FHIR Message Integrity Validation".
+ex:FHIRMessageIntegrityValidation a ex:Mitigation.
+ex:FHIRMessageIntegrityValidation ex:controlType "Preventive".
+ex:FHIRMessageIntegrityValidation ex:implementationStatus "Implemented".
+ex:FHIRMessageIntegrityValidation ex:costType "High".
+ex:FHIRMessageIntegrityValidation ex:hasDescription "All inbound HL7 FHIR messages from the insurance provider include a digital signature (using JWS with RS256) that is validated by the eligibility verification process before any data is accepted, detecting any in-transit modification."^^xsd:string.
+ex:FHIRMessageIntegrityValidation ex:isOfMitigationCategory ex:InputValidation.
+ex:InputValidation rdfs:label "Input Validation".
+ex:InputValidation ex:hasDescription "Mitigations that validate, sanitize, and verify the integrity of all incoming data before processing. Includes format checks, schema validation, digital signature verification, and message integrity validation."^^xsd:string.
+ex:DMZServiceAccountIsolationandLeastPrivilege rdfs:label "DMZ Service Account Isolation and Least Privilege".
+ex:DMZServiceAccountIsolationandLeastPrivilege a ex:Mitigation.
+ex:DMZServiceAccountIsolationandLeastPrivilege ex:controlType "Preventive".
+ex:DMZServiceAccountIsolationandLeastPrivilege ex:implementationStatus "Implemented".
+ex:DMZServiceAccountIsolationandLeastPrivilege ex:costType "High".
+ex:DMZServiceAccountIsolationandLeastPrivilege ex:hasDescription "The insurance eligibility process runs under a dedicated service account with minimal permissions — read access to patient insurance fields only, write access limited to eligibility status updates. The account cannot access clinical records, cannot initiate connections to the internal clinical network, and runs in a containerized environment with no shell access."^^xsd:string.
+ex:DMZServiceAccountIsolationandLeastPrivilege ex:isOfMitigationCategory ex:AccessControl.
+ex:AccessControl rdfs:label "Access Control".
+ex:AccessControl ex:hasDescription "Mitigations that enforce authorization policies and least-privilege principles. Includes role-based access control, service account isolation, dual authorization, API scope restrictions, and key rotation."^^xsd:string.
+ex:ClinicalRecordVersioningwithChangeTracking rdfs:label "Clinical Record Versioning with Change Tracking".
+ex:ClinicalRecordVersioningwithChangeTracking a ex:Mitigation.
+ex:ClinicalRecordVersioningwithChangeTracking ex:controlType "Preventive".
+ex:ClinicalRecordVersioningwithChangeTracking ex:implementationStatus "Implemented".
+ex:ClinicalRecordVersioningwithChangeTracking ex:costType "High".
+ex:ClinicalRecordVersioningwithChangeTracking ex:hasDescription "Every modification to a clinical record creates a new version with the previous version preserved immutably. Each change is tagged with the authenticated clinician's identity, timestamp, workstation ID, and a mandatory change reason field, enabling full reconstruction of the record's history."^^xsd:string.
+ex:ClinicalRecordVersioningwithChangeTracking ex:isOfMitigationCategory ex:DataProtection.
+ex:DataProtection rdfs:label "Data Protection".
+ex:DataProtection ex:hasDescription "Mitigations that protect data confidentiality and integrity at rest and in output. Includes encryption (field-level, TDE), data masking, tokenization, versioning, change tracking, integrity hashing, DLP, and digital signing."^^xsd:string.
+ex:DualAuthorizationforCriticalRecordChanges rdfs:label "Dual Authorization for Critical Record Changes".
+ex:DualAuthorizationforCriticalRecordChanges a ex:Mitigation.
+ex:DualAuthorizationforCriticalRecordChanges ex:controlType "Preventive".
+ex:DualAuthorizationforCriticalRecordChanges ex:implementationStatus "Implemented".
+ex:DualAuthorizationforCriticalRecordChanges ex:costType "High".
+ex:DualAuthorizationforCriticalRecordChanges ex:hasDescription "Changes to critical clinical fields (diagnosis codes, medication orders, allergy information) require dual authorization — the initiating clinician and a supervising physician must both approve the change before it is committed to the EHR."^^xsd:string.
+ex:DualAuthorizationforCriticalRecordChanges ex:isOfMitigationCategory ex:AccessControl.
+ex:AccessControl rdfs:label "Access Control".
+ex:AccessControl ex:hasDescription "Mitigations that enforce authorization policies and least-privilege principles. Includes role-based access control, service account isolation, dual authorization, API scope restrictions, and key rotation."^^xsd:string.
+ex:BreaktheGlassAccessLogging rdfs:label "Break-the-Glass Access Logging".
+ex:BreaktheGlassAccessLogging a ex:Mitigation.
+ex:BreaktheGlassAccessLogging ex:controlType "Preventive".
+ex:BreaktheGlassAccessLogging ex:implementationStatus "Implemented".
+ex:BreaktheGlassAccessLogging ex:costType "High".
+ex:BreaktheGlassAccessLogging ex:hasDescription "All clinical record access events are logged with the clinician's identity, the patient record accessed, timestamp, workstation, and access justification. Access to records outside the clinician's assigned patient list triggers a break-the-glass workflow requiring a documented reason and generating an alert to the compliance team."^^xsd:string.
+ex:BreaktheGlassAccessLogging ex:isOfMitigationCategory ex:LoggingMonitoring.
+ex:LoggingMonitoring rdfs:label "Logging & Monitoring".
+ex:LoggingMonitoring ex:hasDescription "Mitigations that provide audit trails, event logging, and real-time monitoring for detection, forensics, and non-repudiation. Includes immutable logs, WORM storage, cryptographic timestamping, and break-the-glass logging."^^xsd:string.
+ex:DataLossPreventionandAnomalousQueryDetection rdfs:label "Data Loss Prevention and Anomalous Query Detection".
+ex:DataLossPreventionandAnomalousQueryDetection a ex:Mitigation.
+ex:DataLossPreventionandAnomalousQueryDetection ex:controlType "Preventive".
+ex:DataLossPreventionandAnomalousQueryDetection ex:implementationStatus "Implemented".
+ex:DataLossPreventionandAnomalousQueryDetection ex:costType "High".
+ex:DataLossPreventionandAnomalousQueryDetection ex:hasDescription "A data loss prevention layer monitors all data egress from the clinical records process, detecting and blocking bulk data extraction attempts, unusually large result sets, and query patterns inconsistent with normal clinical workflows. Alerts are generated for queries exceeding configurable row-count thresholds."^^xsd:string.
+ex:DataLossPreventionandAnomalousQueryDetection ex:isOfMitigationCategory ex:DataProtection.
+ex:DataProtection rdfs:label "Data Protection".
+ex:DataProtection ex:hasDescription "Mitigations that protect data confidentiality and integrity at rest and in output. Includes encryption (field-level, TDE), data masking, tokenization, versioning, change tracking, integrity hashing, DLP, and digital signing."^^xsd:string.
+ex:DischargeSummaryDigitalSigning rdfs:label "Discharge Summary Digital Signing".
+ex:DischargeSummaryDigitalSigning a ex:Mitigation.
+ex:DischargeSummaryDigitalSigning ex:controlType "Preventive".
+ex:DischargeSummaryDigitalSigning ex:implementationStatus "Implemented".
+ex:DischargeSummaryDigitalSigning ex:costType "High".
+ex:DischargeSummaryDigitalSigning ex:hasDescription "Each generated discharge summary is digitally signed by the discharging physician's certificate. Any modification after signing invalidates the signature, and recipients (patient portal, referring physician API) verify the signature before displaying or processing the document."^^xsd:string.
+ex:DischargeSummaryDigitalSigning ex:isOfMitigationCategory ex:DataProtection.
+ex:DataProtection rdfs:label "Data Protection".
+ex:DataProtection ex:hasDescription "Mitigations that protect data confidentiality and integrity at rest and in output. Includes encryption (field-level, TDE), data masking, tokenization, versioning, change tracking, integrity hashing, DLP, and digital signing."^^xsd:string.
+ex:PHIMinimizationinNotifications rdfs:label "PHI Minimization in Notifications".
+ex:PHIMinimizationinNotifications a ex:Mitigation.
+ex:PHIMinimizationinNotifications ex:controlType "Preventive".
+ex:PHIMinimizationinNotifications ex:implementationStatus "Implemented".
+ex:PHIMinimizationinNotifications ex:costType "High".
+ex:PHIMinimizationinNotifications ex:hasDescription "Discharge notifications contain only a generic alert ('Your discharge summary is ready') with a secure link to the full document behind authentication. No PHI appears in email subjects, preview text, push notification bodies, or URL parameters."^^xsd:string.
+ex:PHIMinimizationinNotifications ex:isOfMitigationCategory ex:DataProtection.
+ex:DataProtection rdfs:label "Data Protection".
+ex:DataProtection ex:hasDescription "Mitigations that protect data confidentiality and integrity at rest and in output. Includes encryption (field-level, TDE), data masking, tokenization, versioning, change tracking, integrity hashing, DLP, and digital signing."^^xsd:string.
+ex:DatabaseLevelTransparentDataEncryptionandAccessAuditing rdfs:label "Database-Level Transparent Data Encryption and Access Auditing".
+ex:DatabaseLevelTransparentDataEncryptionandAccessAuditing a ex:Mitigation.
+ex:DatabaseLevelTransparentDataEncryptionandAccessAuditing ex:controlType "Preventive".
+ex:DatabaseLevelTransparentDataEncryptionandAccessAuditing ex:implementationStatus "Implemented".
+ex:DatabaseLevelTransparentDataEncryptionandAccessAuditing ex:costType "High".
+ex:DatabaseLevelTransparentDataEncryptionandAccessAuditing ex:hasDescription "The EHR database employs transparent data encryption (TDE) for all data at rest and maintains a database-level audit log capturing every read, write, and schema change operation with the authenticated principal, independent of the application layer."^^xsd:string.
+ex:DatabaseLevelTransparentDataEncryptionandAccessAuditing ex:isOfMitigationCategory ex:DataProtection.
+ex:DataProtection rdfs:label "Data Protection".
+ex:DataProtection ex:hasDescription "Mitigations that protect data confidentiality and integrity at rest and in output. Includes encryption (field-level, TDE), data masking, tokenization, versioning, change tracking, integrity hashing, DLP, and digital signing."^^xsd:string.
+ex:EHRFieldLevelEncryptionandTokenization rdfs:label "EHR Field-Level Encryption and Tokenization".
+ex:EHRFieldLevelEncryptionandTokenization a ex:Mitigation.
+ex:EHRFieldLevelEncryptionandTokenization ex:controlType "Preventive".
+ex:EHRFieldLevelEncryptionandTokenization ex:implementationStatus "Implemented".
+ex:EHRFieldLevelEncryptionandTokenization ex:costType "High".
+ex:EHRFieldLevelEncryptionandTokenization ex:hasDescription "Sensitive EHR fields (SSN, diagnosis codes, medication lists) are encrypted at the field level using AES-256 with per-patient keys. Patient identifiers in non-clinical tables are tokenized, limiting the value of exfiltrated data even if database-level access is compromised."^^xsd:string.
+ex:EHRFieldLevelEncryptionandTokenization ex:isOfMitigationCategory ex:DataProtection.
+ex:DataProtection rdfs:label "Data Protection".
+ex:DataProtection ex:hasDescription "Mitigations that protect data confidentiality and integrity at rest and in output. Includes encryption (field-level, TDE), data masking, tokenization, versioning, change tracking, integrity hashing, DLP, and digital signing."^^xsd:string.
+ex:DatabaseConnectionPoolingandQueryThrottling rdfs:label "Database Connection Pooling and Query Throttling".
+ex:DatabaseConnectionPoolingandQueryThrottling a ex:Mitigation.
+ex:DatabaseConnectionPoolingandQueryThrottling ex:controlType "Preventive".
+ex:DatabaseConnectionPoolingandQueryThrottling ex:implementationStatus "Implemented".
+ex:DatabaseConnectionPoolingandQueryThrottling ex:costType "High".
+ex:DatabaseConnectionPoolingandQueryThrottling ex:hasDescription "The EHR database enforces per-service connection pool limits, query timeout thresholds, and automatic termination of runaway queries. Resource-intensive analytical queries are routed to a read replica, preserving the primary database's capacity for real-time clinical operations."^^xsd:string.
+ex:DatabaseConnectionPoolingandQueryThrottling ex:isOfMitigationCategory ex:AvailabilityResilience.
+ex:AvailabilityResilience rdfs:label "Availability & Resilience".
+ex:AvailabilityResilience ex:hasDescription "Mitigations that maintain system availability under adverse conditions. Includes rate limiting, connection pooling, query throttling, WAF rules, overflow protection, and capacity planning."^^xsd:string.
+ex:ClaimsRecordIntegrityHashing rdfs:label "Claims Record Integrity Hashing".
+ex:ClaimsRecordIntegrityHashing a ex:Mitigation.
+ex:ClaimsRecordIntegrityHashing ex:controlType "Preventive".
+ex:ClaimsRecordIntegrityHashing ex:implementationStatus "Implemented".
+ex:ClaimsRecordIntegrityHashing ex:costType "High".
+ex:ClaimsRecordIntegrityHashing ex:hasDescription "Each insurance claims record includes a cryptographic hash of its key fields (policy number, authorization code, coverage amount, billing code) computed at creation and verified on every read, enabling detection of unauthorized modifications."^^xsd:string.
+ex:ClaimsRecordIntegrityHashing ex:isOfMitigationCategory ex:DataProtection.
+ex:DataProtection rdfs:label "Data Protection".
+ex:DataProtection ex:hasDescription "Mitigations that protect data confidentiality and integrity at rest and in output. Includes encryption (field-level, TDE), data masking, tokenization, versioning, change tracking, integrity hashing, DLP, and digital signing."^^xsd:string.
+ex:InsuranceDataRoleBasedAccessControl rdfs:label "Insurance Data Role-Based Access Control".
+ex:InsuranceDataRoleBasedAccessControl a ex:Mitigation.
+ex:InsuranceDataRoleBasedAccessControl ex:controlType "Preventive".
+ex:InsuranceDataRoleBasedAccessControl ex:implementationStatus "Implemented".
+ex:InsuranceDataRoleBasedAccessControl ex:costType "High".
+ex:InsuranceDataRoleBasedAccessControl ex:hasDescription "Access to the insurance claims repository is restricted to authorized billing staff and the insurance verification service account. Clinical staff cannot access insurance details unless they hold a specific billing role. All access is logged and audited weekly."^^xsd:string.
+ex:InsuranceDataRoleBasedAccessControl ex:isOfMitigationCategory ex:AccessControl.
+ex:AccessControl rdfs:label "Access Control".
+ex:AccessControl ex:hasDescription "Mitigations that enforce authorization policies and least-privilege principles. Includes role-based access control, service account isolation, dual authorization, API scope restrictions, and key rotation."^^xsd:string.
+ex:WORMStorageforAuditLogs rdfs:label "WORM Storage for Audit Logs".
+ex:WORMStorageforAuditLogs a ex:Mitigation.
+ex:WORMStorageforAuditLogs ex:controlType "Preventive".
+ex:WORMStorageforAuditLogs ex:implementationStatus "Implemented".
+ex:WORMStorageforAuditLogs ex:costType "High".
+ex:WORMStorageforAuditLogs ex:hasDescription "The clinical audit trail is stored on a WORM (Write Once Read Many) storage backend with cryptographic chaining (hash-linked entries), ensuring that no entry can be modified or deleted after creation, even by database administrators or system operators."^^xsd:string.
+ex:WORMStorageforAuditLogs ex:isOfMitigationCategory ex:LoggingMonitoring.
+ex:LoggingMonitoring rdfs:label "Logging & Monitoring".
+ex:LoggingMonitoring ex:hasDescription "Mitigations that provide audit trails, event logging, and real-time monitoring for detection, forensics, and non-repudiation. Includes immutable logs, WORM storage, cryptographic timestamping, and break-the-glass logging."^^xsd:string.
+ex:CryptographicallySignedAuditEntrieswithTimestamping rdfs:label "Cryptographically Signed Audit Entries with Timestamping".
+ex:CryptographicallySignedAuditEntrieswithTimestamping a ex:Mitigation.
+ex:CryptographicallySignedAuditEntrieswithTimestamping ex:controlType "Preventive".
+ex:CryptographicallySignedAuditEntrieswithTimestamping ex:implementationStatus "Implemented".
+ex:CryptographicallySignedAuditEntrieswithTimestamping ex:costType "High".
+ex:CryptographicallySignedAuditEntrieswithTimestamping ex:hasDescription "Each audit log entry is individually signed using the system's HSM-backed signing key and includes a trusted timestamp from an RFC 3161 timestamping authority, providing non-repudiable proof of both the entry's content and the time it was recorded."^^xsd:string.
+ex:CryptographicallySignedAuditEntrieswithTimestamping ex:isOfMitigationCategory ex:LoggingMonitoring.
+ex:LoggingMonitoring rdfs:label "Logging & Monitoring".
+ex:LoggingMonitoring ex:hasDescription "Mitigations that provide audit trails, event logging, and real-time monitoring for detection, forensics, and non-repudiation. Includes immutable logs, WORM storage, cryptographic timestamping, and break-the-glass logging."^^xsd:string.
+ex:AuditLogBufferingandOverflowProtection rdfs:label "Audit Log Buffering and Overflow Protection".
+ex:AuditLogBufferingandOverflowProtection a ex:Mitigation.
+ex:AuditLogBufferingandOverflowProtection ex:controlType "Preventive".
+ex:AuditLogBufferingandOverflowProtection ex:implementationStatus "Implemented".
+ex:AuditLogBufferingandOverflowProtection ex:costType "High".
+ex:AuditLogBufferingandOverflowProtection ex:hasDescription "The audit logging pipeline uses an asynchronous message queue with guaranteed delivery, automatic disk-based overflow buffering, and alerting when throughput exceeds 80% of capacity. Clinical operations are never blocked by audit log backpressure."^^xsd:string.
+ex:AuditLogBufferingandOverflowProtection ex:isOfMitigationCategory ex:AvailabilityResilience.
+ex:AvailabilityResilience rdfs:label "Availability & Resilience".
+ex:AvailabilityResilience ex:hasDescription "Mitigations that maintain system availability under adverse conditions. Includes rate limiting, connection pooling, query throttling, WAF rules, overflow protection, and capacity planning."^^xsd:string.
+ex:PatientIdentitySpoofing ex:mitigatedBy ex:MultiFactorPatientAuthentication.
+ex:PatientIdentitySpoofing ex:mitigatedBy ex:BiometricIdentityVerificationatRegistration.
+ex:PatientActionRepudiation ex:mitigatedBy ex:PatientActionAuditTrailwithDigitalSignatures.
+ex:PhysicianIdentitySpoofing ex:mitigatedBy ex:PhysicianMutualTLSandCertificateAuthentication.
+ex:PhysicianIdentitySpoofing ex:mitigatedBy ex:PhysicianAPIKeyRotationandScopeRestriction.
+ex:InsuranceProviderSpoofing ex:mitigatedBy ex:InsuranceAPIEndpointCertificatePinning.
+ex:InsuranceCommunicationRepudiation ex:mitigatedBy ex:InsuranceTransactionLoggingwithMessageSigning.
+ex:RegistrationDataTampering ex:mitigatedBy ex:ServerSideRegistrationDataValidation.
+ex:RegistrationDataTampering ex:mitigatedBy ex:EndtoEndEncryptionforRegistrationPayloads.
+ex:PatientRecordInformationDisclosure ex:mitigatedBy ex:StructuredErrorResponseswithoutPIILeakage.
+ex:RegistrationServiceDenialofService ex:mitigatedBy ex:RegistrationEndpointRateLimitingandWAFRules.
+ex:InsuranceDataTamperinginTransit ex:mitigatedBy ex:FHIRMessageIntegrityValidation.
+ex:EligibilityProcessElevationofPrivilege ex:mitigatedBy ex:DMZServiceAccountIsolationandLeastPrivilege.
+ex:UnauthorizedClinicalRecordModification ex:mitigatedBy ex:ClinicalRecordVersioningwithChangeTracking.
+ex:UnauthorizedClinicalRecordModification ex:mitigatedBy ex:DualAuthorizationforCriticalRecordChanges.
+ex:ClinicalRecordAccessRepudiation ex:mitigatedBy ex:BreaktheGlassAccessLogging.
+ex:PatientDataExfiltration ex:mitigatedBy ex:DataLossPreventionandAnomalousQueryDetection.
+ex:DischargeSummaryTampering ex:mitigatedBy ex:DischargeSummaryDigitalSigning.
+ex:PHIExposureinDischargeNotifications ex:mitigatedBy ex:PHIMinimizationinNotifications.
+ex:EHRDatabaseRecordTampering ex:mitigatedBy ex:DatabaseLevelTransparentDataEncryptionandAccessAuditing.
+ex:EHRDatabaseRecordTampering ex:mitigatedBy ex:ClinicalRecordVersioningwithChangeTracking.
+ex:UnauthorizedEHRDataDisclosure ex:mitigatedBy ex:EHRFieldLevelEncryptionandTokenization.
+ex:UnauthorizedEHRDataDisclosure ex:mitigatedBy ex:DataLossPreventionandAnomalousQueryDetection.
+ex:EHRDatabaseDenialofService ex:mitigatedBy ex:DatabaseConnectionPoolingandQueryThrottling.
+ex:InsuranceClaimsDataTampering ex:mitigatedBy ex:ClaimsRecordIntegrityHashing.
+ex:InsuranceDataUnauthorizedDisclosure ex:mitigatedBy ex:InsuranceDataRoleBasedAccessControl.
+ex:AuditTrailTampering ex:mitigatedBy ex:WORMStorageforAuditLogs.
+ex:AuditLogRepudiation ex:mitigatedBy ex:CryptographicallySignedAuditEntrieswithTimestamping.
+ex:AuditLogDenialofService ex:mitigatedBy ex:AuditLogBufferingandOverflowProtection.
+}
+
+ex:DFD_PharmacyPrescriptionDispensing
+{
+ex:ReceiveValidatePrescription rdfs:label "Receive & Validate Prescription".
+ex:ReceiveValidatePrescription a ex:DFDProcess.
+ex:ReceiveValidatePrescription ex:describesProcess "Receives incoming e-prescriptions from prescribing physicians, validates the prescription format (medication code, dosage range, quantity limits), verifies the prescriber's digital signature, and checks the prescription against formulary rules. Valid prescriptions are queued for drug interaction checking."^^xsd:string.
+ex:ReceiveValidatePrescription ex:hasSusceptibleThreat [ex:threatCode ex:PrescriptionDataTampering; ex:comment ""; a ex:ThreatAssessment ].
+ex:ReceiveValidatePrescription ex:hasSusceptibleThreat [ex:threatCode ex:PrescriptionValidationBypassviaPrivilegeEscalation; ex:comment ""; a ex:ThreatAssessment ].
+ex:ReceiveValidatePrescription ex:residesInTrustZone ex:PharmacyApplicationZone.
+ex:CheckDrugInteractions rdfs:label "Check Drug Interactions".
+ex:CheckDrugInteractions a ex:DFDProcess.
+ex:CheckDrugInteractions ex:describesProcess "Queries the EHR Database for the patient's current medication list, known allergies, and clinical conditions, then cross-references the new prescription against a drug interaction knowledge base. Returns one of three outcomes: clear, warning (non-critical interaction), or block (contraindicated combination requiring pharmacist override)."^^xsd:string.
+ex:CheckDrugInteractions ex:hasSusceptibleThreat [ex:threatCode ex:DrugInteractionDataDisclosure; ex:comment ""; a ex:ThreatAssessment ].
+ex:CheckDrugInteractions ex:residesInTrustZone ex:PharmacyApplicationZone.
+ex:DispenseMedication rdfs:label "Dispense Medication".
+ex:DispenseMedication a ex:DFDProcess.
+ex:DispenseMedication ex:describesProcess "Manages the physical dispensing workflow — confirms the pharmacist's approval, deducts the dispensed quantity from the pharmacy inventory, prints the medication label with patient instructions, and updates the dispensing record. For controlled substances, triggers a report to the National Drug Registry."^^xsd:string.
+ex:DispenseMedication ex:hasSusceptibleThreat [ex:threatCode ex:DispensingRecordTampering; ex:comment ""; a ex:ThreatAssessment ].
+ex:DispenseMedication ex:hasSusceptibleThreat [ex:threatCode ex:ControlledSubstanceReportingDenialofService; ex:comment ""; a ex:ThreatAssessment ].
+ex:DispenseMedication ex:residesInTrustZone ex:PharmacyApplicationZone.
+ex:PrescribingPhysician rdfs:label "Prescribing Physician".
+ex:PrescribingPhysician a ex:DFDExternalEntity.
+ex:PrescribingPhysician ex:describesExternalEntity "An attending physician within MedTrack General Hospital who creates and submits electronic prescriptions (e-prescriptions) through the hospital's clinical workstation. Each prescription includes patient identifier, medication name, dosage, route, frequency, quantity, and the physician's digital signature."^^xsd:string.
+ex:PrescribingPhysician ex:hasSusceptibleThreat [ex:threatCode ex:PrescriberIdentitySpoofing; ex:comment ""; a ex:ThreatAssessment ].
+ex:PrescribingPhysician ex:hasSusceptibleThreat [ex:threatCode ex:PrescriptionSubmissionRepudiation; ex:comment ""; a ex:ThreatAssessment ].
+ex:NationalDrugRegistry rdfs:label "National Drug Registry".
+ex:NationalDrugRegistry a ex:DFDExternalEntity.
+ex:NationalDrugRegistry ex:describesExternalEntity "A government-operated controlled substance monitoring database that tracks the prescribing and dispensing of scheduled medications (opioids, benzodiazepines, stimulants) across all pharmacies and hospitals in the country. MedTrack is legally required to report every controlled substance dispensing event to the NDR within 24 hours."^^xsd:string.
+ex:NationalDrugRegistry ex:hasSusceptibleThreat [ex:threatCode ex:DrugRegistryEndpointSpoofing; ex:comment ""; a ex:ThreatAssessment ].
+ex:PharmacyDispensingInventoryRecords rdfs:label "Pharmacy Dispensing & Inventory Records".
+ex:PharmacyDispensingInventoryRecords a ex:DFDDataStore.
+ex:PharmacyDispensingInventoryRecords ex:describesDataStore "Stores all prescription processing records (received, validated, approved, dispensed, rejected), dispensing events (medication, quantity, dispensing pharmacist, timestamp), pharmacy inventory levels, and controlled substance tracking data."^^xsd:string.
+ex:PharmacyDispensingInventoryRecords ex:hasSusceptibleThreat [ex:threatCode ex:ControlledSubstanceDispensingRecordDeletion; ex:comment ""; a ex:ThreatAssessment ].
+ex:PharmacyDispensingInventoryRecords ex:residesInTrustZone ex:PharmacyApplicationZone.
+ex:ElectronicHealthRecordsDatabase rdfs:label "Electronic Health Records Database".
+ex:ElectronicHealthRecordsDatabase a ex:DFDDataStore.
+ex:ElectronicHealthRecordsDatabase ex:describesDataStore "The central clinical database storing comprehensive patient medical records including demographics, medical histories, diagnoses (ICD-10 codes), treatment plans, medication orders, lab and imaging results, surgical notes, and provider assignments. HIPAA-regulated with strict access controls and encryption requirements."^^xsd:string.
+ex:ElectronicHealthRecordsDatabase ex:hasSusceptibleThreat [ex:threatCode ex:UnauthorizedPatientMedicationHistoryDisclosure; ex:comment ""; a ex:ThreatAssessment ].
+ex:ElectronicHealthRecordsDatabase ex:hasSusceptibleThreat [ex:threatCode ex:EHRMedicationDataTamperingviaPharmacyChannel; ex:comment ""; a ex:ThreatAssessment ].
+ex:ElectronicHealthRecordsDatabase ex:residesInTrustZone ex:HospitalClinicalDataZone.
+ex:ClinicalAuditTrail rdfs:label "Clinical Audit Trail".
+ex:ClinicalAuditTrail a ex:DFDDataStore.
+ex:ClinicalAuditTrail ex:describesDataStore "An append-only audit log capturing all clinical system events — patient record access, modifications, referral submissions, insurance verifications, discharge summary generations, and authentication events. Required for HIPAA compliance and forensic investigation."^^xsd:string.
+ex:ClinicalAuditTrail ex:hasSusceptibleThreat [ex:threatCode ex:PharmacyAuditTrailDenialofService; ex:comment ""; a ex:ThreatAssessment ].
+ex:ClinicalAuditTrail ex:residesInTrustZone ex:HospitalClinicalDataZone.
+ex:PharmacyApplicationZone rdfs:label "Pharmacy Application Zone ".
+ex:PharmacyApplicationZone a ex:DFDTrustBoundary.
+ex:PharmacyApplicationZone ex:describesTrustBoundary "The secured zone enclosing the pharmacy's prescription processing services, drug interaction checker, dispensing management system, and the local pharmacy inventory database. Protected by application-level authentication, role-based access enforcement, and dedicated firewall rules isolating pharmacy systems from the broader hospital network."^^xsd:string.
+ex:PharmacyApplicationZone rdfs:label "Pharmacy Application Zone".
+ex:PharmacyApplicationZone a ex:DFDTrustBoundary.
+ex:PharmacyApplicationZone ex:describesTrustBoundary "The secured zone enclosing the pharmacy's prescription processing services, drug interaction checker, dispensing management system, and the local pharmacy inventory database. Protected by application-level authentication, role-based access enforcement, and dedicated firewall rules isolating pharmacy systems from the broader hospital network."^^xsd:string.
+ex:HospitalClinicalDataZone rdfs:label "Hospital Clinical Data Zone ".
+ex:HospitalClinicalDataZone a ex:DFDTrustBoundary.
+ex:HospitalClinicalDataZone ex:describesTrustBoundary "The zone enclosing the hospital's shared clinical data assets — specifically the Electronic Health Records (EHR) Database and the Clinical Audit Trail — that are accessed by the pharmacy system for patient allergy and medication history lookups. This is the same internal clinical infrastructure referenced in Case 1, now accessed cross-zone by pharmacy services."^^xsd:string.
+ex:HospitalClinicalDataZone rdfs:label "Hospital Clinical Data Zone".
+ex:HospitalClinicalDataZone a ex:DFDTrustBoundary.
+ex:HospitalClinicalDataZone ex:describesTrustBoundary "The zone enclosing the hospital's shared clinical data assets — specifically the Electronic Health Records (EHR) Database and the Clinical Audit Trail — that are accessed by the pharmacy system for patient allergy and medication history lookups. This is the same internal clinical infrastructure referenced in Case 1, now accessed cross-zone by pharmacy services."^^xsd:string.
+ex:EPrescriptionSubmission rdfs:label "E-Prescription Submission".
+ex:EPrescriptionSubmission a ex:DFDDataFlow.
+ex:EPrescriptionSubmission ex:protocol "HTTPS".
+ex:EPrescriptionSubmission ex:describesDataFlow "The prescribing physician submits a digitally signed e-prescription (medication, dosage, quantity, patient ID, physician signature) to the Receive and Validate Prescription process."^^xsd:string.
+ex:ReceiveValidatePrescription ex:hasInputDataFlow ex:EPrescriptionSubmission.
+ex:PrescribingPhysician ex:sendsDataFlow ex:EPrescriptionSubmission.
+ex:EPrescriptionSubmission ex:crossesTrustBoundary ex:PharmacyApplicationZone.
+ex:ValidatedPrescriptionHandoff rdfs:label "Validated Prescription Handoff".
+ex:ValidatedPrescriptionHandoff a ex:DFDDataFlow.
+ex:ValidatedPrescriptionHandoff ex:protocol "HTTPS".
+ex:ValidatedPrescriptionHandoff ex:describesDataFlow "The validated prescription (confirmed prescriber identity, format-compliant, formulary-checked) is forwarded from the Receive and Validate Prescription process to the Check Drug Interactions process."^^xsd:string.
+ex:ReceiveValidatePrescription ex:hasOutputDataFlow ex:ValidatedPrescriptionHandoff.
+ex:CheckDrugInteractions ex:hasInputDataFlow ex:ValidatedPrescriptionHandoff.
+ex:ValidatedPrescriptionHandoff ex:residesInTrustZone ex:PharmacyApplicationZone.
+ex:InteractionClearedPrescription rdfs:label "Interaction-Cleared Prescription".
+ex:InteractionClearedPrescription a ex:DFDDataFlow.
+ex:InteractionClearedPrescription ex:protocol "HTTPS".
+ex:InteractionClearedPrescription ex:describesDataFlow "The drug interaction-cleared prescription (or a prescription with pharmacist-overridden warnings) is forwarded from the Check Drug Interactions process to the Dispense Medication process."^^xsd:string.
+ex:CheckDrugInteractions ex:hasOutputDataFlow ex:InteractionClearedPrescription.
+ex:DispenseMedication ex:hasInputDataFlow ex:InteractionClearedPrescription.
+ex:InteractionClearedPrescription ex:residesInTrustZone ex:PharmacyApplicationZone.
+ex:DispensingRecordStorage rdfs:label "Dispensing Record Storage".
+ex:DispensingRecordStorage a ex:DFDDataFlow.
+ex:DispensingRecordStorage ex:protocol "TLS".
+ex:DispensingRecordStorage ex:describesDataFlow "The Dispense Medication process writes the completed dispensing record (medication, quantity, patient, pharmacist, timestamp, cryptographic seal) to the Pharmacy Dispensing & Inventory Records."^^xsd:string.
+ex:DispenseMedication ex:hasOutputDataFlow ex:DispensingRecordStorage.
+ex:PharmacyDispensingInventoryRecords ex:storesDataFlow ex:DispensingRecordStorage.
+ex:DispensingRecordStorage ex:residesInTrustZone ex:PharmacyApplicationZone.
+ex:ControlledSubstanceReport rdfs:label "Controlled Substance Report".
+ex:ControlledSubstanceReport a ex:DFDDataFlow.
+ex:ControlledSubstanceReport ex:protocol "HTTPS".
+ex:ControlledSubstanceReport ex:describesDataFlow "The Dispense Medication process transmits a controlled substance dispensing report to the National Drug Registry, containing the medication schedule, quantity, patient identifier (anonymized), prescriber license number, and dispensing timestamp."^^xsd:string.
+ex:DispenseMedication ex:hasOutputDataFlow ex:ControlledSubstanceReport.
+ex:NationalDrugRegistry ex:receivesDataFlow ex:ControlledSubstanceReport.
+ex:ControlledSubstanceReport ex:crossesTrustBoundary ex:PharmacyApplicationZone.
+ex:DispensingAuditEntry rdfs:label "Dispensing Audit Entry".
+ex:DispensingAuditEntry a ex:DFDDataFlow.
+ex:DispensingAuditEntry ex:protocol "TLS".
+ex:DispensingAuditEntry ex:describesDataFlow "The Dispense Medication process writes an audit record for every dispensing event — capturing medication dispensed, quantity, patient, dispensing pharmacist, controlled substance flag, and NDR report status."^^xsd:string.
+ex:DispenseMedication ex:hasOutputDataFlow ex:DispensingAuditEntry.
+ex:ClinicalAuditTrail ex:storesDataFlow ex:DispensingAuditEntry.
+ex:DispensingAuditEntry ex:crossesTrustBoundary ex:PharmacyApplicationZone.
+ex:DispensingAuditEntry ex:crossesTrustBoundary ex:HospitalClinicalDataZone.
+ex:PatientAllergyandMedicationQuery rdfs:label "Patient Allergy and Medication Query".
+ex:PatientAllergyandMedicationQuery a ex:DFDDataFlow.
+ex:PatientAllergyandMedicationQuery ex:protocol "TLS".
+ex:PatientAllergyandMedicationQuery ex:describesDataFlow "The Check Drug Interactions process queries the EHR Database for the patient's active medication list, documented allergies, and relevant clinical conditions."^^xsd:string.
+ex:CheckDrugInteractions ex:hasOutputDataFlow ex:PatientAllergyandMedicationQuery.
+ex:ElectronicHealthRecordsDatabase ex:storesDataFlow ex:PatientAllergyandMedicationQuery.
+ex:PatientAllergyandMedicationQuery ex:crossesTrustBoundary ex:PharmacyApplicationZone.
+ex:PatientAllergyandMedicationQuery ex:crossesTrustBoundary ex:HospitalClinicalDataZone.
+ex:AllergyandMedicationResponse rdfs:label "Allergy and Medication Response".
+ex:AllergyandMedicationResponse a ex:DFDDataFlow.
+ex:AllergyandMedicationResponse ex:protocol "TLS".
+ex:AllergyandMedicationResponse ex:describesDataFlow "The EHR Database returns the patient's active medications, allergy list, and relevant clinical flags to the Check Drug Interactions process."^^xsd:string.
+ex:CheckDrugInteractions ex:hasInputDataFlow ex:AllergyandMedicationResponse.
+ex:ElectronicHealthRecordsDatabase ex:providesDataFlow ex:AllergyandMedicationResponse.
+ex:AllergyandMedicationResponse ex:crossesTrustBoundary ex:PharmacyApplicationZone.
+ex:AllergyandMedicationResponse ex:crossesTrustBoundary ex:HospitalClinicalDataZone.
+ex:PrescriptionProcessingAuditEntry rdfs:label "Prescription Processing Audit Entry".
+ex:PrescriptionProcessingAuditEntry a ex:DFDDataFlow.
+ex:PrescriptionProcessingAuditEntry ex:protocol "TLS".
+ex:PrescriptionProcessingAuditEntry ex:describesDataFlow "The Receive and Validate Prescription process writes an audit record for every prescription received — capturing prescriber identity, signature verification result, validation outcome, and timestamp."^^xsd:string.
+ex:ReceiveValidatePrescription ex:hasOutputDataFlow ex:PrescriptionProcessingAuditEntry.
+ex:ClinicalAuditTrail ex:storesDataFlow ex:PrescriptionProcessingAuditEntry.
+ex:PrescriptionProcessingAuditEntry ex:crossesTrustBoundary ex:PharmacyApplicationZone.
+ex:PrescriptionProcessingAuditEntry ex:crossesTrustBoundary ex:HospitalClinicalDataZone.
+}
+
+ex:TM_PharmacyPrescriptionDispensing
+{
+ex:PrescriberIdentitySpoofing rdfs:label "Prescriber Identity Spoofing".
+ex:PrescriberIdentitySpoofing a ex:Threat.
+ex:PrescriberIdentitySpoofing ex:hasDescription "An attacker impersonates a licensed physician by using stolen credentials, a compromised workstation, or a forged digital signature to submit fraudulent prescriptions — particularly for controlled substances — enabling drug diversion, patient harm, or regulatory violations."^^xsd:string.
+ex:PrescriberIdentitySpoofing ex:riskLevel "Critical".
+ex:PrescriberIdentitySpoofing ex:likelihood "Medium".
+ex:PrescriberIdentitySpoofing ex:severity "Critical".
+ex:PrescriberIdentitySpoofing ex:score  "8.9"^^xsd:float.
+ex:PrescriberIdentitySpoofing ex:isOfThreatCategory ex:Spoofing.
+ex:Spoofing rdfs:label "Spoofing".
+ex:Spoofing ex:hasDescription "Threats involving an attacker impersonating another user, system, or service to gain unauthorized access or perform unauthorized actions. In the STRIDE model, spoofing relates to violations of authentication mechanisms."^^xsd:string.
+ex:PrescriptionSubmissionRepudiation rdfs:label "Prescription Submission Repudiation".
+ex:PrescriptionSubmissionRepudiation a ex:Threat.
+ex:PrescriptionSubmissionRepudiation ex:hasDescription "A physician denies having prescribed a specific medication or dosage, and the system lacks sufficient non-repudiable evidence linking the prescription to the physician's authenticated session, workstation, and digital signature at the time of submission."^^xsd:string.
+ex:PrescriptionSubmissionRepudiation ex:riskLevel "Medium".
+ex:PrescriptionSubmissionRepudiation ex:likelihood "Medium".
+ex:PrescriptionSubmissionRepudiation ex:severity "Medium".
+ex:PrescriptionSubmissionRepudiation ex:score  "5.4"^^xsd:float.
+ex:PrescriptionSubmissionRepudiation ex:isOfThreatCategory ex:Repudiation.
+ex:Repudiation rdfs:label "Repudiation".
+ex:Repudiation ex:hasDescription "Threats where an actor denies having performed an action and the system lacks sufficient evidence (logs, signatures, timestamps) to prove otherwise."^^xsd:string.
+ex:DrugRegistryEndpointSpoofing rdfs:label "Drug Registry Endpoint Spoofing".
+ex:DrugRegistryEndpointSpoofing a ex:Threat.
+ex:DrugRegistryEndpointSpoofing ex:hasDescription "An attacker impersonates the National Drug Registry's API endpoint through DNS poisoning or certificate forgery, intercepting controlled substance reports to suppress reporting of suspicious prescriptions or to harvest controlled substance dispensing data across the hospital."^^xsd:string.
+ex:DrugRegistryEndpointSpoofing ex:riskLevel "High".
+ex:DrugRegistryEndpointSpoofing ex:likelihood "Low".
+ex:DrugRegistryEndpointSpoofing ex:severity "High".
+ex:DrugRegistryEndpointSpoofing ex:score  "6.6"^^xsd:float.
+ex:DrugRegistryEndpointSpoofing ex:isOfThreatCategory ex:Spoofing.
+ex:Spoofing rdfs:label "Spoofing".
+ex:Spoofing ex:hasDescription "Threats involving an attacker impersonating another user, system, or service to gain unauthorized access or perform unauthorized actions. In the STRIDE model, spoofing relates to violations of authentication mechanisms."^^xsd:string.
+ex:PrescriptionDataTampering rdfs:label "Prescription Data Tampering".
+ex:PrescriptionDataTampering a ex:Threat.
+ex:PrescriptionDataTampering ex:hasDescription "An attacker intercepts and modifies an e-prescription in transit between the physician's workstation and the pharmacy system, altering the medication, dosage, or quantity — potentially substituting a controlled substance or increasing a dosage to dangerous levels, directly endangering patient safety."^^xsd:string.
+ex:PrescriptionDataTampering ex:riskLevel "Critical".
+ex:PrescriptionDataTampering ex:likelihood "Medium".
+ex:PrescriptionDataTampering ex:severity "Critical".
+ex:PrescriptionDataTampering ex:score  "8.5"^^xsd:float.
+ex:PrescriptionDataTampering ex:isOfThreatCategory ex:Tampering.
+ex:Tampering rdfs:label "Tampering".
+ex:Tampering ex:hasDescription "Threats involving unauthorized modification of data in transit or at rest, including alteration of messages, records, or configuration to subvert system integrity."^^xsd:string.
+ex:PrescriptionValidationBypassviaPrivilegeEscalation rdfs:label "Prescription Validation Bypass via Privilege Escalation".
+ex:PrescriptionValidationBypassviaPrivilegeEscalation a ex:Threat.
+ex:PrescriptionValidationBypassviaPrivilegeEscalation ex:hasDescription "An attacker exploits a flaw in the prescription validation process to escalate from a limited pharmacy technician role to an override-capable pharmacist role, allowing them to approve prescriptions that would normally be flagged for dosage violations, formulary restrictions, or missing prescriber credentials."^^xsd:string.
+ex:PrescriptionValidationBypassviaPrivilegeEscalation ex:riskLevel "High".
+ex:PrescriptionValidationBypassviaPrivilegeEscalation ex:likelihood "Low".
+ex:PrescriptionValidationBypassviaPrivilegeEscalation ex:severity "Critical".
+ex:PrescriptionValidationBypassviaPrivilegeEscalation ex:score  "7.6"^^xsd:float.
+ex:PrescriptionValidationBypassviaPrivilegeEscalation ex:isOfThreatCategory ex:ElevationOfPrivilege.
+ex:ElevationOfPrivilege rdfs:label "Elevation of Privilege".
+ex:ElevationOfPrivilege ex:hasDescription "Threats where an attacker gains access rights beyond what was originally granted, allowing them to perform administrative or restricted operations without proper authorization."^^xsd:string.
+ex:DrugInteractionDataDisclosure rdfs:label "Drug Interaction Data Disclosure".
+ex:DrugInteractionDataDisclosure a ex:Threat.
+ex:DrugInteractionDataDisclosure ex:hasDescription "The drug interaction checking process retrieves the patient's full medication history and allergy profile from the EHR but inadvertently exposes this data through verbose API responses, debug logging, or insufficiently scoped queries — revealing sensitive medical details beyond what the pharmacy workflow requires."^^xsd:string.
+ex:DrugInteractionDataDisclosure ex:riskLevel "High".
+ex:DrugInteractionDataDisclosure ex:likelihood "Medium".
+ex:DrugInteractionDataDisclosure ex:severity "High".
+ex:DrugInteractionDataDisclosure ex:score  "7.2"^^xsd:float.
+ex:DrugInteractionDataDisclosure ex:isOfThreatCategory ex:InformationDisclosure.
+ex:InformationDisclosure rdfs:label "Information Disclosure".
+ex:InformationDisclosure ex:hasDescription "Threats involving the exposure of sensitive or confidential information to unauthorized parties, whether through direct access, side channels, or inadequate output sanitization."^^xsd:string.
+ex:DispensingRecordTampering rdfs:label "Dispensing Record Tampering".
+ex:DispensingRecordTampering a ex:Threat.
+ex:DispensingRecordTampering ex:hasDescription "An attacker or malicious pharmacy staff member modifies dispensing records after the fact — altering quantities dispensed, removing entries for controlled substances, or falsifying timestamps — to conceal drug diversion or inventory discrepancies."^^xsd:string.
+ex:DispensingRecordTampering ex:riskLevel "High".
+ex:DispensingRecordTampering ex:likelihood "Low".
+ex:DispensingRecordTampering ex:severity "High".
+ex:DispensingRecordTampering ex:score  "7"^^xsd:float.
+ex:DispensingRecordTampering ex:isOfThreatCategory ex:Tampering.
+ex:Tampering rdfs:label "Tampering".
+ex:Tampering ex:hasDescription "Threats involving unauthorized modification of data in transit or at rest, including alteration of messages, records, or configuration to subvert system integrity."^^xsd:string.
+ex:ControlledSubstanceReportingDenialofService rdfs:label "Controlled Substance Reporting Denial of Service".
+ex:ControlledSubstanceReportingDenialofService a ex:Threat.
+ex:ControlledSubstanceReportingDenialofService ex:hasDescription "An attacker disrupts the reporting channel to the National Drug Registry by flooding the outbound queue or exploiting connection timeouts, causing controlled substance reports to be delayed beyond the 24-hour regulatory deadline, exposing the hospital to compliance penalties."^^xsd:string.
+ex:ControlledSubstanceReportingDenialofService ex:riskLevel "Medium".
+ex:ControlledSubstanceReportingDenialofService ex:likelihood "Medium".
+ex:ControlledSubstanceReportingDenialofService ex:severity "Medium".
+ex:ControlledSubstanceReportingDenialofService ex:score  "5.8"^^xsd:float.
+ex:ControlledSubstanceReportingDenialofService ex:isOfThreatCategory ex:DenialOfService.
+ex:DenialOfService rdfs:label "Denial of Service".
+ex:DenialOfService ex:hasDescription "Threats aimed at degrading or disabling system availability by overwhelming resources, exploiting resource exhaustion vulnerabilities, or disrupting dependent services."^^xsd:string.
+ex:UnauthorizedPatientMedicationHistoryDisclosure rdfs:label "Unauthorized Patient Medication History Disclosure".
+ex:UnauthorizedPatientMedicationHistoryDisclosure a ex:Threat.
+ex:UnauthorizedPatientMedicationHistoryDisclosure ex:hasDescription "An attacker exploits the pharmacy system's read access to the EHR to extract patient medication histories, allergy profiles, and associated diagnoses beyond the scope of the current prescription, enabling patient profiling, blackmail, or a HIPAA breach notification obligation."^^xsd:string.
+ex:UnauthorizedPatientMedicationHistoryDisclosure ex:riskLevel "Critical".
+ex:UnauthorizedPatientMedicationHistoryDisclosure ex:likelihood "Medium".
+ex:UnauthorizedPatientMedicationHistoryDisclosure ex:severity "Critical".
+ex:UnauthorizedPatientMedicationHistoryDisclosure ex:score  "8.4"^^xsd:float.
+ex:UnauthorizedPatientMedicationHistoryDisclosure ex:isOfThreatCategory ex:InformationDisclosure.
+ex:InformationDisclosure rdfs:label "Information Disclosure".
+ex:InformationDisclosure ex:hasDescription "Threats involving the exposure of sensitive or confidential information to unauthorized parties, whether through direct access, side channels, or inadequate output sanitization."^^xsd:string.
+ex:EHRMedicationDataTamperingviaPharmacyChannel rdfs:label "EHR Medication Data Tampering via Pharmacy Channel".
+ex:EHRMedicationDataTamperingviaPharmacyChannel a ex:Threat.
+ex:EHRMedicationDataTamperingviaPharmacyChannel ex:hasDescription "An attacker exploits a misconfigured pharmacy-to-EHR integration to write data to the EHR database through what should be a read-only channel, modifying patient allergy records or medication lists to suppress drug interaction warnings for future prescriptions."^^xsd:string.
+ex:EHRMedicationDataTamperingviaPharmacyChannel ex:riskLevel "High".
+ex:EHRMedicationDataTamperingviaPharmacyChannel ex:likelihood "Low".
+ex:EHRMedicationDataTamperingviaPharmacyChannel ex:severity "Critical".
+ex:EHRMedicationDataTamperingviaPharmacyChannel ex:score  "7.8"^^xsd:float.
+ex:EHRMedicationDataTamperingviaPharmacyChannel ex:isOfThreatCategory ex:Tampering.
+ex:Tampering rdfs:label "Tampering".
+ex:Tampering ex:hasDescription "Threats involving unauthorized modification of data in transit or at rest, including alteration of messages, records, or configuration to subvert system integrity."^^xsd:string.
+ex:ControlledSubstanceDispensingRecordDeletion rdfs:label "Controlled Substance Dispensing Record Deletion".
+ex:ControlledSubstanceDispensingRecordDeletion a ex:Threat.
+ex:ControlledSubstanceDispensingRecordDeletion ex:hasDescription "A malicious insider deletes or modifies controlled substance dispensing records to conceal drug diversion — removing entries that would otherwise be reconciled against physical inventory counts and reported to the National Drug Registry during audits."^^xsd:string.
+ex:ControlledSubstanceDispensingRecordDeletion ex:riskLevel "Critical".
+ex:ControlledSubstanceDispensingRecordDeletion ex:likelihood "Low".
+ex:ControlledSubstanceDispensingRecordDeletion ex:severity "Critical".
+ex:ControlledSubstanceDispensingRecordDeletion ex:score  "8.2"^^xsd:float.
+ex:ControlledSubstanceDispensingRecordDeletion ex:isOfThreatCategory ex:Tampering.
+ex:Tampering rdfs:label "Tampering".
+ex:Tampering ex:hasDescription "Threats involving unauthorized modification of data in transit or at rest, including alteration of messages, records, or configuration to subvert system integrity."^^xsd:string.
+ex:PharmacyAuditTrailDenialofService rdfs:label "Pharmacy Audit Trail Denial of Service".
+ex:PharmacyAuditTrailDenialofService a ex:Threat.
+ex:PharmacyAuditTrailDenialofService ex:hasDescription "An attacker or misconfigured process generates an excessive volume of pharmacy-related audit events, saturating the Clinical Audit Trail's ingestion capacity and causing legitimate audit entries (particularly controlled substance tracking events) to be delayed or dropped, creating compliance gaps."^^xsd:string.
+ex:PharmacyAuditTrailDenialofService ex:riskLevel "Medium".
+ex:PharmacyAuditTrailDenialofService ex:likelihood "Medium".
+ex:PharmacyAuditTrailDenialofService ex:severity "High".
+ex:PharmacyAuditTrailDenialofService ex:score  "5.6"^^xsd:float.
+ex:PharmacyAuditTrailDenialofService ex:isOfThreatCategory ex:DenialOfService.
+ex:DenialOfService rdfs:label "Denial of Service".
+ex:DenialOfService ex:hasDescription "Threats aimed at degrading or disabling system availability by overwhelming resources, exploiting resource exhaustion vulnerabilities, or disrupting dependent services."^^xsd:string.
+ex:PrescriberDigitalSignatureVerification rdfs:label "Prescriber Digital Signature Verification".
+ex:PrescriberDigitalSignatureVerification a ex:Mitigation.
+ex:PrescriberDigitalSignatureVerification ex:controlType "Preventive".
+ex:PrescriberDigitalSignatureVerification ex:implementationStatus "Implemented".
+ex:PrescriberDigitalSignatureVerification ex:costType "High".
+ex:PrescriberDigitalSignatureVerification ex:hasDescription "Every e-prescription must carry a valid digital signature from the prescribing physician's hospital-issued PKI certificate. The pharmacy system verifies the signature against the hospital's certificate authority and confirms the physician's active medical license status before accepting any prescription."^^xsd:string.
+ex:PrescriberDigitalSignatureVerification ex:isOfMitigationCategory ex:AuthenticationIdentity.
+ex:AuthenticationIdentity rdfs:label "Authentication & Identity".
+ex:AuthenticationIdentity ex:hasDescription "Mitigations that verify the identity of users, services, or systems before granting access. Includes multi-factor authentication, mutual TLS, biometric verification, certificate validation, and identity federation."^^xsd:string.
+ex:PrescriptionSubmissionImmutableLogging rdfs:label "Prescription Submission Immutable Logging".
+ex:PrescriptionSubmissionImmutableLogging a ex:Mitigation.
+ex:PrescriptionSubmissionImmutableLogging ex:controlType "Preventive".
+ex:PrescriptionSubmissionImmutableLogging ex:implementationStatus "Implemented".
+ex:PrescriptionSubmissionImmutableLogging ex:costType "High".
+ex:PrescriptionSubmissionImmutableLogging ex:hasDescription "Every prescription submission is logged with the physician's authenticated identity, digital signature hash, workstation ID, timestamp, and the complete prescription content, stored on an append-only ledger that cannot be modified or deleted after creation."^^xsd:string.
+ex:PrescriptionSubmissionImmutableLogging ex:isOfMitigationCategory ex:LoggingMonitoring.
+ex:LoggingMonitoring rdfs:label "Logging & Monitoring".
+ex:LoggingMonitoring ex:hasDescription "Mitigations that provide audit trails, event logging, and real-time monitoring for detection, forensics, and non-repudiation. Includes immutable logs, WORM storage, cryptographic timestamping, and break-the-glass logging."^^xsd:string.
+ex:NDRAPIMutualTLSwithCertificatePinning rdfs:label "NDR API Mutual TLS with Certificate Pinning".
+ex:NDRAPIMutualTLSwithCertificatePinning a ex:Mitigation.
+ex:NDRAPIMutualTLSwithCertificatePinning ex:controlType "Preventive".
+ex:NDRAPIMutualTLSwithCertificatePinning ex:implementationStatus "Implemented".
+ex:NDRAPIMutualTLSwithCertificatePinning ex:costType "High".
+ex:NDRAPIMutualTLSwithCertificatePinning ex:hasDescription "All communication with the National Drug Registry uses mutual TLS authentication with the NDR's certificate fingerprint pinned in the pharmacy system's configuration. Both sides verify each other's identity before any data exchange, and certificate changes require manual administrative approval."^^xsd:string.
+ex:NDRAPIMutualTLSwithCertificatePinning ex:isOfMitigationCategory ex:NetworkSecurity.
+ex:NetworkSecurity rdfs:label "Network Security".
+ex:NetworkSecurity ex:hasDescription "Mitigations that protect data in transit and enforce secure communication channels. Includes TLS enforcement, certificate pinning, end-to-end encryption, network segmentation, and firewall rules."^^xsd:string.
+ex:PrescriptionPayloadIntegrityVerification rdfs:label "Prescription Payload Integrity Verification".
+ex:PrescriptionPayloadIntegrityVerification a ex:Mitigation.
+ex:PrescriptionPayloadIntegrityVerification ex:controlType "Preventive".
+ex:PrescriptionPayloadIntegrityVerification ex:implementationStatus "Implemented".
+ex:PrescriptionPayloadIntegrityVerification ex:costType "High".
+ex:PrescriptionPayloadIntegrityVerification ex:hasDescription "Each e-prescription payload includes a HMAC-SHA256 integrity hash computed over the full prescription content using a shared secret between the prescribing workstation and the pharmacy system. The receiving process recomputes and compares the hash before accepting the prescription."^^xsd:string.
+ex:PrescriptionPayloadIntegrityVerification ex:isOfMitigationCategory ex:InputValidation.
+ex:InputValidation rdfs:label "Input Validation".
+ex:InputValidation ex:hasDescription "Mitigations that validate, sanitize, and verify the integrity of all incoming data before processing. Includes format checks, schema validation, digital signature verification, and message integrity validation."^^xsd:string.
+ex:RoleBasedPrescriptionApprovalEnforcement rdfs:label "Role-Based Prescription Approval Enforcement".
+ex:RoleBasedPrescriptionApprovalEnforcement a ex:Mitigation.
+ex:RoleBasedPrescriptionApprovalEnforcement ex:controlType "Preventive".
+ex:RoleBasedPrescriptionApprovalEnforcement ex:implementationStatus "Implemented".
+ex:RoleBasedPrescriptionApprovalEnforcement ex:costType "High".
+ex:RoleBasedPrescriptionApprovalEnforcement ex:hasDescription "Prescription approval and override actions are restricted to authenticated pharmacist-role accounts. The system enforces server-side role checks at every approval step and rejects override attempts from technician-level sessions regardless of client-side UI state."^^xsd:string.
+ex:RoleBasedPrescriptionApprovalEnforcement ex:isOfMitigationCategory ex:AccessControl.
+ex:AccessControl rdfs:label "Access Control".
+ex:AccessControl ex:hasDescription "Mitigations that enforce authorization policies and least-privilege principles. Includes role-based access control, service account isolation, dual authorization, API scope restrictions, and key rotation."^^xsd:string.
+ex:MinimumNecessaryDataRetrievalfromEHR rdfs:label "Minimum Necessary Data Retrieval from EHR".
+ex:MinimumNecessaryDataRetrievalfromEHR a ex:Mitigation.
+ex:MinimumNecessaryDataRetrievalfromEHR ex:controlType "Preventive".
+ex:MinimumNecessaryDataRetrievalfromEHR ex:implementationStatus "Implemented".
+ex:MinimumNecessaryDataRetrievalfromEHR ex:costType "High".
+ex:MinimumNecessaryDataRetrievalfromEHR ex:hasDescription "The drug interaction query to the EHR is scoped to return only the patient's active medications and documented allergies. Diagnosis codes, treatment plans, physician notes, and other clinical details are explicitly excluded from the query projection, enforcing the HIPAA minimum necessary standard."^^xsd:string.
+ex:MinimumNecessaryDataRetrievalfromEHR ex:isOfMitigationCategory ex:DataProtection.
+ex:DataProtection rdfs:label "Data Protection".
+ex:DataProtection ex:hasDescription "Mitigations that protect data confidentiality and integrity at rest and in output. Includes encryption (field-level, TDE), data masking, tokenization, versioning, change tracking, integrity hashing, DLP, and digital signing."^^xsd:string.
+ex:DispensingRecordCryptographicSealing rdfs:label "Dispensing Record Cryptographic Sealing".
+ex:DispensingRecordCryptographicSealing a ex:Mitigation.
+ex:DispensingRecordCryptographicSealing ex:controlType "Preventive".
+ex:DispensingRecordCryptographicSealing ex:implementationStatus "Implemented".
+ex:DispensingRecordCryptographicSealing ex:costType "High".
+ex:DispensingRecordCryptographicSealing ex:hasDescription "Each dispensing record is sealed with a cryptographic hash of its key fields (prescription ID, medication code, quantity, patient ID, timestamp, dispensing pharmacist). The hash is stored separately and verified on every read, enabling immediate detection of any post-creation modification."^^xsd:string.
+ex:DispensingRecordCryptographicSealing ex:isOfMitigationCategory ex:DataProtection.
+ex:DataProtection rdfs:label "Data Protection".
+ex:DataProtection ex:hasDescription "Mitigations that protect data confidentiality and integrity at rest and in output. Includes encryption (field-level, TDE), data masking, tokenization, versioning, change tracking, integrity hashing, DLP, and digital signing."^^xsd:string.
+ex:ResilientReportingQueuewithGuaranteedDelivery rdfs:label "Resilient Reporting Queue with Guaranteed Delivery".
+ex:ResilientReportingQueuewithGuaranteedDelivery a ex:Mitigation.
+ex:ResilientReportingQueuewithGuaranteedDelivery ex:controlType "Preventive".
+ex:ResilientReportingQueuewithGuaranteedDelivery ex:implementationStatus "Implemented".
+ex:ResilientReportingQueuewithGuaranteedDelivery ex:costType "High".
+ex:ResilientReportingQueuewithGuaranteedDelivery ex:hasDescription "Controlled substance reports are placed in a persistent message queue with guaranteed delivery, automatic retry with exponential backoff, and disk-based overflow buffering. If the NDR is unreachable for more than 4 hours, an alert is escalated to the pharmacy compliance officer."^^xsd:string.
+ex:ResilientReportingQueuewithGuaranteedDelivery ex:isOfMitigationCategory ex:AvailabilityResilience.
+ex:AvailabilityResilience rdfs:label "Availability & Resilience".
+ex:AvailabilityResilience ex:hasDescription "Mitigations that maintain system availability under adverse conditions. Includes rate limiting, connection pooling, query throttling, WAF rules, overflow protection, and capacity planning."^^xsd:string.
+ex:CrossZoneQueryMonitoringandAlerting rdfs:label "Cross-Zone Query Monitoring and Alerting".
+ex:CrossZoneQueryMonitoringandAlerting a ex:Mitigation.
+ex:CrossZoneQueryMonitoringandAlerting ex:controlType "Preventive".
+ex:CrossZoneQueryMonitoringandAlerting ex:implementationStatus "Implemented".
+ex:CrossZoneQueryMonitoringandAlerting ex:costType "High".
+ex:CrossZoneQueryMonitoringandAlerting ex:hasDescription "All queries from the Pharmacy Application Zone to the EHR Database are logged with the requesting service identity, patient ID queried, fields returned, and timestamp. Anomalous query patterns (bulk lookups, out-of-hours access, high-frequency single-patient queries) trigger real-time alerts to the security operations team."^^xsd:string.
+ex:CrossZoneQueryMonitoringandAlerting ex:isOfMitigationCategory ex:LoggingMonitoring.
+ex:LoggingMonitoring rdfs:label "Logging & Monitoring".
+ex:LoggingMonitoring ex:hasDescription "Mitigations that provide audit trails, event logging, and real-time monitoring for detection, forensics, and non-repudiation. Includes immutable logs, WORM storage, cryptographic timestamping, and break-the-glass logging."^^xsd:string.
+ex:ReadOnlyDatabaseRoleforPharmacyServices rdfs:label "Read-Only Database Role for Pharmacy Services".
+ex:ReadOnlyDatabaseRoleforPharmacyServices a ex:Mitigation.
+ex:ReadOnlyDatabaseRoleforPharmacyServices ex:controlType "Preventive".
+ex:ReadOnlyDatabaseRoleforPharmacyServices ex:implementationStatus "Implemented".
+ex:ReadOnlyDatabaseRoleforPharmacyServices ex:costType "High".
+ex:ReadOnlyDatabaseRoleforPharmacyServices ex:hasDescription "The pharmacy system's EHR database service account is provisioned with strictly read-only permissions on a dedicated read replica. The account has no write, update, or delete privileges on any EHR table, and the read replica enforces this at the database engine level independently of application logic."^^xsd:string.
+ex:ReadOnlyDatabaseRoleforPharmacyServices ex:isOfMitigationCategory ex:AccessControl.
+ex:AccessControl rdfs:label "Access Control".
+ex:AccessControl ex:hasDescription "Mitigations that enforce authorization policies and least-privilege principles. Includes role-based access control, service account isolation, dual authorization, API scope restrictions, and key rotation."^^xsd:string.
+ex:AppendOnlyControlledSubstanceLedger rdfs:label "Append-Only Controlled Substance Ledger".
+ex:AppendOnlyControlledSubstanceLedger a ex:Mitigation.
+ex:AppendOnlyControlledSubstanceLedger ex:controlType "Preventive".
+ex:AppendOnlyControlledSubstanceLedger ex:implementationStatus "Implemented".
+ex:AppendOnlyControlledSubstanceLedger ex:costType "High".
+ex:AppendOnlyControlledSubstanceLedger ex:hasDescription "All controlled substance dispensing events are additionally written to a dedicated append-only ledger on WORM storage, separate from the main dispensing records. This ledger cannot be modified or deleted even by database administrators, providing a tamper-proof audit trail for regulatory inspections."^^xsd:string.
+ex:AppendOnlyControlledSubstanceLedger ex:isOfMitigationCategory ex:LoggingMonitoring.
+ex:LoggingMonitoring rdfs:label "Logging & Monitoring".
+ex:LoggingMonitoring ex:hasDescription "Mitigations that provide audit trails, event logging, and real-time monitoring for detection, forensics, and non-repudiation. Includes immutable logs, WORM storage, cryptographic timestamping, and break-the-glass logging."^^xsd:string.
+ex:AuditPipelinePriorityQueuingandBackpressureProtection rdfs:label "Audit Pipeline Priority Queuing and Backpressure Protection".
+ex:AuditPipelinePriorityQueuingandBackpressureProtection a ex:Mitigation.
+ex:AuditPipelinePriorityQueuingandBackpressureProtection ex:controlType "Preventive".
+ex:AuditPipelinePriorityQueuingandBackpressureProtection ex:implementationStatus "Implemented".
+ex:AuditPipelinePriorityQueuingandBackpressureProtection ex:costType "High".
+ex:AuditPipelinePriorityQueuingandBackpressureProtection ex:hasDescription "The audit logging pipeline assigns higher priority to controlled substance events over routine prescription events. Backpressure from audit log saturation triggers throttling of lower-priority events rather than dropping high-priority ones, and capacity alerts are raised when throughput exceeds 70% of maximum."^^xsd:string.
+ex:AuditPipelinePriorityQueuingandBackpressureProtection ex:isOfMitigationCategory ex:AvailabilityResilience.
+ex:AvailabilityResilience rdfs:label "Availability & Resilience".
+ex:AvailabilityResilience ex:hasDescription "Mitigations that maintain system availability under adverse conditions. Includes rate limiting, connection pooling, query throttling, WAF rules, overflow protection, and capacity planning."^^xsd:string.
+ex:PrescriberIdentitySpoofing ex:mitigatedBy ex:PrescriberDigitalSignatureVerification.
+ex:PrescriptionSubmissionRepudiation ex:mitigatedBy ex:PrescriptionSubmissionImmutableLogging.
+ex:DrugRegistryEndpointSpoofing ex:mitigatedBy ex:NDRAPIMutualTLSwithCertificatePinning.
+ex:PrescriptionDataTampering ex:mitigatedBy ex:PrescriptionPayloadIntegrityVerification.
+ex:PrescriptionDataTampering ex:mitigatedBy ex:PrescriberDigitalSignatureVerification.
+ex:PrescriptionValidationBypassviaPrivilegeEscalation ex:mitigatedBy ex:RoleBasedPrescriptionApprovalEnforcement.
+ex:DrugInteractionDataDisclosure ex:mitigatedBy ex:MinimumNecessaryDataRetrievalfromEHR.
+ex:DispensingRecordTampering ex:mitigatedBy ex:DispensingRecordCryptographicSealing.
+ex:ControlledSubstanceReportingDenialofService ex:mitigatedBy ex:ResilientReportingQueuewithGuaranteedDelivery.
+ex:UnauthorizedPatientMedicationHistoryDisclosure ex:mitigatedBy ex:CrossZoneQueryMonitoringandAlerting.
+ex:UnauthorizedPatientMedicationHistoryDisclosure ex:mitigatedBy ex:MinimumNecessaryDataRetrievalfromEHR.
+ex:EHRMedicationDataTamperingviaPharmacyChannel ex:mitigatedBy ex:ReadOnlyDatabaseRoleforPharmacyServices.
+ex:ControlledSubstanceDispensingRecordDeletion ex:mitigatedBy ex:AppendOnlyControlledSubstanceLedger.
+ex:ControlledSubstanceDispensingRecordDeletion ex:mitigatedBy ex:DispensingRecordCryptographicSealing.
+ex:PharmacyAuditTrailDenialofService ex:mitigatedBy ex:AuditPipelinePriorityQueuingandBackpressureProtection.
+}
