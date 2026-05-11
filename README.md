@@ -10,7 +10,7 @@ The ThreatModeling_v4.abl file needs to be imported in the ADOxx Development Too
 
 1) Select the "Library Management" tab
 2) Click on "Settings"
-3) Expand the GRAPHxx 1.0 library and click on "GRAPHxx 1.0 Dynamic"
+3) Expand the Threat Modeling v1 library and click on "Threat Modeling v1 Dynamic"
 4) Click on "Library attributes" from the side menu
 5) Click on the "Add-ons" tab
 6) In the "External Coupling" part click on "Large text field" (icon looking like a square)
